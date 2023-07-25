@@ -5,14 +5,18 @@
         .map(([nom, data])=>Object.assign({nom}, data));
     /** @param {string} st*/
     let matches = (st)=>(v)=>{
-        if(typeof v == "number") return v.toString().toLowerCase().includes(st.toLowerCase());
-        else if(typeof v == "string") return v.toLowerCase().includes(st.toLowerCase());
-        else if(Array.isArray(v)) return v.some(x=>x.toLowerCase().includes(st.toLowerCase()))
+        let x = st.toLowerCase();
+        if(typeof v == "number" && !v.toString().toLowerCase().includes(x)) return false;
+        else if(typeof v == "string" && !v.toLowerCase().includes(x)) return false;
+        else if(Array.isArray(v) && !v.some(y=>y.toLowerCase().includes(x))) return false;
+        return true;
     };
     let search_term = "";
     $: anciens = anciens_x
-        .filter(d=>Object.values(d)
-            .some(matches(search_term)))
+        .filter(d=>search_term
+            .split(" ")
+            .every(s=>Object.values(d)
+                .some(matches(s))))
         .sort((a, b)=>a.nom > b.nom ? 1 : -1);
 </script>
 
