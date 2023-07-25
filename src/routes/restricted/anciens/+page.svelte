@@ -5,9 +5,9 @@
         .map(([nom, data])=>Object.assign({nom}, data));
     /** @param {string} st*/
     let matches = (st)=>(v)=>{
-        if(typeof v == "number") return v.toString().includes(st);
-        else if(typeof v == "string") return v.includes(st);
-        else if(Array.isArray(v)) return v.some(x=>x.includes(st))
+        if(typeof v == "number") return v.toString().toLowerCase().includes(st.toLowerCase());
+        else if(typeof v == "string") return v.toLowerCase().includes(st.toLowerCase());
+        else if(Array.isArray(v)) return v.some(x=>x.toLowerCase().includes(st.toLowerCase()))
     };
     let search_term = "";
     $: anciens = anciens_x
