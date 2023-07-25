@@ -1,6 +1,7 @@
 
 <script>
     import links from "../data/external-links.json"
+    import admins from "../data/admins.json"
 </script>
 
 <h1>
@@ -26,24 +27,31 @@
     L'idée est aussi de centraliser un peu les resources des PIMA des années precendetes et avoir un portail un peu global pour toute les années.
 </p>
 
-
-<h3>Contact:</h3>
+<h2>Liens externes</h2>
+{#each Object.entries(links) as [category, lks]}
+<h3>{category}:</h3>
 <ul>
-    {#each Object.keys(links) as lk}
+    {#each Object.keys(lks) as lk}
         <li>{lk}: <a href="/restricted/external/{lk}" target=”_blank”  data-sveltekit-preload-data="off" data-sveltekit-preload-code="off">lien</a></li>
     {/each}
 </ul>
+{/each}
 
-<h3>Resources:</h3>
-<ul>
-    <li>hello</li>
-    <li><a href="/restricted/kitty" data-sveltekit-preload-data="off" data-sveltekit-preload-code="off">kitty</a></li>
-</ul>
-
-<h3>Contribuer:</h3>
+<h2>Contribuer:</h2>
 <p>
     Pour ajouter du contenu a ce site web, suivre les instructions sur la page <b>GitHub</b>. Pour ajouter du contenu sur le <b>Google Drive</b> contacter un des admin pour récevoir les droits.
 </p>
+<h4>Admins (details caches pour eviter les bots):</h4>
+<ul>
+    {#each Object.entries(admins) as [name, data]}
+        <li>
+            {name}: 
+            {#each Object.entries(data) as [ctype, cadd]}
+                <button on:click={()=>alert(`${ctype} = ${cadd}`)}>{ctype} </button>
+            {/each}
+        </li>
+    {/each}
+</ul>
 
 <style>
     h1{
@@ -53,4 +61,5 @@
         text-align: justify;
         text-justify: distribute;
     }
+
 </style>

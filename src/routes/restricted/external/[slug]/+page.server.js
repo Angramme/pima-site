@@ -1,6 +1,7 @@
 import { redirect, error } from '@sveltejs/kit';
-import links from "$data/external-links.json"
+import links_r from "$data/external-links.json"
 
+const links = Object.assign({}, ...Object.values(links_r));
 
 /** @type {import('../$types').PageServerLoad} */
 export function load({ params  }) {

@@ -21,7 +21,7 @@
         max-width: 100vw;
         margin: auto;
         margin-top: 70px;
-        padding: 20px
+        padding: 20px;
     }
     nav{
         width: 75vh;
