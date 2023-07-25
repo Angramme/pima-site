@@ -10,6 +10,9 @@ const config = {
 		alias: {
 			"$data": "./src/data",
 		},
+		prerender: {
+            handleHttpError: 'warn',
+        }
 	},
 };
 
