@@ -22,6 +22,10 @@
 
 <h1>Repertoire des anciens :</h1>
 
+<p>
+    Les informations présentes ont ete donnes par les élèves eux mêmes avec leur accord. 
+</p>
+
 Rechercher : <input type="text" bind:value={search_term}/> - {anciens.length} résultat{anciens.length==1 ? "" : "s"}
 <hr/>
 <table>
