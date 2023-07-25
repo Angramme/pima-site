@@ -1,10 +1,14 @@
 
 <div id="cont">
-    <nav>
-        <hr/>
-        Navigation <br/>
-        <a href="/">&lt;&lt; retour</a>
-    </nav>
+    <div id="nav-cont">
+        <div id="gradient"></div>
+        <nav>
+            Navigation <br/>
+            <a href="/"> acceuil </a> |
+            <a href="/restricted/anciens"> anciens </a> |
+            <a href="/restricted/faq"> FAQ </a>
+        </nav>
+    </div>
     <slot/>
     <div id="spacer"></div>
 </div>
@@ -23,11 +27,20 @@
         margin-top: 70px;
         padding: 20px;
     }
-    nav{
+    #gradient{
+        width: 100%;
+        height: 100px;
+        background: linear-gradient(rgba(245, 245, 220, 0), beige);
+    }
+    #nav-cont{
         width: 75vh;
         max-width: 100vw;
         position: fixed;
         bottom: 0;
+    }
+    nav{
+        border-top: solid 1px black;
+        padding-top: 10px;
         padding-bottom: 20px;
         background: beige;
     }

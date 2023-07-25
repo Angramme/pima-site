@@ -1,0 +1,18 @@
+{
+    "Kacper Ozieblowski": {
+        "admis": ["ETHZ", "Imperial", "UCL", "DAC etc"],
+        "choisi": "ETHZ",
+        "grad_year": 2023,
+        "nationalite": ["pl"],
+        "contact": ["ozieblowski.kacper@gmail.com"],
+        "description": "TODO"
+    },
+    "Zakarie Aloui": {
+        "admis": ["Oxford", "Imperial", "Poltechnique - X"],
+        "choisi": "?",
+        "grad_year": 2023,
+        "nationalite": ["fr"],
+        "contact": ["TODO"],
+        "description": "TODO"
+    }
+}
