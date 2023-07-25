@@ -1,6 +1,6 @@
 {
     "Kacper Ozieblowski": {
-        "admis": ["ETHZ", "Imperial", "UCL", "DAC etc"],
+        "admis": ["ETHZ", "Imperial", "UCL", "Masters Info jussieu", "Master Maths jussieu", "Masters Paris-Saclay"],
         "choisi": "ETHZ",
         "grad_year": 2023,
         "nationalite": ["pl"],
@@ -12,7 +12,15 @@
         "choisi": "?",
         "grad_year": 2023,
         "nationalite": ["fr"],
-        "contact": ["TODO"],
+        "contact": [],
+        "description": "TODO"
+    },
+    "Rodrigue Tavernier": {
+        "admis": ["Polytechnique", "Telecom Paris", "Ensta", "Masters Info jussieu", "Master Maths jussieu", "Paris-Saclay HPC", "Paris-Saclay SeCReTS"],
+        "choisi": "Polytechnique",
+        "grad_year": 2023,
+        "nationalite": ["fr"],
+        "contact": [],
         "description": "TODO"
     }
 }
