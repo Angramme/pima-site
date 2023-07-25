@@ -8,7 +8,7 @@
         "description": "TODO"
     },
     "Zakarie Aloui": {
-        "admis": ["Oxford", "Imperial", "Poltechnique - X"],
+        "admis": ["Oxford", "Imperial", "Polytechnique - X"],
         "choisi": "?",
         "grad_year": 2023,
         "nationalite": ["fr"],
@@ -16,7 +16,7 @@
         "description": "TODO"
     },
     "Rodrigue Tavernier": {
-        "admis": ["Polytechnique", "Telecom Paris", "Ensta", "Masters Info jussieu", "Master Maths jussieu", "Paris-Saclay HPC", "Paris-Saclay SeCReTS"],
+        "admis": ["Polytechnique - X", "Telecom Paris", "Ensta", "Masters Info jussieu", "Master Maths jussieu", "Paris-Saclay HPC", "Paris-Saclay SeCReTS"],
         "choisi": "Polytechnique",
         "grad_year": 2023,
         "nationalite": ["fr"],
