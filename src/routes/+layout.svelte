@@ -2,16 +2,29 @@
 <div id="cont">
     <div id="nav-cont">
         <nav>
-            &nbsp;&nbsp;
-            <a>PIMA</a> &nbsp; &nbsp;
-            <a href="/"> acceuil </a> &nbsp;
-            <a href="/restricted/anciens"> anciens </a> &nbsp;
-            <a href="/restricted/faq"> FAQ </a> &nbsp;
+            <table>
+                <tr>
+                    <td>
+                        <span>PIMA</span>
+                    </td>
+                    <td>
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> &nbsp;
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> &nbsp;
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a> &nbsp;
+                    </td>
+                    <td id="user-td">
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a> &nbsp;
+                    </td>
+                </tr>
+            </table>
         </nav>
         <!-- <div id="gradient"></div> -->
     </div>
     <slot/>
     <div id="spacer"></div>
+    <footer>
+        Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski
+    </footer>
 </div>
 
 <style>
@@ -41,18 +54,25 @@
     }
     nav{
         border-bottom: solid 1px black;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         background: beige;
         background-image: radial-gradient(gray 1px, transparent 0);
         background-size: 5px 5px;
         background-position: -19px -19px;
     }
-    nav *{
+    nav td *{
         text-decoration: none;
         font-size: larger;
         background: beige;
-        padding: 2px;
+        padding: 4px;
+    }
+    table{
+        border-spacing: 10px;
+        width: 100%;
+    }
+    #user-td{
+        text-align: right;
     }
     #spacer{
         margin-top: 200px;

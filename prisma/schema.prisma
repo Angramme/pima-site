@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  login       String @unique
+  password    String 
+  admin       Boolean @default(false) // true if has admin privilages
+  session     Session? // current sesion
+  prenom      String
+  nom         String?
+  email       String? @unique
+  contact     String[] @unique // other contact options
+  grad_year   Int // promo
+  nationalite String[]
+  admis       String[] // ecoles ou admis
+  choisi      String // ecole choisie
+  description String @default("TODO 😴") // description parcours, conseils perso, etc
+  createdAt   DateTime @default(now()) // account created
+  updatedAt   DateTime @updatedAt
+}
+
+model Session {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  user        User @relation(fields: [user_id], references: [id])
+  user_id     String @unique @db.ObjectId
+  createdAt   DateTime @default(now()) // session created, used to delete sessions
+}

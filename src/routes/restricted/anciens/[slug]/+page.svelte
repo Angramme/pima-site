@@ -3,11 +3,11 @@
     export let data;
 </script>
 
-<h1>{data.nom}</h1>
+<h1>{data.user?.prenom} {data.user?.nom || "___"}</h1>
 
 <table>
-    {#each Object.entries(data)
-        .filter(([v, _])=>!["nom", "description"].includes(v)) 
+    {#each Object.entries(data.user || {})
+        .filter(([v, _])=>!["description"].includes(v)) 
         as [k, v]}
         <tr>
             <th>{k}</th>
@@ -17,11 +17,16 @@
 </table>
 
 <h2>Description : </h2>
-<p>{data.description}</p>
+<p>{data.user?.description}</p>
 
 <style>
     th{
         text-align: right;
-        padding-right: 10px;
+        padding-right: 7px;
+        border-right: solid 1px gray;
+    }
+    td{
+        padding-left: 7px;
+        border-bottom: dotted 1px gray;
     }
 </style>
