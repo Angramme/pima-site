@@ -46,10 +46,15 @@ export const actions = {
         if(!locals.user || !old_pwd || !new_pwd) return { pwd_rst_missing: true };
         const user_id = await check_password(locals.user.login, old_pwd.toString());
         if(!user_id) return { pwd_rst_incorrect: true };
-        await prisma.user.update({
-            where: { id: user_id },
-            data: { password: hash_password(locals.user.login, new_pwd.toString()) },
-        });
+        try{
+            await prisma.user.update({
+                where: { id: user_id },
+                data: { password: hash_password(locals.user.login, new_pwd.toString()) },
+            });
+        }catch(error){
+            console.error(error);
+            return { pwd_rst_errror: `Prisma Error: ${error}` };
+        }
         return { pwd_rst_success: true };
     },
     update_data: async ({ request, locals }) => {
@@ -84,21 +89,31 @@ export const actions = {
 
         console.log(prisma_data);
 
-        await prisma.user.update({
-            where: { id: locals.user.id },
-            data: prisma_data,
-        })
+        try{
+            await prisma.user.update({
+                where: { id: locals.user.id },
+                data: prisma_data,
+            })
+        }catch(error){
+            console.error(error);
+            return { update_failure: `Prisma Error: ${error}` }; 
+        }
         
         return { update_success: true };
     },
     delete_account: async ({ locals })=>{
         if(!locals.user) return { delete_failure: "Vous n'etez pas connectés" };
-        await prisma.session.deleteMany({
-            where: { user_id: locals.user.id }
-        });
-        await prisma.user.delete({
-            where: { id: locals.user.id }
-        });
+        try{
+            await prisma.session.deleteMany({
+                where: { user_id: locals.user.id }
+            });
+            await prisma.user.delete({
+                where: { id: locals.user.id }
+            });
+        }catch(error){
+            console.error(error);
+            return { delete_failure: `Prisma Error: ${error}` };
+        }
         return { delete_success: true };
     },
     create_account: async ({ locals, request }) => {
@@ -127,9 +142,16 @@ export const actions = {
         while(logins.includes(login))
             login = `${nom.toLowerCase()}-${prenom.toLowerCase()}-${i++}`;
 
-        await prisma.user.create({
-            data: { prenom, nom, login, grad_year, choisi: "? 😴", password }
-        });
+        const email = `${login}@pas.un.vrai.email.org`;
+
+        try{
+            await prisma.user.create({
+                data: { prenom, nom, login, grad_year, choisi: "? 😴", password, email }
+            });
+        }catch(error){
+            console.error(error);
+            return { creation_failure: `Prisma Error: ${error}` }
+        }
 
         return { creation_success: true, new_account_login: login }; 
     },
