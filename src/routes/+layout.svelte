@@ -1,3 +1,9 @@
+<script>
+    export let data;
+
+    $: user = data.user;
+</script>
+
 
 <div id="cont">
     <div id="nav-cont">
@@ -13,7 +19,11 @@
                         <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a> &nbsp;
                     </td>
                     <td id="user-td">
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a> &nbsp;
+                        {#if user}
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} </a> &nbsp;    
+                        {:else}
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a> &nbsp;    
+                        {/if}
                     </td>
                 </tr>
             </table>

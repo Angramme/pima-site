@@ -2,7 +2,9 @@ import { error } from '@sveltejs/kit';
 import prisma from '$lib/prisma';
 
 /** @type {import('./$types').PageServerLoad} */
-export function load({ params }) {
+export function load({ params, locals, depends }) {
+    depends("user:update");
+
     let user = prisma.user.findFirst({
         where: {
             id: params.slug,
@@ -11,9 +13,9 @@ export function load({ params }) {
             // never show
             password: false,
             // show if admin
-            admin: false,
-            updatedAt: false,
-            login: false,
+            admin: Boolean(locals.user?.admin),
+            updatedAt: Boolean(locals.user?.admin),
+            login: Boolean(locals.user?.admin),
             // safe info
             id: false,
             prenom: true,

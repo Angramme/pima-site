@@ -1,4 +1,6 @@
 <script>
+  import { invalidate } from '$app/navigation';
+
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
     /** @type {any}*/
@@ -6,32 +8,53 @@
 
     export let data;
 
-    /** @param {string} type*/
+    /** @type {import('./$types').ActionData} */
+    export let form;
+
+
+    const big_box = ["admis", "contact", "description"];
+
+    /** @param {string} type */
     const type_to_input = (type)=>{
         switch(type){
             case "number": return "number"
             case "string": return "text"
         }
     }
+
+    $: data_entries = Object.entries(data.user || {})
+        .filter(([k, _])=>!["admin", "createdAt", "updatedAt"].includes(k));
+
+    /** @type {boolean}*/
+    let new_pwd_val;
+    /** @type {boolean}*/
+    let con_pwd_val;
 </script>
 
 <h1>Donnes et parametres utilisateur</h1>
 
-<form>
+<form method="POST" action="?/disconnect">
     <fieldset>
         <legend>Deconnexion</legend>
-        <input type="submit" value="Deconnexion"/>
+        <input type="submit" value="Deconnexion" on:click={()=>invalidate("user:update")}/>
     </fieldset>
 </form>
 
-<form>
+<form method="POST" action="?/update_data">
     <fieldset>
         <legend>Mes donnes</legend>
+        {#if !data.user}
+            <p class="error">Erreur interne! Donnes indisponibles!</p>
+        {/if}
         <table>
-            {#each Object.entries(data.user) as [k, v]}
+            {#each data_entries as [k, v]}
                 <tr>
                     <td><label for={`input_${k}`}>{k}</label></td>
-                    <td><input id={`input_${k}`} type={type_to_input(typeof v)}/></td>
+                    {#if big_box.includes(k)}
+                    <td><textarea name={k} id={`input_${k}`} rows="3" cols="40">{v}</textarea></td>
+                    {:else}
+                    <td><input name={k} id={`input_${k}`} type={type_to_input(typeof v)} value={v}/></td>
+                    {/if}
                 </tr>
             {/each}
         </table>
@@ -47,22 +70,27 @@
 <form>
     <fieldset id="pwd_chg">
         <legend>Reinitialisation mot de passe</legend>
+        {#if form?.reset_pwd}
+            {#if form?.missing}<p class="error">Manque de mot de passe!</p>{/if}
+            {#if form?.incorrect}<p class="error">Mot de passe incorrect!</p>{/if}
+            {#if form?.success}<p class="success">Changement réussi!</p>{/if}
+        {/if}
         <table>
             <tr>
                 <td><label for="old_pwd">Ancien mot de passe</label></td>
-                <td><input id="old_pwd" type="password"></td>
+                <td><input name="old_pwd" id="old_pwd" type="password"></td>
             </tr>
             <tr>
                 <td><label for="new_pwd">Nouveau mot de passe</label></td>
-                <td><input id="new_pwd" type="password"></td>
+                <td><input bind:value={new_pwd_val} name="new_pwd" id="new_pwd" type="password"></td>
             </tr>
             <tr>
                 <td><label for="rep_pwd">Confirmer nouveau mot de passe</label></td>
-                <td><input id="rep_pwd" type="password"></td>
+                <td><input bind:value={con_pwd_val} id="rep_pwd" type="password"></td>
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Changer"></td>
+                <td><input type="submit" value="Changer" disabled={new_pwd_val != con_pwd_val}></td>
             </tr>
         </table>
     </fieldset>

@@ -1,22 +1,23 @@
-import { ADMIN_LOGIN } from "$env/static/private";
+import { session_get_user } from "$lib/sessions"
 
-/** @param {import('@sveltejs/kit').Handle} handle */
-export const handle = async ({ event, resolve }) => {
+/** @type {import('@sveltejs/kit').Handle} */
+export async function handle({ event, resolve }) {
     const url = new URL(event.request.url);
 
-    if (url.pathname.startsWith("/restricted")) {
-        const auth = event.request.headers.get("Authorization");
+    const user = await session_get_user(event.cookies);
 
-        if (auth !== `Basic ${btoa(ADMIN_LOGIN)}`) {
-            return new Response("Not authorized", {
-                status: 401,
-                headers: {
-                    "WWW-Authenticate":
-                        'Basic realm="User Visible Realm", charset="UTF-8"',
-                },
-            });
-        }
+    if(!user && url.pathname.startsWith("/restricted")){
+        // clean url from sveltekit stuff
+        const redir_url = url.pathname.endsWith("__data.json") ? 
+            url.pathname.split("/").slice(0, -1).join("/")
+            : url.pathname;
+        return new Response('Redirect', {
+            status: 303, 
+            headers: { Location: `/login?redirect=${encodeURIComponent(redir_url)}` }});
     }
 
+   
+    event.locals.user = user;
+
     return resolve(event);
-};
+}
