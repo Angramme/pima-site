@@ -19,7 +19,7 @@ model User {
   session     Session? // current sesion
   prenom      String
   nom         String?
-  email       String? @unique
+  email       String? 
   contact     String[] // other contact options
   grad_year   Int // promo
   nationalite String[]

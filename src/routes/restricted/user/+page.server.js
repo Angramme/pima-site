@@ -142,11 +142,9 @@ export const actions = {
         while(logins.includes(login))
             login = `${nom.toLowerCase()}-${prenom.toLowerCase()}-${i++}`;
 
-        const email = `${login}@pas.un.vrai.email.org`;
-
         try{
             await prisma.user.create({
-                data: { prenom, nom, login, grad_year, choisi: "? 😴", password, email }
+                data: { prenom, nom, login, grad_year, choisi: "? 😴", password }
             });
         }catch(error){
             console.error(error);
