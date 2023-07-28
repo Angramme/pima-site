@@ -9,27 +9,23 @@
         /** @param {*} v */
         (v)=>{
             let x = st.toLowerCase();
-            if(typeof v == "number" && !v.toString().toLowerCase().includes(x)) return false;
-            else if(typeof v == "string" && !v.toLowerCase().includes(x)) return false;
-            else if(Array.isArray(v) && !v.some(y=>y.toLowerCase().includes(x))) return false;
-            else if(!v) return false;
-            else if(v instanceof Date) return false;
-            return true;
+            if(typeof v == "number") return v.toString().toLowerCase().includes(x);
+            else if(typeof v == "string") return v.toLowerCase().includes(x);
+            else if(Array.isArray(v)) return v.some(y=>y.toLowerCase().includes(x));
+            else return false;
         };
     let search_term = "";
     $: anciens = data.users
+        .map(d=>{
+            // @ts-ignore
+            if(d.admin) d._admin = "admin";
+            return d;
+        })
         .filter(d=>search_term
-            .split("\w")
+            .split(" ")
             .every(s=>Object
                 .values(d)
                 .some(matches(s))));
-
-        // $: anciens = data.users
-    //     .filter(d=>search_term
-    //         .split(" ")
-    //         .every(s=>Object.values(d)
-    //             .some(matches(s))))
-    //     .sort((a, b)=>a.prenom > b.prenom ? 1 : -1);
 </script>
 
 <h1>Repertoire des anciens :</h1>

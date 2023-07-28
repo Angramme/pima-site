@@ -1,9 +1,12 @@
 <script>
   import { browser } from '$app/environment';
   import { invalidate } from '$app/navigation';
+  import admins from "$data/admins.json"
 
     /** @type {import('./$types').ActionData} */
     export let form;
+
+    export let data;
 
     // force all load functions using locals.user to reload
     $: form?.missing, form?.incorrect, form?.success, browser && invalidate("user:update")
@@ -35,6 +38,15 @@
         </table>
     </fieldset>
 </form>
+
+<h3>Infos : </h3>
+<p>Pour creer un compte, contacter un des admins: </p>
+{#each data.admins as {nom, prenom, email}}
+    <li>
+        {nom} {prenom} : 
+        <button on:click={()=>alert(`email = ${email}`)}>email </button>
+    </li>
+{/each}
 
 <style>
     table{

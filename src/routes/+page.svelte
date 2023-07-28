@@ -39,19 +39,8 @@
 
 <h2>Contribuer :</h2>
 <p>
-    Pour ajouter du contenu à ce site web, suivre les instructions sur la page <b>GitHub</b> (<a target="_blank" href="https://github.com/Angramme/pima-site">lien</a>). Pour ajouter du contenu sur le <b>Google Drive</b> contacter un des admin pour recevoir les droits.
+    Pour ajouter du contenu à ce site web, veuillez suivre les instructions sur la page <b>GitHub</b> (<a target="_blank" href="https://github.com/Angramme/pima-site">lien</a>). Pour ajouter du contenu sur le <b>Google Drive</b> contacter un des admins pour recevoir les droits. Pour connaitre les admins, chercher simplement "admin" sur la page "anciens".
 </p>
-<h4>Admins (details cachés pour éviter les bots) :</h4>
-<ul>
-    {#each Object.entries(admins) as [name, data]}
-        <li>
-            {name}: 
-            {#each Object.entries(data) as [ctype, cadd]}
-                <button on:click={()=>alert(`${ctype} = ${cadd}`)}>{ctype} </button>
-            {/each}
-        </li>
-    {/each}
-</ul>
 
 <style>
     h1{

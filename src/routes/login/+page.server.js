@@ -1,5 +1,18 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { log_in_user } from "$lib/sessions"
+import prisma from '$lib/prisma';
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load() {
+    const admins = await prisma.user.findMany({
+        where: { admin: true },
+        select: { nom: true, prenom: true, email: true }
+    });
+
+    return {
+        admins
+    };
+}
 
 /** @type {import('./$types').Actions} */
 export const actions = {

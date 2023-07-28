@@ -25,6 +25,7 @@ model User {
   nationalite String[]
   admis       String[] // ecoles ou admis
   choisi      String // ecole choisie
+  travails    String[] // entreprises/labos ou à travaillé
   description String @default("TODO 😴") // description parcours, conseils perso, etc
   createdAt   DateTime @default(now()) // account created
   updatedAt   DateTime @updatedAt

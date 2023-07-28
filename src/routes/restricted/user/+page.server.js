@@ -20,6 +20,7 @@ export async function load({ locals }) {
             prenom: true,
             nationalite: true,
             description: true,
+            travails: true,
             
             login: true,
             admin: true,
@@ -70,11 +71,13 @@ export const actions = {
             "prenom",
             "nationalite",
             "description",
+            "travails",
         ];
         const list_entries = [
             "nationalite",
             "contact",
             "admis",
+            "travails",
         ];
         const number_entries = [ "grad_year" ];
 

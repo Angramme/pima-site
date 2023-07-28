@@ -8,9 +8,9 @@ export async function load() {
             login: false,
             password: false,
             // show if admin
-            admin: false,
             updatedAt: false,
             // safe info
+            admin: true,
             id: true,
             prenom: true,
             nom: true,

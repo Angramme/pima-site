@@ -1,6 +1,7 @@
 <script>
   import { browser } from '$app/environment';
   import { goto, invalidate } from '$app/navigation';
+  import { user_data_into_forms } from '$lib/transformers';
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -15,29 +16,8 @@
 
 
     $: user = data.user;
-    $: sections = !user ? null : [
-        {n:"Ecoles", l:[
-            {k:"admis", l:"admis dans", v:user.admis, t:"textlist", ro:false},
-            {k:"choisi", l:"choisi", v:user.choisi, t:"text", ro:false},
-            {k:"grad_year", l:"année fin L3", v:user.grad_year, t:"number", ro:false},
-        ]},
-        {n:"Contact", l:[
-            {k:"email", l:"email", v:user.email, t:"email", ro:false},
-            {k:"contact", l:"autres moyens de contacter", v:user.contact, t:"textlist", ro:false},
-        ]},
-        {n:"Infos personelles", l:[
-            {k:"nom", l:"nom de famille (facultatif)", v:user.nom, t:"text", ro:false},
-            {k:"prenom", l:"prénom", v:user.prenom, t:"text", ro:false},
-            {k:"nationalite", l:"nationalité/s", v:user.nationalite, t:"textlist", ro:false},
-            {k:"description", l:"description et conseils", v:user.description, t:"longtext", ro:false},
-        ]},
-        {n:"Autres (Lecture seule)", l:[
-            {k:"login", l:"login", v:user.login, t:"text", ro:true},
-            {k:"admin", l:"admin privileges", v:user.admin, t:"text", ro:true},
-            {k:"createdAt", l:"date création", v:user.createdAt, t:"date", ro:true},
-            {k:"updatedAt", l:"derniere mise a jour", v:user.updatedAt, t:"date", ro:true},
-        ]},
-    ];
+    $: sections = !user ? null :
+        user_data_into_forms(user);
 
     // invalidate load dependent on locals.user when disconnected
     $: form?.disconnected, browser && invalidate("user:update")
