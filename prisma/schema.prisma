@@ -20,7 +20,7 @@ model User {
   prenom      String
   nom         String?
   email       String? @unique
-  contact     String[] @unique // other contact options
+  contact     String[] // other contact options
   grad_year   Int // promo
   nationalite String[]
   admis       String[] // ecoles ou admis
