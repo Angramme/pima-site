@@ -45,7 +45,7 @@
     }
     #cont{
         position: relative;
-        width: 75vh;
+        width: 80vh;
         max-width: 100vw;
         margin: auto;
         margin-top: 70px;
@@ -57,7 +57,7 @@
         background: linear-gradient(beige, rgba(245, 245, 220, 0));
     } */
     #nav-cont{
-        width: 75vh;
+        width: 80vh;
         max-width: 100vw;
         position: fixed;
         top: 0;

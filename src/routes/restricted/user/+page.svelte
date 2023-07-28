@@ -82,15 +82,18 @@
 
 <form method="POST" action="?/disconnect">
     <fieldset>
-        {#if form?.disconnected} <p class="success">Déconnexion réussie!</p> {/if}
         <legend>Deconnexion</legend>
-        <input type="submit" value="Deconnexion"/>
+        <div>
+            {#if form?.disconnected} <p class="success">Déconnexion réussie!</p> {/if}
+            <input type="submit" value="Deconnexion"/>
+        </div>
     </fieldset>
 </form>
 
 <form method="POST" action="?/update_data">
     <fieldset>
         <legend>Mes donnes</legend>
+        <p class="info"> Attention, pour faire des changement il faut imperativement soumettre les données avec le bouton "Mettre a jour" en bas. </p>
         {#if !sections}
             <p class="error">Erreur interne! Donnes indisponibles!</p>
         {:else}
@@ -103,9 +106,11 @@
                             <td><label for={`input_${key}`}>{label}</label></td>
                             {#if type=="textlist" || type=="longtext"}
                                 <td>
-                                    {#if type=="textlist"} <span class="info">lister en séparant par des ","</span><br/> {/if}
+                                    {#if type=="textlist"} <div class="info">lister en séparant par des ","</div> {/if}
                                     <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 5} cols="40">{value}</textarea>
                                 </td>
+                            {:else if type=="date"}
+                                <td>{value}</td>
                             {:else}
                                 <td><input name={key} id={`input_${key}`} type={type} value={value} readonly={read_only}/></td>
                             {/if}
@@ -120,8 +125,8 @@
             {#if form?.update_success}<p class="success">Mise a jour réussie!</p>{/if}
             {#if form?.update_failure}<p class="error">Erreur de mise à jour: "{form.update_failure}""</p>{/if}
             <input bind:checked={user_agreed} id="agreement" type="checkbox"/>
-            <label for="agreement">J'ai pris conaissance de la reglementation <a href="/reglementation" target="_blank">ici</a> et je donne mon accord pour utilisation de mes donnees plus haut.</label><br/>
-            <input type="submit" disabled={!user_agreed}/>
+            <label for="agreement"><u>J'ai pris conaissance</u> de la reglementation <a href="/reglementation" target="_blank">ici</a> et <u>je donne mon accord</u> pour utilisation de mes donnees plus haut.</label><br/>
+            <input type="submit" disabled={!user_agreed} value="Mettre a jour"/>
         </fieldset>
     </fieldset>
 </form>
@@ -155,9 +160,10 @@
 
 <form bind:this={delete_account_form} method="POST" action="?/delete_account">
     <fieldset class="danger">
-        <legend>Danger Zone</legend>
+        <legend>Supprimer ce compte</legend>
         {#if form?.delete_failure}<p class="error">Erreur serveur: "{form.delete_failure}"</p>{/if}
         {#if form?.delete_success}<p class="success">Compte supprimé!</p>{/if}
+        <p class="info">Pour supprimer votre compte, debloquez d'abbord le bouton "Supprimer ce compte" avec le bouton "Debloquer". Ensuite appuyez sur "Supprimer ce compte". Enfin confirmez que vous voulez supprimer votre compte.</p>
         <input type="button" value="Debloquer" on:click={()=>{delete_account_btn.disabled = false;}}/>
         <input bind:this={delete_account_btn} on:click={delete_account_now} type="button" value="Supprimer ce compte" disabled/>
     </fieldset>
@@ -204,9 +210,33 @@
 <style>
     fieldset{
         margin-top: 20px;
+        border: solid 2px gray;
+    }
+    form > fieldset{
+        margin-bottom: 50px;
+        border: none;
+        /* background-color: white; */
+        background-image: radial-gradient(gray 1px, transparent 0);
+        background-size: 5px 5px;
+        background-position: -19px -19px;
+    }
+    form > fieldset > *{
+        background-color: beige;
+    }
+    form > fieldset > legend{
+        font-size: x-large;
+    }
+    input{
+        width: 95%;
+    }
+    textarea{
+        width: 95%;
     }
     input:read-only[type~="text"], input:read-only[type~="date"], textarea:read-only{
         background: rgb(196, 196, 196);
+    }
+    input[type="checkbox"] {
+        width: auto;
     }
     .admin{
         background-color: aquamarine;
@@ -226,11 +256,18 @@
         color: green;
     }
     .info{
-        font-style: italic;
-        color: blue;
+        font-size: medium;
+        width: 94%;
+        background-color: beige;
+        padding: 5px;
+        border: solid 1px gray;
+    }
+    .info::before{
+        content: "💡 ";
     }
     table{
         border-spacing: 7px;
+        width: 100%;
     }
     table tr td:first-child {
         width: 100px;
