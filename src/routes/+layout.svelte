@@ -9,6 +9,7 @@
     let hide_cookie_msg = false;
 
     $: user = data.user;
+    $: cookies_accepted = data.cookies_accepted;
 </script>
 
 <svelte:head>
@@ -40,7 +41,7 @@
         </nav>
         <!-- <div id="gradient"></div> -->
     </div>
-    {#if (!data.cookies_accepted || (browser && document.cookie.indexOf('cookiesAccepted=')==-1)) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
+    {#if (!cookies_accepted || (browser && document.cookie.indexOf('cookiesAccepted=')==-1)) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
         <div class="cookies">
             <div>
                 <h2>Cookies</h2>

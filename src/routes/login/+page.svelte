@@ -2,6 +2,7 @@
   import { browser } from '$app/environment';
   import { invalidate } from '$app/navigation';
   import admins from "$data/admins.json"
+  import { onMount } from 'svelte';
 
     /** @type {import('./$types').ActionData} */
     export let form;
@@ -10,6 +11,9 @@
 
     // force all load functions using locals.user to reload
     $: form?.missing, form?.incorrect, form?.success, browser && invalidate("user:update")
+    onMount(()=>{
+        if(form?.missing || form?.incorrect || form?.success) invalidate("user:update");
+    });
 </script>
 
 <form method="POST">

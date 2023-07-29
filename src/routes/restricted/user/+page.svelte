@@ -2,6 +2,7 @@
   import { browser } from '$app/environment';
   import { goto, invalidate } from '$app/navigation';
   import { user_data_into_forms } from '$lib/transformers';
+  import { onMount } from 'svelte';
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -21,6 +22,9 @@
 
     // invalidate load dependent on locals.user when disconnected
     $: form?.disconnected, browser && invalidate("user:update")
+    onMount(()=>{
+        if(form?.disconnected) invalidate("user:update");
+    });
 
     /** @type {boolean}*/
     let new_pwd_val;
