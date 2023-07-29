@@ -33,7 +33,8 @@
     <slot/>
     <div id="spacer"></div>
     <footer>
-        Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski
+        Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br/>
+        <a href="/reglementation">reglementation</a>
     </footer>
 </div>
 
