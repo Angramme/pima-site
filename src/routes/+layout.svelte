@@ -1,4 +1,5 @@
 <script>
+  import { browser } from '$app/environment';
     import { invalidateAll } from '$app/navigation';
     import { page } from '$app/stores';
 
@@ -37,7 +38,7 @@
         </nav>
         <!-- <div id="gradient"></div> -->
     </div>
-    {#if !data.cookies_accepted && !$page.url.pathname.startsWith("/reglementation")}
+    {#if (!data.cookies_accepted || (browser && document.cookie.indexOf('cookiesAccepted=')==-1)) && !$page.url.pathname.startsWith("/reglementation")}
         <div class="cookies">
             <div>
                 <h2>Cookies</h2>
