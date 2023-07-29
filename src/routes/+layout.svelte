@@ -46,7 +46,7 @@
             <div>
                 <h2>Cookies</h2>
                 <img src="img/dancing_dog.gif" alt="dancing dog gif"/><br/>
-                En utilisant ce site web vous acceptez l'utilisation des cookies essentiels pour son fonctionnement, pour plus d'informations veuillez consulter le <a href="/reglementation/cookie_policy">Cookie Policy</a>
+                En utilisant ce site web vous acceptez l'utilisation des cookies essentiels pour son fonctionnement, pour plus d'informations veuillez consulter le <a target="_blank" href="/reglementation/cookie_policy">Cookie Policy</a>
                 <br/>
                 <br/>
                 <button on:click={()=>{
