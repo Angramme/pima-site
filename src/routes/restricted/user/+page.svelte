@@ -195,6 +195,7 @@
     fieldset{
         margin-top: 20px;
         border: solid 2px gray;
+        background: var(--background-color);
     }
     form > fieldset{
         margin-bottom: 50px;
@@ -205,10 +206,11 @@
         background-position: -19px -19px;
     }
     form > fieldset > *{
-        background-color: beige;
+        background-color: var(--background-color);
     }
     form > fieldset > legend{
         font-size: x-large;
+        background-color: var(--behind-color);
     }
     input{
         width: 95%;
@@ -231,7 +233,6 @@
     .danger legend{
         color: red;
         font-weight: bold;
-        background: beige;
     }
     .error{
         color: red;
@@ -242,7 +243,7 @@
     .info{
         font-size: medium;
         width: 94%;
-        background-color: beige;
+        background-color: var(--background-color);
         padding: 5px;
         border: solid 1px gray;
     }

@@ -22,7 +22,8 @@
             <table>
                 <tr>
                     <td>
-                        <span>Æ PIMA</span>
+                        <img class="logo-img" src="/img/dancing_dog.gif" alt="dancing dog gif"/>
+                        <span class="logo-text">Æ PIMA</span>
                     </td>
                     <td>
                         <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> &nbsp;
@@ -68,8 +69,8 @@
         </div>
     {/if}
     <slot/>
-    <div id="spacer"></div>
     <footer>
+        <hr/>
         Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br/>
         <a href="/reglementation">réglementation</a>
     </footer>
@@ -85,14 +86,24 @@
         position: relative;
         width: 80vh;
         max-width: 100vw;
+        min-height: 100vh;
         margin: auto;
-        margin-top: 70px;
         padding: 20px;
+        padding-top: 90px;
+        background-color: var(--behind-color);
+        display: flex;
+        flex-direction: column;
+    }
+    footer{
+        margin-top: auto;
+    }
+    footer > hr{
+        margin-top: 80px;
     }
     @keyframes flicker {
         0% {background-color: blue;}
-        50% {background-color: beige;}
-        100% {background-color: beige;}
+        50% {background-color: var(--background-color);}
+        100% {background-color: var(--background-color);}
     }
     .cookies{
         position: fixed;
@@ -102,7 +113,7 @@
         right: 0;
         width: 85vh;
         max-width: 100vw;
-        background: beige;
+        background: var(--background-color);
         background-image: radial-gradient(gray 1px, transparent 0);
         background-size: 5px 5px;
         background-position: -19px -19px;
@@ -110,7 +121,7 @@
         padding: 20px;
     }
     .cookies > *{
-        background-color: beige;
+        background-color: var(--background-color);
         padding: 10px;
     }
     .cookies img{
@@ -130,7 +141,7 @@
         border-bottom: solid 1px black;
         padding-top: 5px;
         padding-bottom: 5px;
-        background: beige;
+        background: var(--background-color);
         background-image: radial-gradient(gray 1px, transparent 0);
         background-size: 5px 5px;
         background-position: -19px -19px;
@@ -138,7 +149,7 @@
     nav td *{
         text-decoration: none;
         font-size: larger;
-        background: beige;
+        background: var(--background-color);
         padding: 4px;
     }
     table{
@@ -148,12 +159,9 @@
     #user-td{
         text-align: right;
     }
-    #spacer{
-        margin-top: 200px;
-    }
 
     .pls-wake-up{
-        background: beige;
+        background: var(--background-color);
         background-image: radial-gradient(gray 1px, transparent 0);
         background-size: 5px 5px;
         background-position: -19px -19px;
@@ -162,6 +170,18 @@
     }
     .pls-wake-up > * {
         padding: 10px;
-        background: beige;
+        background: var(--background-color);
+    }
+
+    .logo-img{
+        padding: 0;
+        top: 8px;
+        left: 8px;
+        position: absolute;
+        display: inline;
+        height: 2.5rem;
+    }
+    .logo-text{
+        margin-left: 50px;
     }
 </style>

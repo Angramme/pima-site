@@ -10,9 +10,26 @@
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 	<style>
+		*{
+			--behind-color: rgb(255, 246, 236);
+			--background-color: beige;
+			--font-color: rgb(51, 45, 45);
+			color: var(--font-color);
+			text-shadow: 0.5px 1px 1px rgba(255, 255, 255, 0.437);
+		}
+		hr{
+			border-color: var(--font-color);
+		}
+		fieldset{
+			border-color: var(--font-color);
+		}
 		body{
 			margin: 0;
-			background-color: beige;
+			background-color: var(--behind-color);
+			background-image: radial-gradient(rgb(169, 169, 169) 1px, transparent 0);
+			background-size: 15px 15px;
+			/* background-blend-mode: hard-light; */
+			/* background-repeat: ; */
 		}
 	</style>
 </html>
