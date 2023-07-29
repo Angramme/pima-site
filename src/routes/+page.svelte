@@ -4,14 +4,17 @@
     import admins from "$data/admins.json"
 </script>
 
-<h1>
+<h1 style="font-weight:normal;">
     <b>D</b>ouble<br/>
     <b>M</b>ajeure<br/>
     <b>M</b>athématiques<br/>
     <b>I</b>nformatique<br/>
 </h1>
 
-<p>Site <i>non-officiel</i> DMMI/PIMA.</p>
+<p>
+    Site <i>non-officiel</i> DMMI/PIMA. 
+    <br/>"Æ PIMA" : "anciens étudiants du parcours PIMA"
+</p>
 
 <hr/>
 
@@ -46,9 +49,6 @@
 </p>
 
 <style>
-    h1{
-        font-weight: normal;
-    }
     p{
         text-align: justify;
         text-justify: distribute;

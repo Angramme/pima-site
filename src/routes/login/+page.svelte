@@ -36,7 +36,7 @@
                 <td><input type="button" id="forgot" value="mdb ou identifiant oublié" disabled/></td>
             </tr>
         </table>
-        <p>Attention en vous connectant sur ce site vous acceptez l'utilisant des cookies essentiels. En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">reglementation</a></p>
+        <p>Attention en vous connectant sur ce site vous acceptez l'utilisant des cookies essentiels. En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a></p>
     </fieldset>
 </form>
 

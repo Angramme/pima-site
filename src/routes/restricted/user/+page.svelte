@@ -105,7 +105,7 @@
             {#if form?.update_success}<p class="success">Mise a jour réussie!</p>{/if}
             {#if form?.update_failure}<p class="error">Erreur de mise à jour: "{form.update_failure}""</p>{/if}
             <input bind:checked={user_agreed} id="agreement" type="checkbox"/>
-            <label for="agreement"><u>J'ai pris conaissance</u> de la reglementation <a href="/reglementation" target="_blank">ici</a> et <u>je donne mon accord</u> pour utilisation de mes donnees plus haut.</label><br/>
+            <label for="agreement"><u>J'ai pris conaissance</u> de la réglementation <a href="/reglementation" target="_blank">ici</a> et <u>je donne mon accord</u> pour utilisation de mes donnees plus haut.</label><br/>
             <input type="submit" disabled={!user_agreed} value="Mettre a jour"/>
         </fieldset>
     </fieldset>

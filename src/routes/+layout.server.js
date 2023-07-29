@@ -1,10 +1,11 @@
 
 
 /** @type {import('./$types').LayoutServerLoad} */
-export async function load({ locals, depends}) {
+export async function load({ cookies, locals, depends}) {
     depends("user:update")
 
     return {
-        user: locals.user
+        user: locals.user,
+        cookies_accepted: cookies.get("cookiesAccepted"),
     };
 }
