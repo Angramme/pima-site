@@ -1,10 +1,12 @@
 <script>
   import { browser } from '$app/environment';
-    import { invalidateAll } from '$app/navigation';
+    import { invalidate } from '$app/navigation';
     import { page } from '$app/stores';
 
 
     export let data;
+
+    let hide_cookie_msg = false;
 
     $: user = data.user;
 </script>
@@ -38,7 +40,7 @@
         </nav>
         <!-- <div id="gradient"></div> -->
     </div>
-    {#if (!data.cookies_accepted || (browser && document.cookie.indexOf('cookiesAccepted=')==-1)) && !$page.url.pathname.startsWith("/reglementation")}
+    {#if (!data.cookies_accepted || (browser && document.cookie.indexOf('cookiesAccepted=')==-1)) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
         <div class="cookies">
             <div>
                 <h2>Cookies</h2>
@@ -48,7 +50,8 @@
                 <br/>
                 <button on:click={()=>{
                     document.cookie = "cookiesAccepted=1";
-                    invalidateAll();
+                    hide_cookie_msg = true;
+                    invalidate("cookies:update");
                 }}>Je donne mon accord</button>
             </div>
         </div>
