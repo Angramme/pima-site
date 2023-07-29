@@ -11,7 +11,11 @@ export function user_data_into_forms(user){
         {n:"Ecoles", l:[
             {k:"admis", l:"admis dans", v:user.admis, t:"textlist", ro:false},
             {k:"choisi", l:"choisi", v:user.choisi, t:"text", ro:false},
-            {k:"grad_year", l:"année fin L3", v:user.grad_year, t:"number", ro:false},
+        ]},
+        {n:"#PIMAlife", l:[
+            {k:"grad_year", l:"année en fin L3", v:user.grad_year, t:"number", ro:false},
+            {k:"moyenneL2", l:"moyenne generale L2", v:user.moyenneL2, t:"number", ro:false},
+            {k:"moyenneL3", l:"moyenne generale L3", v:user.moyenneL3, t:"number", ro:false},
         ]},
         {n:"Vie profesionelle", l:[
             {k:"travails", l:"à travaillé/e dans ces entreprises/labos", v:user.travails, t:"textlist", ro:false},

@@ -57,6 +57,7 @@ export async function session_get_user(cookies){
                 nom: true,
                 admin: true,
                 login: true,
+                sleeping: true,
             } }, 
             createdAt: true,
         }

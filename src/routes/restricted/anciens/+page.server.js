@@ -1,14 +1,24 @@
 import prisma from '$lib/prisma'
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load() {
+export async function load({ locals, depends }) {
+    depends("user:update");
+
+    if(!locals.user) return { users: [] }; // user is not logged in...
+
+    const where = locals.user.admin ? {} : {
+        sleeping: false,
+    };
+
     let users = await prisma.user.findMany({
+        where,
         select: {
             // never show
             login: false,
             password: false,
             // show if admin
-            updatedAt: false,
+            updatedAt: locals.user.admin,
+            sleeping: locals.user.admin,
             // safe info
             admin: true,
             id: true,

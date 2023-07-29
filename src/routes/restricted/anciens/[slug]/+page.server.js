@@ -24,6 +24,8 @@ export function load({ params, locals, depends }) {
             contact: true,
             grad_year: true,
             nationalite: true,
+            moyenneL2: true,
+            moyenneL3: true,
             admis: true,
             choisi: true,
             travails: true,
