@@ -41,16 +41,16 @@
         </nav>
         <!-- <div id="gradient"></div> -->
     </div>
-    {#if (!cookies_accepted || (browser && document.cookie.indexOf('cookiesAccepted=')==-1)) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
+    {#if (browser ? document.cookie.indexOf('cookiesAccepted=')==-1 : !cookies_accepted) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
         <div class="cookies">
             <div>
                 <h2>Cookies</h2>
                 <img src="img/dancing_dog.gif" alt="dancing dog gif"/><br/>
-                En utilisant ce site web vous acceptez l'utilisation des cookies essentiels pour son fonctionnement, pour plus d'informations veuillez consulter le <a href="/reglementation/cookie_policy">Cookie Policy</a>
+                En utilisant ce site web vous acceptez l'utilisation des cookies essentiels pour son fonctionnement, pour plus d'informations veuillez consulter le <a target="_blank" href="/reglementation/cookie_policy">Cookie Policy</a>
                 <br/>
                 <br/>
                 <button on:click={()=>{
-                    document.cookie = "cookiesAccepted=1";
+                    document.cookie="cookiesAccepted=1;path=/";
                     hide_cookie_msg = true;
                     invalidate("cookies:update");
                 }}>Je donne mon accord</button>
