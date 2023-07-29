@@ -1,23 +1,31 @@
 <script>
-    import anciens_r from "$data/contact-anciens.json"
+    // import anciens_r from "$data/contact-anciens.json"
 
-    let anciens_x = Object.entries(anciens_r)
-        .map(([nom, data])=>Object.assign({nom}, data));
+    export let data;
+
+    // TODO: fix search engine not updating
     /** @param {string} st*/
-    let matches = (st)=>(v)=>{
-        let x = st.toLowerCase();
-        if(typeof v == "number" && !v.toString().toLowerCase().includes(x)) return false;
-        else if(typeof v == "string" && !v.toLowerCase().includes(x)) return false;
-        else if(Array.isArray(v) && !v.some(y=>y.toLowerCase().includes(x))) return false;
-        return true;
-    };
+    let matches = (st)=>
+        /** @param {*} v */
+        (v)=>{
+            let x = st.toLowerCase();
+            if(typeof v == "number") return v.toString().toLowerCase().includes(x);
+            else if(typeof v == "string") return v.toLowerCase().includes(x);
+            else if(Array.isArray(v)) return v.some(y=>y.toLowerCase().includes(x));
+            else return false;
+        };
     let search_term = "";
-    $: anciens = anciens_x
+    $: anciens = data.users
+        .map(d=>{
+            // @ts-ignore
+            if(d.admin) d._admin = "admin";
+            return d;
+        })
         .filter(d=>search_term
             .split(" ")
-            .every(s=>Object.values(d)
-                .some(matches(s))))
-        .sort((a, b)=>a.nom > b.nom ? 1 : -1);
+            .every(s=>Object
+                .values(d)
+                .some(matches(s))));
 </script>
 
 <h1>Repertoire des anciens :</h1>
@@ -37,10 +45,10 @@ Rechercher : <input type="text" bind:value={search_term}/> - {anciens.length} rÃ
     </tr>
     {#each anciens as data}
         <tr>
-            <td>{data.nom}</td> 
+            <td>{data.nom || "ğŸ¤"} {data.prenom}</td> 
             <td>{data.grad_year-3}-{data.grad_year}</td>
             <td>{data.choisi}</td>
-            <td><a href="/restricted/anciens/{data.nom}">plus d'infos</a></td>
+            <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
         </tr>
     {/each}
 </table>
