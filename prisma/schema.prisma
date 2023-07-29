@@ -17,16 +17,21 @@ model User {
   password    String 
   admin       Boolean @default(false) // true if has admin privilages
   session     Session? // current sesion
+  sleeping    Boolean @default(true) // was the account activated by the user (ie, has the user uploaded data)
+  
   prenom      String
   nom         String?
   email       String? 
   contact     String[] // other contact options
   grad_year   Int // promo
   nationalite String[]
+  moyenneL2   Float?
+  moyenneL3   Float?
   admis       String[] // ecoles ou admis
   choisi      String // ecole choisie
   travails    String[] // entreprises/labos ou à travaillé
   description String @default("TODO 😴") // description parcours, conseils perso, etc
+  
   createdAt   DateTime @default(now()) // account created
   updatedAt   DateTime @updatedAt
 }

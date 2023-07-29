@@ -1,9 +1,9 @@
 import prisma from '$lib/prisma';
 import { check_password, end_session, hash_password } from '$lib/sessions';
-import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ locals }) {
+export async function load({ locals, depends }) {
+    depends("user:update");
     if(!locals.user) return { user: null };
 
     const user = await prisma.user.findFirst({
@@ -21,6 +21,8 @@ export async function load({ locals }) {
             nationalite: true,
             description: true,
             travails: true,
+            moyenneL2: true,
+            moyenneL3: true,
             
             login: true,
             admin: true,
@@ -72,6 +74,8 @@ export const actions = {
             "nationalite",
             "description",
             "travails",
+            "moyenneL2",
+            "moyenneL3",
         ];
         const list_entries = [
             "nationalite",
@@ -79,12 +83,17 @@ export const actions = {
             "admis",
             "travails",
         ];
-        const number_entries = [ "grad_year" ];
+        const number_entries = [ 
+            "grad_year",
+            "moyenneL2",
+            "moyenneL3",
+         ];
 
         if(!locals.user) return { update_failure: "user logged out!" };
         if(keys_to_update.some(k=>!data.has(k))) return { update_failure: "Invalid form data submitted!" };
 
         let prisma_data = Object();
+        prisma_data["sleeping"] = false;
         for(let k of keys_to_update) prisma_data[k] = data.get(k)?.toString().trim();
         /// @ts-ignore
         for(let k of list_entries) prisma_data[k] = prisma_data[k].split(",").map(x=>x.trim());

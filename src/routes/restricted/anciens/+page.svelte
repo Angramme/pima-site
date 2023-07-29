@@ -45,7 +45,7 @@ Rechercher : <input type="text" bind:value={search_term}/> - {anciens.length} rÃ
     </tr>
     {#each anciens as data}
         <tr>
-            <td>{data.nom || "ğŸ¤"} {data.prenom}</td> 
+            <td class={data.sleeping ? "sleeper" : ""}>{data.nom || "ğŸ¤"} {data.prenom}</td> 
             <td>{data.grad_year-3}-{data.grad_year}</td>
             <td>{data.choisi}</td>
             <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
@@ -60,5 +60,12 @@ Rechercher : <input type="text" bind:value={search_term}/> - {anciens.length} rÃ
     }
     table td, table th{
         text-align: left;
+    }
+    .sleeper{
+        font-style: italic;
+        color: blueviolet;
+    }
+    .sleeper::after{
+        content: " ğŸ˜´";
     }
 </style>

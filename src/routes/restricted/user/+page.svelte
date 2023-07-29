@@ -1,6 +1,6 @@
 <script>
   import { browser } from '$app/environment';
-  import { goto, invalidate } from '$app/navigation';
+  import { invalidate } from '$app/navigation';
   import { user_data_into_forms } from '$lib/transformers';
   import { onMount } from 'svelte';
 
@@ -21,9 +21,9 @@
         user_data_into_forms(user);
 
     // invalidate load dependent on locals.user when disconnected
-    $: form?.disconnected, browser && invalidate("user:update")
+    $: form?.disconnected, form?.update_success, form?.update_failure, browser && invalidate("user:update")
     onMount(()=>{
-        if(form?.disconnected) invalidate("user:update");
+        if(form?.disconnected || form?.update_success || form?.update_failure) invalidate("user:update");
     });
 
     /** @type {boolean}*/

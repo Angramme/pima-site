@@ -31,7 +31,7 @@
                     </td>
                     <td id="user-td">
                         {#if user}
-                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} </a> &nbsp;    
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} 🛠</a> &nbsp;    
                         {:else}
                             <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a> &nbsp;    
                         {/if}
@@ -41,6 +41,16 @@
         </nav>
         <!-- <div id="gradient"></div> -->
     </div>
+    {#if user?.sleeping}
+        <div class="pls-wake-up">
+            <div>
+                Votre compte est pour l'instant caché sur le serveur, pour publier votre compte, mettez a jour vos données dans la section utilisateur en haut a droite!
+            </div>
+            <div>
+                Une fois dans la section utilisateur, cherchez la section "Mes donnes" et remplissez vos informations. Un fois terminé, appuyez sur "Mettre a jour".
+            </div>
+        </div>
+    {/if}
     {#if (browser ? document.cookie.indexOf('cookiesAccepted=')==-1 : !cookies_accepted) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
         <div class="cookies">
             <div>
@@ -142,4 +152,16 @@
         margin-top: 200px;
     }
 
+    .pls-wake-up{
+        background: beige;
+        background-image: radial-gradient(gray 1px, transparent 0);
+        background-size: 5px 5px;
+        background-position: -19px -19px;
+        animation: 1s linear 2s infinite alternate flicker;
+        padding: 20px;
+    }
+    .pls-wake-up > * {
+        padding: 10px;
+        background: beige;
+    }
 </style>
