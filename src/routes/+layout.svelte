@@ -41,7 +41,7 @@
         </nav>
         <!-- <div id="gradient"></div> -->
     </div>
-    {#if (!cookies_accepted || (browser && document.cookie.indexOf('cookiesAccepted=')==-1)) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
+    {#if (browser ? document.cookie.indexOf('cookiesAccepted=')==-1 : !cookies_accepted) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
         <div class="cookies">
             <div>
                 <h2>Cookies</h2>
@@ -50,7 +50,7 @@
                 <br/>
                 <br/>
                 <button on:click={()=>{
-                    document.cookie = "cookiesAccepted=1";
+                    document.cookie="cookiesAccepted=1;path=/";
                     hide_cookie_msg = true;
                     invalidate("cookies:update");
                 }}>Je donne mon accord</button>
