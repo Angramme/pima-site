@@ -1,12 +1,12 @@
 <script>
-  import { browser } from '$app/environment';
+    import { browser } from '$app/environment';
     import { invalidate } from '$app/navigation';
     import { page } from '$app/stores';
 
 
     export let data;
 
-    let hide_cookie_msg = false;
+    let hide_cookie_msg = Boolean(data.cookies_accepted);
 
     $: user = data.user;
     $: cookies_accepted = data.cookies_accepted;
@@ -22,7 +22,6 @@
             <table>
                 <tr>
                     <td>
-                        <img class="logo-img" src="/img/dancing_dog.gif" alt="dancing dog gif"/>
                         <span class="logo-text">Æ PIMA</span>
                     </td>
                     <td>
@@ -68,7 +67,9 @@
             </div>
         </div>
     {/if}
-    <slot/>
+    <div id="slot-cont">
+        <slot/>
+    </div>
     <footer>
         <hr/>
         Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br/>
@@ -90,7 +91,7 @@
         margin: auto;
         padding: 20px;
         padding-top: 90px;
-        background-color: var(--behind-color);
+        background-color: var(--background-color);
         display: flex;
         flex-direction: column;
     }
@@ -107,18 +108,21 @@
     }
     .cookies{
         position: fixed;
+        display: flex;
         bottom: 25vh;
-        margin: auto;
         left: 0;
         right: 0;
-        width: 85vh;
-        max-width: 100vw;
-        background: var(--background-color);
-        background-image: radial-gradient(gray 1px, transparent 0);
-        background-size: 5px 5px;
-        background-position: -19px -19px;
-        animation: 0.4s step-end 0.1s infinite alternate flicker;
+        top: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.619);
+    }
+    .cookies > div{
+        margin: auto;
         padding: 20px;
+        width: 75vh;
+        max-width: 100vw;
     }
     .cookies > *{
         background-color: var(--background-color);
@@ -141,15 +145,15 @@
         border-bottom: solid 1px black;
         padding-top: 5px;
         padding-bottom: 5px;
-        background: var(--background-color);
-        background-image: radial-gradient(gray 1px, transparent 0);
-        background-size: 5px 5px;
-        background-position: -19px -19px;
+        background: var(--accent-color);
+        /* background-image: radial-gradient(gray 1px, transparent 0);
+        background-size: 5px 5px; */
     }
     nav td *{
+        color: var(--background-color);
         text-decoration: none;
         font-size: larger;
-        background: var(--background-color);
+        background: var(--accent-color);
         padding: 4px;
     }
     table{
@@ -172,16 +176,7 @@
         padding: 10px;
         background: var(--background-color);
     }
-
-    .logo-img{
-        padding: 0;
-        top: 8px;
-        left: 8px;
-        position: absolute;
-        display: inline;
-        height: 2.5rem;
-    }
     .logo-text{
-        margin-left: 50px;
+        margin-left: 10px;
     }
 </style>
