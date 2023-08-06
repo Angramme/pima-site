@@ -74,6 +74,8 @@
     </fieldset>
 </form>
 
+<hr/>
+
 <form method="POST" action="?/update_data">
     <fieldset>
         <legend>Mes donnes</legend>
@@ -115,6 +117,8 @@
     </fieldset>
 </form>
 
+<hr/>
+
 <form method="POST" action="?/pwd_chg">
     <fieldset id="pwd_chg">
         <legend>Reinitialisation mot de passe</legend>
@@ -142,6 +146,8 @@
     </fieldset>
 </form>
 
+<hr/>
+
 <form bind:this={delete_account_form} method="POST" action="?/delete_account">
     <fieldset class="danger">
         <legend>Supprimer ce compte</legend>
@@ -152,6 +158,8 @@
         <input bind:this={delete_account_btn} on:click={delete_account_now} type="button" value="Supprimer ce compte" disabled/>
     </fieldset>
 </form>
+
+<hr/>
 
 {#if user?.admin}
     <form method="POST" action="?/create_account">
@@ -195,20 +203,21 @@
     fieldset{
         margin-top: 20px;
         border: solid 2px gray;
+        background: var(--background-color);
     }
     form > fieldset{
+        margin-top: 50px;
         margin-bottom: 50px;
         border: none;
-        /* background-color: white; */
-        background-image: radial-gradient(gray 1px, transparent 0);
+        background-image: radial-gradient(rgb(178, 178, 178) 1px, transparent 0);
         background-size: 5px 5px;
-        background-position: -19px -19px;
     }
     form > fieldset > *{
-        background-color: beige;
+        background-color: var(--background-color);
     }
     form > fieldset > legend{
         font-size: x-large;
+        background-color: var(--behind-color);
     }
     input{
         width: 95%;
@@ -231,7 +240,6 @@
     .danger legend{
         color: red;
         font-weight: bold;
-        background: beige;
     }
     .error{
         color: red;
@@ -242,7 +250,7 @@
     .info{
         font-size: medium;
         width: 94%;
-        background-color: beige;
+        background-color: var(--background-color);
         padding: 5px;
         border: solid 1px gray;
     }

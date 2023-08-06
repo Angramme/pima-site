@@ -1,12 +1,12 @@
 <script>
-  import { browser } from '$app/environment';
+    import { browser } from '$app/environment';
     import { invalidate } from '$app/navigation';
     import { page } from '$app/stores';
 
 
     export let data;
 
-    let hide_cookie_msg = false;
+    let hide_cookie_msg = Boolean(data.cookies_accepted);
 
     $: user = data.user;
     $: cookies_accepted = data.cookies_accepted;
@@ -22,18 +22,18 @@
             <table>
                 <tr>
                     <td>
-                        <span>Æ PIMA</span>
+                        <span class="logo-text">Æ PIMA</span>
                     </td>
                     <td>
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> &nbsp;
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> &nbsp;
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a> &nbsp;
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> 
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> 
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a>
                     </td>
                     <td id="user-td">
                         {#if user}
-                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} 🛠</a> &nbsp;    
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} 🛠</a>  
                         {:else}
-                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a> &nbsp;    
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a>
                         {/if}
                     </td>
                 </tr>
@@ -67,11 +67,13 @@
             </div>
         </div>
     {/if}
-    <slot/>
-    <div id="spacer"></div>
+    <div id="slot-cont">
+        <slot/>
+    </div>
     <footer>
+        <hr/>
         Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br/>
-        <a href="/reglementation">réglementation</a>
+        En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a>
     </footer>
 </div>
 
@@ -83,34 +85,51 @@
     }
     #cont{
         position: relative;
-        width: 80vh;
+        width: 85vh;
         max-width: 100vw;
+        min-height: 100vh;
         margin: auto;
-        margin-top: 70px;
-        padding: 20px;
+        padding-top: 90px;
+        background-color: var(--background-color);
+        display: flex;
+        flex-direction: column;
+    }
+    #slot-cont{
+        margin: 20px;
+    }
+    footer{
+        margin: 20px;
+        margin-top: auto;
+    }
+    footer > hr{
+        margin-top: 80px;
+        margin-bottom: 30px;
     }
     @keyframes flicker {
         0% {background-color: blue;}
-        50% {background-color: beige;}
-        100% {background-color: beige;}
+        50% {background-color: var(--background-color);}
+        100% {background-color: var(--background-color);}
     }
     .cookies{
         position: fixed;
+        display: flex;
         bottom: 25vh;
-        margin: auto;
         left: 0;
         right: 0;
-        width: 85vh;
-        max-width: 100vw;
-        background: beige;
-        background-image: radial-gradient(gray 1px, transparent 0);
-        background-size: 5px 5px;
-        background-position: -19px -19px;
-        animation: 0.4s step-end 0.1s infinite alternate flicker;
+        top: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.619);
+    }
+    .cookies > div{
+        margin: auto;
         padding: 20px;
+        width: 75vh;
+        max-width: 100vw;
     }
     .cookies > *{
-        background-color: beige;
+        background-color: var(--background-color);
         padding: 10px;
     }
     .cookies img{
@@ -119,41 +138,37 @@
     }
 
     #nav-cont{
-        /* width: 80vh;
-        max-width: 100vw; */
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
+        background: var(--behind-color);
+        padding-bottom: 7px;
     }
     nav{
         border-bottom: solid 1px black;
+        background: var(--background-color);
         padding-top: 5px;
         padding-bottom: 5px;
-        background: beige;
-        background-image: radial-gradient(gray 1px, transparent 0);
-        background-size: 5px 5px;
-        background-position: -19px -19px;
     }
     nav td *{
         text-decoration: none;
         font-size: larger;
-        background: beige;
         padding: 4px;
+        margin: 5px;
     }
-    table{
+    nav > table{
+        margin: auto;
+        width: calc(85vh + 30px);
+        max-width: 100vw;
         border-spacing: 10px;
-        width: 100%;
     }
     #user-td{
         text-align: right;
     }
-    #spacer{
-        margin-top: 200px;
-    }
 
     .pls-wake-up{
-        background: beige;
+        background: var(--background-color);
         background-image: radial-gradient(gray 1px, transparent 0);
         background-size: 5px 5px;
         background-position: -19px -19px;
@@ -162,6 +177,6 @@
     }
     .pls-wake-up > * {
         padding: 10px;
-        background: beige;
+        background: var(--background-color);
     }
 </style>
