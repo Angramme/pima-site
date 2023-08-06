@@ -1,5 +1,6 @@
 import prisma from '$lib/prisma';
 import { check_password, end_session, hash_password } from '$lib/sessions';
+import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, depends }) {
@@ -40,6 +41,7 @@ export async function load({ locals, depends }) {
 export const actions = {
     disconnect: async ({ cookies }) => {
         end_session(cookies);
+        throw redirect(302, "/");
         return { disconnected: true };
     },
     pwd_chg: async ({ request, locals }) => {

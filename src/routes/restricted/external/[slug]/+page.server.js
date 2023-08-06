@@ -4,7 +4,8 @@ import links_r from "$data/external-links.json"
 const links = Object.assign({}, ...Object.values(links_r));
 
 /** @type {import('../$types').PageServerLoad} */
-export function load({ params  }) {
+export function load({ params, depends }) {
+    depends("user:update");
     if(params.slug in links){
         throw redirect(302, links[params.slug]);
     }else{

@@ -2,6 +2,8 @@ import { session_get_user } from "$lib/sessions"
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
+    if(event.locals.user) return resolve(event);
+
     const url = new URL(event.request.url);
 
     const user = await session_get_user(event.cookies);

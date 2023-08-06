@@ -1,8 +1,7 @@
 <script>
-  import { browser } from '$app/environment';
+  import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import { user_data_into_forms } from '$lib/transformers';
-  import { onMount } from 'svelte';
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -20,12 +19,6 @@
     $: sections = !user ? null :
         user_data_into_forms(user);
 
-    // invalidate load dependent on locals.user when disconnected
-    $: form?.disconnected, form?.update_success, form?.update_failure, browser && invalidate("user:update")
-    onMount(()=>{
-        if(form?.disconnected || form?.update_success || form?.update_failure) invalidate("user:update");
-    });
-
     /** @type {boolean}*/
     let new_pwd_val;
     /** @type {boolean}*/
@@ -38,8 +31,6 @@
         if(!yes) return;
         delete_account_form.submit();
     }
-    $: form?.delete_failure, browser && form?.delete_failure && alert("Erreur serveur: " + form?.delete_failure);
-    $: form?.delete_success, browser && invalidate("user:update");
 
     /** @type {HTMLInputElement}*/
     let create_pwd;
@@ -64,7 +55,12 @@
 {#if form?.update_failure}<p class="error">Erreur de mise à jour: "{form.update_failure}""</p>{/if}
 
 
-<form method="POST" action="?/disconnect">
+<form method="POST" action="?/disconnect" use:enhance={()=>{
+    return async ({update})=>{
+        await invalidate("user:update");
+        return update();
+    }
+}}>
     <fieldset>
         <legend>Deconnexion</legend>
         <div>
@@ -76,7 +72,7 @@
 
 <hr/>
 
-<form method="POST" action="?/update_data">
+<form method="POST" action="?/update_data" use:enhance>
     <fieldset>
         <legend>Mes donnes</legend>
         <p class="info"> Attention, pour faire des changement il faut imperativement soumettre les données avec le bouton "Mettre a jour" en bas. </p>
@@ -119,7 +115,7 @@
 
 <hr/>
 
-<form method="POST" action="?/pwd_chg">
+<form method="POST" action="?/pwd_chg" use:enhance>
     <fieldset id="pwd_chg">
         <legend>Reinitialisation mot de passe</legend>
         {#if form?.pwd_rst_missing}<p class="error">Manque de mot de passe!</p>{/if}
@@ -148,7 +144,7 @@
 
 <hr/>
 
-<form bind:this={delete_account_form} method="POST" action="?/delete_account">
+<form bind:this={delete_account_form} method="POST" action="?/delete_account" use:enhance>
     <fieldset class="danger">
         <legend>Supprimer ce compte</legend>
         {#if form?.delete_failure}<p class="error">Erreur serveur: "{form.delete_failure}"</p>{/if}
@@ -162,7 +158,7 @@
 <hr/>
 
 {#if user?.admin}
-    <form method="POST" action="?/create_account">
+    <form method="POST" action="?/create_account" use:enhance>
         <fieldset class="admin">
             <legend>Admin</legend>
             <fieldset>
