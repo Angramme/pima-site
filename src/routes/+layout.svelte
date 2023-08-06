@@ -25,15 +25,15 @@
                         <span class="logo-text">Æ PIMA</span>
                     </td>
                     <td>
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> &nbsp;
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> &nbsp;
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a> &nbsp;
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> 
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> 
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a>
                     </td>
                     <td id="user-td">
                         {#if user}
-                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} 🛠</a> &nbsp;    
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} 🛠</a>  
                         {:else}
-                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a> &nbsp;    
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a>
                         {/if}
                     </td>
                 </tr>
@@ -73,7 +73,7 @@
     <footer>
         <hr/>
         Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br/>
-        <a href="/reglementation">réglementation</a>
+        En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a>
     </footer>
 </div>
 
@@ -85,21 +85,25 @@
     }
     #cont{
         position: relative;
-        width: 80vh;
+        width: 85vh;
         max-width: 100vw;
         min-height: 100vh;
         margin: auto;
-        padding: 20px;
         padding-top: 90px;
         background-color: var(--background-color);
         display: flex;
         flex-direction: column;
     }
+    #slot-cont{
+        margin: 20px;
+    }
     footer{
+        margin: 20px;
         margin-top: auto;
     }
     footer > hr{
         margin-top: 80px;
+        margin-bottom: 30px;
     }
     @keyframes flicker {
         0% {background-color: blue;}
@@ -134,31 +138,30 @@
     }
 
     #nav-cont{
-        /* width: 80vh;
-        max-width: 100vw; */
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
+        background: var(--behind-color);
+        padding-bottom: 7px;
     }
     nav{
         border-bottom: solid 1px black;
+        background: var(--background-color);
         padding-top: 5px;
         padding-bottom: 5px;
-        background: var(--accent-color);
-        /* background-image: radial-gradient(gray 1px, transparent 0);
-        background-size: 5px 5px; */
     }
     nav td *{
-        color: var(--background-color);
         text-decoration: none;
         font-size: larger;
-        background: var(--accent-color);
         padding: 4px;
+        margin: 5px;
     }
-    table{
+    nav > table{
+        margin: auto;
+        width: calc(85vh + 30px);
+        max-width: 100vw;
         border-spacing: 10px;
-        width: 100%;
     }
     #user-td{
         text-align: right;
@@ -175,8 +178,5 @@
     .pls-wake-up > * {
         padding: 10px;
         background: var(--background-color);
-    }
-    .logo-text{
-        margin-left: 10px;
     }
 </style>
