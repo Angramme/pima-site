@@ -15,17 +15,18 @@
             else return false;
         };
     let search_term = "";
-    $: anciens = data.users
-        .map(d=>{
-            // @ts-ignore
-            if(d.admin) d._admin = "admin";
-            return d;
-        })
-        .filter(d=>search_term
-            .split(" ")
-            .every(s=>Object
-                .values(d)
-                .some(matches(s))));
+    $: anciens_P = data.streamed.users
+        .then(v=>
+            v.map(d=>{
+                // @ts-ignore
+                if(d.admin) d._admin = "admin";
+                return d;
+            })
+            .filter(d=>search_term
+                .split(" ")
+                .every(s=>Object
+                    .values(d)
+                    .some(matches(s)))));
 </script>
 
 <h1>Repertoire des anciens :</h1>
@@ -34,7 +35,12 @@
     Les informations présentes ont ete donnes par les élèves eux mêmes avec leur accord. 
 </p>
 
-Rechercher : <input type="text" bind:value={search_term}/> - {anciens.length} résultat{anciens.length==1 ? "" : "s"}
+Rechercher : <input type="text" bind:value={search_term}/> - 
+{#await anciens_P}
+? résultat
+{:then anciens} 
+{anciens.length} résultat{anciens.length==1 ? "" : "s"}
+{/await}
 <hr/>
 <table>
     <tr>
@@ -43,14 +49,20 @@ Rechercher : <input type="text" bind:value={search_term}/> - {anciens.length} r�
         <th>Suite</th>
         <th></th>
     </tr>
-    {#each anciens as data}
-        <tr>
-            <td class={data.sleeping ? "sleeper" : ""}>{data.nom || "🤐"} {data.prenom}</td> 
-            <td>{data.grad_year-3}-{data.grad_year}</td>
-            <td>{data.choisi}</td>
-            <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
-        </tr>
-    {/each}
+    {#await anciens_P}
+    <tr>
+        <td>Chargement...</td>
+    </tr>
+    {:then anciens} 
+        {#each anciens as data}
+            <tr>
+                <td class={data.sleeping ? "sleeper" : ""}>{data.nom || "🤐"} {data.prenom}</td> 
+                <td>{data.grad_year-3}-{data.grad_year}</td>
+                <td>{data.choisi}</td>
+                <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
+            </tr>
+        {/each}
+    {/await}
 </table>
 
 

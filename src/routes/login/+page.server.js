@@ -3,14 +3,21 @@ import { log_in_user } from "$lib/sessions"
 import prisma from '$lib/prisma';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load() {
-    const admins = await prisma.user.findMany({
+export async function load({ locals, url }) {
+    if(locals.user){
+        const redir = url.searchParams.get("redirect") || "/";
+        throw redirect(302, redir);
+    }
+
+    const admins = prisma.user.findMany({
         where: { admin: true },
         select: { nom: true, prenom: true, email: true }
     });
 
     return {
-        admins
+        streamed: {
+            admins
+        }
     };
 }
 

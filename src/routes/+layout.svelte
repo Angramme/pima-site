@@ -53,7 +53,8 @@
     {/if}
     {#if (browser ? document.cookie.indexOf('cookiesAccepted=')==-1 : !cookies_accepted) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
         <div class="cookies">
-            <div>
+            <div> 
+                <!-- TODO: replace this logic with a form with use:enhance use https://kit.svelte.dev/docs/form-actions#progressive-enhancement-applyaction for the form-->
                 <h2>Cookies</h2>
                 <img src="img/dancing_dog.gif" alt="dancing dog gif"/><br/>
                 En utilisant ce site web vous acceptez l'utilisation des cookies essentiels pour son fonctionnement, pour plus d'informations veuillez consulter le <a target="_blank" href="/reglementation/cookie_policy">Cookie Policy</a>

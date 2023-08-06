@@ -4,13 +4,13 @@ import prisma from '$lib/prisma'
 export async function load({ locals, depends }) {
     depends("user:update");
 
-    if(!locals.user) return { users: [] }; // user is not logged in...
+    if(!locals.user) return { streamed: { users: Promise.resolve([]) } }; // user is not logged in...
 
     const where = locals.user.admin ? {} : {
         sleeping: false,
     };
 
-    let users = await prisma.user.findMany({
+    let users = prisma.user.findMany({
         where,
         select: {
             // never show
@@ -36,6 +36,8 @@ export async function load({ locals, depends }) {
     });
 
     return {
-        users: users
+        streamed: {
+            users: users,
+        }
     }
 }

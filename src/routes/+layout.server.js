@@ -2,8 +2,7 @@
 
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ cookies, locals, depends}) {
-    depends("user:update")
-    depends("cookies:update")
+    depends("user:update", "cookies:update");
 
     return {
         user: locals.user,

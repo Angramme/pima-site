@@ -1,5 +1,5 @@
 <script>
-  import { browser } from '$app/environment';
+  import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import admins from "$data/admins.json"
   import { onMount } from 'svelte';
@@ -9,14 +9,12 @@
 
     export let data;
 
-    // force all load functions using locals.user to reload
-    $: form?.missing, form?.incorrect, form?.success, browser && invalidate("user:update")
     onMount(()=>{
-        if(form?.missing || form?.incorrect || form?.success) invalidate("user:update");
-    });
+        invalidate("user:update");
+    })
 </script>
 
-<form method="POST">
+<form method="POST" use:enhance>
     <fieldset>
         <legend>Connexion</legend>
         {#if form?.missing}<p class="error">Le login <u>et</u> mot de passe sont primordiaux!</p>{/if}
@@ -46,12 +44,16 @@
 
 <h3>Infos : </h3>
 <p>Pour creer un compte, contacter un des admins: </p>
-{#each data.admins as {nom, prenom, email}}
-    <li>
-        {nom} {prenom} : 
-        <button on:click={()=>alert(`email = ${email}`)}>email </button>
-    </li>
-{/each}
+{#await data.streamed.admins}
+    Chargement des admins...
+{:then admins} 
+    {#each admins as {nom, prenom, email}}
+        <li>
+            {nom} {prenom} : 
+            <button on:click={()=>alert(`email = ${email}`)}>email </button>
+        </li>
+    {/each}
+{/await}
 
 <style>
     table{

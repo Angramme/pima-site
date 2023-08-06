@@ -13,7 +13,7 @@ declare global {
 				nom: string | null,
 				admin: boolean,
 				login: string,
-				sleeping: true,
+				sleeping: boolean,
 			} | null
 		}
 		// interface PageData {}

@@ -35,8 +35,7 @@ export function load({ params, locals, depends }) {
     })
     if(user != null) 
         return {
-            user,
-            me: locals.user,
+            subject: user,
         };
     else
         throw error(404, "Cette personne n'est pas repertorié");
