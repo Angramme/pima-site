@@ -72,7 +72,11 @@
 
 <hr/>
 
-<form method="POST" action="?/update_data" use:enhance>
+<form method="POST" action="?/update_data" use:enhance={() => {
+    return async ({ update }) => {
+      update({ reset: false });
+    };
+  }}>
     <fieldset>
         <legend>Mes donnes</legend>
         <p class="info"> Attention, pour faire des changement il faut imperativement soumettre les données avec le bouton "Mettre a jour" en bas. </p>
@@ -89,12 +93,12 @@
                             {#if type=="textlist" || type=="longtext"}
                                 <td>
                                     {#if type=="textlist"} <div class="info">lister en séparant par des ","</div> {/if}
-                                    <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 5} cols="40">{value}</textarea>
+                                    <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 5} cols="40">{""+value}</textarea>
                                 </td>
                             {:else if type=="date"}
                                 <td>{value}</td>
                             {:else}
-                                <td><input name={key} id={`input_${key}`} type={type} value={value} readonly={read_only}/></td>
+                                <td><input name={key} id={`input_${key}`} type={type} value={""+value} readonly={read_only}/></td>
                             {/if}
                         </tr>
                         {/each}
