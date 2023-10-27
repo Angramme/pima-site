@@ -200,8 +200,7 @@
                 <table>
                     <tr>
                         <td><label for="create_emails">emails (separate with ";")</label></td>
-                        <!-- <td><input name="emails" id="create_emails" type="text"></td> -->
-                        <textarea name="emails" id="create_emails" rows={3} cols="40"></textarea>
+                        <td><textarea name="emails" id="create_emails" rows={3} cols="40"></textarea></td>
                     </tr>
                     <tr>
                         <td><label for="create_grad_year">année fin L3</label></td>
