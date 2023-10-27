@@ -27,10 +27,28 @@
                 .every(s=>Object
                     .values(d)
                     .some(matches(s)))));
+
+    let show_hint = false;
 </script>
 
 <h1>Repertoire des anciens :</h1>
 
+<p>
+    Exemples d'utilisation <button on:click={()=>show_hint=!show_hint}>{show_hint ? "cacher" : "afficher"}</button>: 
+</p>
+{#if show_hint}
+<ul>
+    <li>Trouver tout le monde admis a l'X: taper "Poly" ou "X" ou "Pol" etc...
+         (il faut tester les deux, ca sera amelioré dans le futur)</li>
+    <li>Trouver une personne: taper son nom ou prenom</li>
+    <li>Trouver des Telecom admis en 2023: taper "Tele 2023" ou "Tel 2023" etc...</li>
+    <li>Trouver des gens de nationalié Polonaise: taper "pl" ou "polo"</li>
+    <li>Trouver tout le monde avec 18 de moyenne: taper "18" 
+        (attention si qqn parle de 18 dans leur description par exemple, 
+        elle/il va aussi etre affiché meme si elle/il a pas eu 18)</li>
+    <li>En general vous pouvez cherchez toutes les données :)</li>
+</ul>
+{/if}
 <p>
     Les informations présentes ont ete donnes par les élèves eux mêmes avec leur accord. 
 </p>
