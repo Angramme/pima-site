@@ -27,6 +27,7 @@
                     <td>
                         <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> 
                         <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> 
+                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/conseils"> conseils </a>
                         <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a>
                     </td>
                     <td id="user-td">
