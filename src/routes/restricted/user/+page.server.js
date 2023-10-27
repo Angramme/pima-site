@@ -2,6 +2,7 @@ import prisma from '$lib/prisma';
 import { check_password, end_session, hash_password } from '$lib/sessions';
 import { generate_password, zip } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
+import { sendCreationMail } from '$lib/mail';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, depends }) {
@@ -177,13 +178,20 @@ export const actions = {
             return { creation_failure: "form data incomplete" };
 
         const emails_s = data.getAll("emails")
-            ?.map(value=>value.toString());
+            ?.map(s=>s?.toString())
+            .flatMap(s=>s.split(";"))
+            .map(s=>s.trim());
 
+        if(emails_s.length == 0)
+            return { creation_failure: "no emails provided, invalid request!" };
+        
         if(!emails_s.every(s=>s.split('@')[1] == "etu.sorbonne-universite.fr"))
             return { creation_failure: "invalid email address host found (does not match etu.sorbonne-universite.fr)" };
 
+
         const unique_logins = await Promise.all(emails_s
-            .map(s=>s.split("@")[0].replace(".", "-"))
+            .map(s=>s.split("@")[0].split("."))
+            .map(([prenom, nom])=>`${nom}-${prenom}`)
             .map(async login_o=>{
                 // make it unique 
                 const clashes = (await prisma.user.findMany({
@@ -206,18 +214,18 @@ export const actions = {
             // @ts-ignore
             .map(([login, pwd])=>hash_password(login, pwd));
 
-        // prenom, nom, login, pwd hash
-        /** @type {[string, string, string, string][]} */
-        const creation_data = zip([unique_logins, password_hashes])
+        // prenom, nom, login, pwd hash, pwd clear, email
+        /** @type {[string, string, string, string, string, string][]} */
+        const creation_data = zip([unique_logins, password_hashes, passwords, emails_s])
             //@ts-ignore
-            .map(([login, pwshash])=>[login.split("-")[0], login.split("-")[1], login, pwshash]);
+            .map(([login, pwshash, clearpwd, email])=>[login.split("-")[1], login.split("-")[0], login, pwshash, clearpwd, email]);
 
         const grad_year = Number(data.get("grad_year")?.toString()) || 0; 
 
         try{
             await prisma.user.createMany({
-                    data: creation_data.map(([prenom, nom, login, pwdhash])=>({
-                        prenom, nom, login, grad_year, password: pwdhash
+                    data: creation_data.map(([prenom, nom, login, pwdhash, _clearpwd, email])=>({
+                        prenom, nom, login, grad_year, password: pwdhash, email
                     })),
                 });
         }catch(error){
@@ -225,13 +233,26 @@ export const actions = {
             return { creation_failure: `Prisma Error: ${error}` }
         }
 
+        try{
+            const smtp_res = await Promise.all(
+                creation_data
+                .map(([prenom, nom, login, _pwdhash, clearpwd, email])=>
+                    sendCreationMail(email, login, nom, prenom, clearpwd)));
+        }catch(error){
+            // cleanup, since error occured, return to the previous state
+            await prisma.user.deleteMany({
+                where: {
+                    login: {
+                        in: unique_logins
+                    }
+                }
+            });
 
-        // TODO: try sending emails here 
-        // if it fails, reverse all the modifications to the database, i.e. delete all added records
-        // then return a response with the appropriate error message
+            console.error(error);
+            return { creation_failure: `SMTP [nodemailer] Error: ${error}` };
+        }
 
 
-
-        return { creation_success: true, new_account_logins: unique_logins }; 
+        return { creation_success: true, new_account_logins: unique_logins.join(";") }; 
     },
 };
