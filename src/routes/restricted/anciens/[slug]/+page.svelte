@@ -56,7 +56,7 @@
     </fieldset>
 {/if}
 
-<h2>Description : </h2>
+<h2>Conseils / description : </h2>
 <p>{data.subject?.description}</p>
 
 <style>

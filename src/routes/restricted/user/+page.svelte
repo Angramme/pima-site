@@ -2,6 +2,7 @@
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import { user_data_into_forms } from '$lib/transformers';
+  import { generate_password } from '$lib/utils';
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -34,14 +35,6 @@
 
     /** @type {HTMLInputElement}*/
     let create_pwd;
-
-    const generate_password = (
-        length = 30,
-        wishlist = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
-    ) =>
-        Array.from(crypto.getRandomValues(new Uint32Array(length)))
-            .map((x) => wishlist[x % wishlist.length])
-            .join('');
 </script>
 
 <h1>Donnes et parametres utilisateur</h1>
@@ -194,6 +187,31 @@
                     </tr>
                 </table>
                 <p class="info">Copiez le mot de passe, cliquez sur creer puis copiez le login.</p>
+            </fieldset>
+        </fieldset>
+    </form>
+    <form method="POST" action="?/mass_create_accounts" use:enhance>
+        <fieldset class="admin">
+            <legend>Admin</legend>
+            <fieldset>
+                <legend>Créer des comptes à partir des emails</legend>
+                {#if form?.creation_failure}<p class="error">Erreur serveur: "{form.creation_failure}"</p>{/if}
+                {#if form?.creation_success}<p class="success">Creation réussie! logins: {form.new_account_login} </p>{/if}        
+                <table>
+                    <tr>
+                        <td><label for="create_emails">emails (separate with ";")</label></td>
+                        <td><textarea name="emails" id="create_emails" rows={3} cols="40"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label for="create_grad_year">année fin L3</label></td>
+                        <td><input name="grad_year" id="create_grad_year" type="number"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Créer"></td>
+                    </tr>
+                </table>
+                <p class="info">Entrez des emails des personnes et l'année de leur L3</p>
             </fieldset>
         </fieldset>
     </form>
