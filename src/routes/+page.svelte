@@ -19,18 +19,25 @@
 <hr/>
 
 <p>
-    Ce site est entretenu par les étudiants de la double majeure Mathématiques et Informatique à Sorbonne Université. L'autre acronyme commun pour ce dernier est PIMA.  
+    Ce site est maintenu par les étudiants de la double majeure en Mathématiques et Informatique à Sorbonne Université, également connue sous l'acronyme PIMA. L'objectif de ce site est de rassembler des ressources utiles, telles que des comptes rendus au format PDF rédigés par d'anciens étudiants, des instructions pour obtenir des documents administratifs tels que les descriptifs des Unités d'Enseignement (UE), des conseils pour la rédaction de lettres de recommandation, de lettres de motivation, de CV, et bien plus encore.
 </p>
 
 <p>
-    Ce site a pour but de regrouper les resources utiles, par exemple les compte rendus <i>pdf</i> des anciens étudiant, les instructions pour recevoir les documents administratifs (ex: descriptifs des UEs), conseils pour les lettres de recommandation, lettre de motivation, CV etc. L'idée est aussi de centraliser un peu les resources des PIMA des années précédentes et avoir un portail un peu global pour toutes les années.
+    Sur ce site, vous trouverez également des informations sur les procédures d'admission, des conseils, des documents partagés sur le drive, et même la possibilité de contacter d'anciens étudiants de la PIMA qui ont intégré les écoles que vous visez. De plus, nous prévoyons également de fournir des conseils sur les documents administratifs et sur la manière de naviguer au mieux dans les méandres de l'administration de la Sorbonne.
 </p>
+
 <p>
-    Ce site permet également de rechercher facilement des étudiants ayant fait certaines écoles ou acceptés dans certaines écoles (en effet il suffit de taper le nom de l'école dans la barre de recherche). Il est de même pour des entreprises, labos, unviersités a l'étranger etc. Ce site permet aux anciens d'écrire des conseils et descriptions pour les futures générations des PIMA et facilite la recherche par mot clef dans ces conseils. 
+    L'idée maîtresse qui sous-tend ce projet est que, une fois que vous aurez également réussi à intégrer une école, vous serez encouragés à contribuer au site en partageant vos expériences et connaissances pour aider les générations futures d'étudiants de la PIMA.
 </p>
+
 <p>
-    Ce site, à condition que suffisament des étudiants s'inscrivent, offre donc un véritable réseau et base de savoir benefiques pour la vie academique et profesionelle. 
+    Actuellement, l'accès au site est exclusif, ce qui signifie que vous devez créer un compte pour accéder aux informations existantes et ajouter de nouvelles ressources. Cette approche vise à garantir que les contacts des anciens étudiants et les informations demeurent aussi confidentiels que possible. Nous voulons également nous assurer que les personnes extérieures à la PIMA, pour ne pas les nommer, ne puissent pas accéder à nos précieuses données.
 </p>
+
+<p>
+    Dans l'ensemble, ce site offre un véritable réseau et une source de connaissances précieuses pour la vie académique et professionnelle des étudiants de la PIMA, à condition qu'un nombre suffisant d'étudiants s'y inscrivent.
+</p>
+
 
 <h2>Liens externes : </h2>
 <p>🔒 protegé</p>

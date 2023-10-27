@@ -38,12 +38,12 @@
                 <td><input type="button" id="forgot" value="mdb ou identifiant oublié" disabled/></td>
             </tr>
         </table>
-        <p>Attention en vous connectant sur ce site vous acceptez l'utilisant des cookies essentiels. En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a></p>
+        <p>Veuillez noter qu'en vous connectant sur ce site, vous acceptez l'utilisation de cookies essentiels. En utilisant ce site et les services qui y sont proposés, vous acceptez la <a href="/reglementation">réglementation</a></p>
     </fieldset>
 </form>
 
 <h3>Infos : </h3>
-<p>Pour creer un compte, contacter un des admins: </p>
+<p>Pour créer un compte, veuillez prendre contact avec l'un des administrateurs : </p>
 {#await data.streamed.admins}
     Chargement des admins...
 {:then admins} 
