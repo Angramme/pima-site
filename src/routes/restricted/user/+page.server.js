@@ -180,13 +180,21 @@ export const actions = {
         const emails_s = data.getAll("emails")
             ?.map(s=>s?.toString())
             .flatMap(s=>s.split(";"))
-            .map(s=>s.trim());
+            .map(s=>s.trim())
+            .filter(s=>s.length > 0);
 
         if(emails_s.length == 0)
             return { creation_failure: "no emails provided, invalid request!" };
         
-        if(!emails_s.every(s=>s.split('@')[1] == "etu.sorbonne-universite.fr"))
-            return { creation_failure: "invalid email address host found (does not match etu.sorbonne-universite.fr)" };
+        const email_correct = 
+            /**
+             * @param {string} s 
+             * @returns bool
+             */
+            (s)=>(s.split('@')[1] == "etu.sorbonne-universite.fr");
+        if(!emails_s.every(email_correct)){
+            return { creation_failure: "invalid email address host found (does not match etu.sorbonne-universite.fr) mismatches: [" + emails_s.filter(s=>!email_correct(s)).join("; ") + "]"};
+        }
 
 
         const unique_logins = await Promise.all(emails_s
