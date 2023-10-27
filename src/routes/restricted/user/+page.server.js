@@ -1,5 +1,6 @@
 import prisma from '$lib/prisma';
 import { check_password, end_session, hash_password } from '$lib/sessions';
+import { generate_password, zip } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
@@ -142,7 +143,7 @@ export const actions = {
         const nom = data.get("nom")?.toString() || ""; 
         let login = `${nom.toLowerCase()}-${prenom.toLowerCase()}`; 
         const grad_year = Number(data.get("grad_year")?.toString()) || 0; 
-        const password = hash_password(login, data.get("password")?.toString() || "");
+        const password_hash = hash_password(login, data.get("password")?.toString() || "");
 
         // make login unique
         const logins = (await prisma.user.findMany({
@@ -158,7 +159,7 @@ export const actions = {
 
         try{
             await prisma.user.create({
-                data: { prenom, nom, login, grad_year, choisi: "? 😴", password }
+                data: { prenom, nom, login, grad_year, choisi: "? 😴", password: password_hash }
             });
         }catch(error){
             console.error(error);
@@ -166,5 +167,70 @@ export const actions = {
         }
 
         return { creation_success: true, new_account_login: login }; 
+    },
+    mass_create_accounts: async ({ locals, request }) => {
+        if(!locals.user) return { creation_failure: "user logged out" };
+        if(!locals.user.admin) return { creation_failure: "user does not have permissions" };
+
+        const data = await request.formData();
+        if(!data.has("emails") || !data.has("grad_year"))
+            return { creation_failure: "form data incomplete" };
+
+        const emails_s = data.getAll("emails")
+            ?.map(value=>value.toString());
+
+        if(!emails_s.every(s=>s.split('@')[1] == "etu.sorbonne-universite.fr"))
+            return { creation_failure: "invalid email address host found (does not match etu.sorbonne-universite.fr)" };
+
+        const unique_logins = await Promise.all(emails_s
+            .map(s=>s.split("@")[0].replace(".", "-"))
+            .map(async login_o=>{
+                // make it unique 
+                const clashes = (await prisma.user.findMany({
+                        where: { login: {
+                            contains: login_o
+                        }},
+                        select: { login: true }
+                    }))
+                    .map(({login})=>login);
+                let login = login_o;
+                let i = 0;
+                while(clashes.includes(login)) // very inefficient but we will not have thousands of users with the same name (we wont have thousands of users)
+                    login = `${login_o}-${i++}`;
+            }));
+
+        const passwords = Array.from(unique_logins, _login=>generate_password());
+        /** @type {string[]} */
+        const password_hashes = zip([unique_logins, passwords])
+            // @ts-ignore
+            .map(([login, pwd])=>hash_password(login, pwd));
+
+        // prenom, nom, login, pwd hash
+        /** @type {[string, string, string, string][]} */
+        const creation_data = zip([unique_logins, password_hashes])
+            //@ts-ignore
+            .map(([login, pwshash])=>[login.split("-")[0], login.split("-")[1], login, pwshash]);
+
+        const grad_year = Number(data.get("grad_year")?.toString()) || 0; 
+
+        try{
+            await prisma.user.createMany({
+                    data: creation_data.map(([prenom, nom, login, pwdhash])=>({
+                        prenom, nom, login, grad_year, choisi: "? 😴", password: pwdhash
+                    })),
+                });
+        }catch(error){
+            console.error(error);
+            return { creation_failure: `Prisma Error: ${error}` }
+        }
+
+
+        // TODO: try sending emails here 
+        // if it fails, reverse all the modifications to the database, i.e. delete all added records
+        // then return a response with the appropriate error message
+
+
+
+        return { creation_success: true, new_account_logins: unique_logins }; 
     },
 };

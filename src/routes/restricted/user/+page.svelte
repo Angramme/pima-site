@@ -2,6 +2,7 @@
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import { user_data_into_forms } from '$lib/transformers';
+  import { generate_password } from '$lib/utils';
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -34,14 +35,6 @@
 
     /** @type {HTMLInputElement}*/
     let create_pwd;
-
-    const generate_password = (
-        length = 30,
-        wishlist = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
-    ) =>
-        Array.from(crypto.getRandomValues(new Uint32Array(length)))
-            .map((x) => wishlist[x % wishlist.length])
-            .join('');
 </script>
 
 <h1>Donnes et parametres utilisateur</h1>
