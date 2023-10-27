@@ -50,7 +50,7 @@
 </ul>
 {/if}
 <p>
-    Les informations présentes ont ete donnes par les élèves eux mêmes avec leur accord. 
+    Les informations présentes ont été fournies par les élèves eux-mêmes avec leur consentement.
 </p>
 
 Rechercher : <input type="text" bind:value={search_term}/> - 
