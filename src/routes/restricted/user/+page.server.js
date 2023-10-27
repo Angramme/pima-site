@@ -159,7 +159,7 @@ export const actions = {
 
         try{
             await prisma.user.create({
-                data: { prenom, nom, login, grad_year, choisi: "? 😴", password: password_hash }
+                data: { prenom, nom, login, grad_year, password: password_hash }
             });
         }catch(error){
             console.error(error);
@@ -197,6 +197,7 @@ export const actions = {
                 let i = 0;
                 while(clashes.includes(login)) // very inefficient but we will not have thousands of users with the same name (we wont have thousands of users)
                     login = `${login_o}-${i++}`;
+                return login;
             }));
 
         const passwords = Array.from(unique_logins, _login=>generate_password());
@@ -216,7 +217,7 @@ export const actions = {
         try{
             await prisma.user.createMany({
                     data: creation_data.map(([prenom, nom, login, pwdhash])=>({
-                        prenom, nom, login, grad_year, choisi: "? 😴", password: pwdhash
+                        prenom, nom, login, grad_year, password: pwdhash
                     })),
                 });
         }catch(error){
