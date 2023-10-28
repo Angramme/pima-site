@@ -1,7 +1,8 @@
 
 <script>
     import links from "$data/external-links.json"
-    import admins from "$data/admins.json"
+
+    export let data;
 </script>
 
 <h1 style="font-weight:normal;">
@@ -19,11 +20,11 @@
 <hr/>
 
 <p>
-    Ce site est maintenu par les étudiants de la double majeure en Mathématiques et Informatique à Sorbonne Université, également connue sous l'acronyme PIMA. L'objectif de ce site est de rassembler des ressources utiles, telles que des comptes rendus au format PDF rédigés par d'anciens étudiants, des instructions pour obtenir des documents administratifs tels que les descriptifs des Unités d'Enseignement (UE), des conseils pour la rédaction de lettres de recommandation, de lettres de motivation, de CV, et bien plus encore.
+    Ce site est maintenu par les étudiants de la double majeure en Mathématiques et Informatique à Sorbonne Université, également connue sous l'acronyme PIMA. L'objectif de ce site est de rassembler des ressources utiles, telles que des <accent>comptes rendus</accent> au format PDF rédigés par d'anciens étudiants, des instructions pour obtenir des documents administratifs tels que les <accent>descriptifs des Unités d'Enseignement</accent> (UE), des <accent>conseils pour la rédaction</accent> de lettres de recommandation, de lettres de motivation, de CV, et bien plus encore.
 </p>
 
 <p>
-    Sur ce site, vous trouverez également des informations sur les procédures d'admission, des conseils, des documents partagés sur le drive, et même la possibilité de contacter d'anciens étudiants de la PIMA qui ont intégré les écoles que vous visez. De plus, nous prévoyons également de fournir des conseils sur les documents administratifs et sur la manière de naviguer au mieux dans les méandres de l'administration de la Sorbonne.
+    Sur ce site, vous trouverez également des informations sur les <accent>procédures d'admission</accent>, des conseils, des documents partagés sur le drive, et même la possibilité de <accent>contacter d'anciens étudiants</accent> de la PIMA qui ont intégré les écoles que vous visez. De plus, nous prévoyons également de fournir des <accent>conseils sur les documents administratifs</accent> et sur la manière de naviguer au mieux dans les méandres de l'administration de la Sorbonne.
 </p>
 
 <p>
@@ -38,6 +39,17 @@
     Dans l'ensemble, ce site offre un véritable réseau et une source de connaissances précieuses pour la vie académique et professionnelle des étudiants de la PIMA, à condition qu'un nombre suffisant d'étudiants s'y inscrivent.
 </p>
 
+<h3>En chiffres :</h3>
+
+<p>
+    Actuellement, pima.ozieblowski.dev a <accent><strong>{data.members_count}</strong> membres</accent>, dont <strong>{data.ancien_count}</strong> qui ont obtenu leur licence en {new Date().getFullYear()} ou avant. (i.e. les anciens)
+</p>
+
+
+<h2>Contribuer :</h2>
+<p>
+    Pour ajouter du contenu à ce site web, veuillez suivre les instructions sur la page <b>GitHub</b> (<a target="_blank" href="https://github.com/Angramme/pima-site">lien</a>). Pour ajouter du contenu sur le <b>Google Drive</b> contacter un des admins pour recevoir les droits. Pour suggerer des changement a ce site web, veuillez contacter les admins. Pour connaitre les admins, chercher simplement "admin" sur la page "anciens" ou consultez la page "login"/"connexion".
+</p>
 
 <h2>Liens externes : </h2>
 <p>🔒 protegé</p>
@@ -50,15 +62,14 @@
 </ul>
 {/each}
 
-<h2>Contribuer :</h2>
-<p>
-    Pour ajouter du contenu à ce site web, veuillez suivre les instructions sur la page <b>GitHub</b> (<a target="_blank" href="https://github.com/Angramme/pima-site">lien</a>). Pour ajouter du contenu sur le <b>Google Drive</b> contacter un des admins pour recevoir les droits. Pour suggerer des changement a ce site web, veuillez contacter les admins. Pour connaitre les admins, chercher simplement "admin" sur la page "anciens" ou consultez la page "login"/"connexion".
-</p>
-
 <style>
     p{
         text-align: justify;
         text-justify: distribute;
+    }
+    accent, accent *{
+        color: rgb(27, 143, 39);
+        text-decoration: wavy underline;
     }
 
 </style>

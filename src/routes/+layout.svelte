@@ -4,6 +4,13 @@
     import { page } from '$app/stores';
 
 
+    const pages = [
+        ["/", "acceuil"],
+        ["/restricted/anciens", "anciens"],
+        ["/restricted/conseils", "conseils"],
+        ["/restricted/faq", "FAQ"],
+    ]
+
     export let data;
 
     let hide_cookie_msg = Boolean(data.cookies_accepted);
@@ -25,10 +32,9 @@
                         <span class="logo-text">Æ PIMA</span>
                     </td>
                     <td>
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> 
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> 
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/conseils"> conseils </a>
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a>
+                        {#each pages as p}
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href={p[0]} class={$page.url.pathname == p[0] ? "current":""}> {p[1]} </a> 
+                        {/each}
                     </td>
                     <td id="user-td">
                         {#if user}
@@ -180,5 +186,9 @@
     .pls-wake-up > * {
         padding: 10px;
         background: var(--background-color);
+    }
+    a.current{
+        color: white;
+        background-color: black;
     }
 </style>
