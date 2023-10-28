@@ -15,6 +15,8 @@ export let data;
 Chargement...
 {:then descs}
     {#each descs as des}
+    {#if des.description.length > 7}
+    <div>
         <hr/>
         <h3>
             <a href={`/restricted/anciens/${des.id}`}>{des.prenom}</a> 
@@ -25,5 +27,16 @@ Chargement...
         </h3>
 
         <p>{des.description}</p>
+    </div>
+    {/if}
     {/each}
 {/await}
+
+<style>
+    div:nth-child(even) {
+        background-color: rgb(255, 246, 246);
+    }
+    div:nth-child(odd) {
+        background-color: rgb(242, 255, 255);
+    }
+</style>

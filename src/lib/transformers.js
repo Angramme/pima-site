@@ -9,16 +9,16 @@ export function user_data_into_forms(user){
     if(!user) return [];
     return [
         {n:"Ecoles", l:[
-            {k:"admis", l:"admis dans (masters/ecoles d'inge hors licence)", v:user.admis, t:"textlist", ro:false},
-            {k:"choisi", l:"choisi (master/ecoles d'inge hors licence)", v:user.choisi, t:"text", ro:false},
+            {k:"admis", l:"admis dans (masters / ecoles d'inge hors licence)", v:user.admis, t:"textlist", ro:false},
+            {k:"choisi", l:"choisi (master / ecoles d'inge hors licence)", v:user.choisi, t:"text", ro:false},
         ]},
-        {n:"#PIMAlife", l:[
+        {n:"PIMA", l:[
             {k:"grad_year", l:"année en fin L3 (année fin S6)", v:user.grad_year, t:"number", ro:false},
             {k:"moyenneL2", l:"moyenne generale L2", v:user.moyenneL2, t:"number", ro:false},
             {k:"moyenneL3", l:"moyenne generale L3", v:user.moyenneL3, t:"number", ro:false},
         ]},
         {n:"Vie profesionelle", l:[
-            {k:"travails", l:"à travaillé/e dans ces entreprises/labos/startup/non-profit...", v:user.travails, t:"textlist", ro:false},
+            {k:"travails", l:"à travaillé/e dans ces entreprises / labos / startup / non-profit...", v:user.travails, t:"textlist", ro:false},
         ]},
         {n:"Contact", l:[
             {k:"email", l:"email", v:user.email, t:"email", ro:false},
