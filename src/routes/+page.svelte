@@ -13,7 +13,7 @@
 
 <p>
     Site <i>non-officiel</i> DMMI/PIMA. 
-    <br/>"Æ PIMA" : "anciens étudiants du parcours PIMA"
+    <br/>"Æ PIMA" : "Anciens-Etudiants-du-Parcours-PIMA"
 </p>
 
 <hr/>
