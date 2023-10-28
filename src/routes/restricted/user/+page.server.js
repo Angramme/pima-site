@@ -1,6 +1,6 @@
 import prisma from '$lib/prisma';
 import { check_password, end_session, hash_password } from '$lib/sessions';
-import { generate_password, zip } from '$lib/utils';
+import { capFirst, generate_password, zip } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
 import { sendCreationMail } from '$lib/mail';
 
@@ -197,9 +197,12 @@ export const actions = {
         }
 
 
-        const unique_logins = await Promise.all(emails_s
+        const prenom_nom = emails_s
             .map(s=>s.split("@")[0].split("."))
-            .map(([prenom, nom])=>`${nom}-${prenom}`)
+            .map(([pre, nom])=>[capFirst(pre.replaceAll("_", " ").trim()), capFirst(nom.replaceAll("_", " ").trim())]);
+
+        const unique_logins = await Promise.all(prenom_nom
+            .map(([prenom, nom])=>(nom+" "+prenom).replaceAll(" ", "-").toLowerCase())
             .map(async login_o=>{
                 // make it unique 
                 const clashes = (await prisma.user.findMany({
@@ -224,9 +227,9 @@ export const actions = {
 
         // prenom, nom, login, pwd hash, pwd clear, email
         /** @type {[string, string, string, string, string, string][]} */
-        const creation_data = zip([unique_logins, password_hashes, passwords, emails_s])
+        const creation_data = zip([unique_logins, prenom_nom, password_hashes, passwords, emails_s])
             //@ts-ignore
-            .map(([login, pwshash, clearpwd, email])=>[login.split("-")[1], login.split("-")[0], login, pwshash, clearpwd, email]);
+            .map(([login, [prenom, nom], pwshash, clearpwd, email])=>[prenom, nom, login, pwshash, clearpwd, email]);
 
         const grad_year = Number(data.get("grad_year")?.toString()) || 0; 
 
@@ -242,7 +245,7 @@ export const actions = {
         }
 
         try{
-            const smtp_res = await Promise.all(
+            await Promise.all(
                 creation_data
                 .map(([prenom, nom, login, _pwdhash, clearpwd, email])=>
                     sendCreationMail(email, login, nom, prenom, clearpwd)));
@@ -261,6 +264,6 @@ export const actions = {
         }
 
 
-        return { creation_success: true, new_account_logins: unique_logins.join(";") }; 
+        return { creation_success: true, new_account_login: unique_logins.join(";") }; 
     },
 };

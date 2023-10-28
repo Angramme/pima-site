@@ -1,5 +1,6 @@
 import { createTransport, getTestMessageUrl } from "nodemailer";
 import { SMTP_USER, SMTP_PWD } from '$env/static/private'
+import { capFirst } from "./utils";
 
 
 const nodemailer = createTransport({
@@ -44,13 +45,13 @@ export function sendCreationMail(email, login, nom, prenom, pwd) {
         subject: 'Ton compte sur pima.ozieblowski.dev ❤️',
 
         // plaintext body
-        text: `Salut ${prenom[0].toUpperCase() + prenom.slice(1)}! 
+        text: `Salut ${capFirst(prenom)}! 
 Voici tes identifiants pour pima.ozieblowski.dev: 
 
 \tlogin: ${login} 
-\tmot-de-passe: ${pwd}.
+\tmot-de-passe: ${pwd}
 
-Il est fortement recommandé de changer ce mot de passe immediatement :)
+Il est fortement recommandé de changer ce mot de passe immédiatement :)
 (Si tu souhaites supprimer ton compte, tu peux répondre "BANANE" a ce email.)
 
 Kind regards 🤙,
