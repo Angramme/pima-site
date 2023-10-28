@@ -86,7 +86,7 @@
                             {#if type=="textlist" || type=="longtext"}
                                 <td>
                                     {#if type=="textlist"} <div class="info">lister en séparant par des ","</div> {/if}
-                                    <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 5} cols="40">{""+value}</textarea>
+                                    <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 12} cols="40">{""+value}</textarea>
                                 </td>
                             {:else if type=="date"}
                                 <td>{value}</td>
@@ -103,9 +103,15 @@
             <legend>Soumettre</legend>
             {#if form?.update_success}<p class="success">Mise a jour réussie!</p>{/if}
             {#if form?.update_failure}<p class="error">Erreur de mise à jour: "{form.update_failure}""</p>{/if}
-            <input bind:checked={user_agreed} id="agreement" type="checkbox"/>
-            <label for="agreement"><u>J'ai pris conaissance</u> de la réglementation <a href="/reglementation" target="_blank">ici</a> et <u>je donne mon accord</u> pour utilisation de mes donnees plus haut.</label><br/>
-            <input type="submit" disabled={!user_agreed} value="Mettre a jour"/>
+            <table>
+                <tr>
+                    <input bind:checked={user_agreed} id="agreement" type="checkbox"/>
+                    <label for="agreement"><u>J'ai pris conaissance</u> de la réglementation <a href="/reglementation" target="_blank">ici</a> et <u>je donne mon accord</u> pour utilisation de mes donnees plus haut.</label>
+                </tr>
+                <tr>
+                    <input type="submit" disabled={!user_agreed} id="mettre_a_jour" value="Mettre a jour"/>
+                </tr>
+            </table>
         </fieldset>
     </fieldset>
 </form>
@@ -220,28 +226,33 @@
 <style>
     fieldset{
         margin-top: 20px;
-        border: solid 2px gray;
+        border: none;
+        border-top: solid 2px gray;
         background: var(--background-color);
     }
     form > fieldset{
         margin-top: 50px;
         margin-bottom: 50px;
         border: none;
-        background-image: radial-gradient(rgb(178, 178, 178) 1px, transparent 0);
-        background-size: 5px 5px;
+        /* background-image: radial-gradient(rgb(178, 178, 178) 1px, transparent 0);
+        background-size: 5px 5px; */
+    }
+    form > fieldset > fieldset {
+        background-color: rgb(234, 234, 234);
     }
     form > fieldset > *{
         background-color: var(--background-color);
     }
     form > fieldset > legend{
-        font-size: x-large;
+        font-size: xx-large;
         background-color: var(--behind-color);
     }
-    input{
+    input, textarea{
         width: 95%;
-    }
-    textarea{
-        width: 95%;
+        padding: 0.4rem;
+        border-radius: 0.4rem;
+        border: solid rgb(201, 201, 201) 1px;
+        /* background-color: rgb(243, 243, 243); */
     }
     input:read-only[type~="text"], input:read-only[type~="date"], textarea:read-only{
         background: rgb(196, 196, 196);
@@ -281,5 +292,17 @@
     }
     table tr td:first-child {
         width: 100px;
+        overflow: hidden;
+        border-bottom: solid 1px black;
+    }
+    table tr:last-child td:first-child {
+        border: none;
+    }
+
+    #mettre_a_jour:enabled {
+        background-color: rgb(196, 255, 196);
+    }
+    #mettre_a_jour:disabled {
+        background-color: rgb(255, 147, 147);
     }
 </style>

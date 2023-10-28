@@ -32,6 +32,9 @@ export async function load({ locals, depends }) {
             choisi: true,
             description: true,
             createdAt: true,
+            travails: true,
+            moyenneL2: true,
+            moyenneL3: true,
         },
     });
 
