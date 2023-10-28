@@ -30,3 +30,15 @@ export function zip(arrays) {
             function(array){return array[i]})
     });
 }
+
+/** Capitalize first letter
+ * @param {string} str 
+ * @return {string}
+ */
+export function capFirst(str){
+    str = str.toLowerCase();
+    if(str.length == 0) return str;
+    const s = str.split(" ");
+    if(s.length > 1) return s.map(capFirst).join(" ");
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+}
