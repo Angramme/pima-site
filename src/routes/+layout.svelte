@@ -8,7 +8,8 @@
         ["/", "acceuil"],
         ["/restricted/anciens", "anciens"],
         ["/restricted/conseils", "conseils"],
-        ["/restricted/faq", "FAQ"],
+        ["/restricted/external/Google Drive", "drive"],
+        // ["/restricted/faq", "FAQ"],
     ]
 
     export let data;
