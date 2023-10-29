@@ -1,7 +1,6 @@
 <script>
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
-  import admins from "$data/admins.json"
   import { onMount } from 'svelte';
 
     /** @type {import('./$types').ActionData} */
