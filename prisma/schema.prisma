@@ -15,6 +15,7 @@ model User {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   login       String @unique
   password    String 
+  pepper      String @default("")
   admin       Boolean @default(false) // true if has admin privilages
   session     Session? // current sesion
   sleeping    Boolean @default(true) // was the account activated by the user (ie, has the user uploaded data)

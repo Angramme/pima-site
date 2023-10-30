@@ -1,6 +1,7 @@
 import prisma from "$lib/prisma";
 import { createHash } from 'node:crypto';
 import { PASSWORD_HASH_SALT } from '$env/static/private'
+import { generate_password } from "./utils";
 
 const SESSION_ID_COOKIE = "sessionID";
 
@@ -8,15 +9,21 @@ const SESSION_ID_COOKIE = "sessionID";
  * hashes password with the hash function
  * @param {string} usr login
  * @param {string} pwd password
+ * @param {string} pepper user assigned pepper (20 characters)
  */
-export function hash_password(usr, pwd){
+export function hash_password(usr, pwd, pepper){
     // The SHA-3 hash algorithm is the latest member of the Secure Hash Algorithm family. 
     // SHA-3 was originally called “Keccak”. The Keccak algorithm is the winner in the 
     // NIST hash function competition.
     const hash = createHash('sha3-256');
-    hash.update(usr+pwd+PASSWORD_HASH_SALT);
+    hash.update(pepper.slice(0, 10)+usr+pwd+PASSWORD_HASH_SALT+pepper.slice(10, 20));
     const hex = hash.digest("hex");
     return hex;
+}
+
+/** generates a 20 character pepper */
+export function generate_pepper(){
+    return generate_password(20, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$§$*-_\"/\\'&?:;.,=+`£€");
 }
 
 /**
@@ -26,7 +33,7 @@ export function hash_password(usr, pwd){
  */
 export async function log_in_user(user_login, user_pwd){
     // verify password and retreive user id
-    const user_id = await check_password(user_login, user_pwd);
+    const user_id = await check_password(user_login, user_pwd).then(x=>x && x[0]);
     if(!user_id) return null;    
     
     // delete all older sessions
@@ -76,7 +83,7 @@ export async function session_get_user(cookies){
 }
 
 /**
- * Verifies password and returns users id if correct, null otherwise
+ * Verifies password and returns [users id, pepper] if correct, null otherwise
  * @param {string} login login
  * @param {string} pwd  password
  */
@@ -88,12 +95,19 @@ export async function check_password(login, pwd){
         select: {
             id: true,
             password: true,
+            pepper: true,
         }
     });
     if(!user) return null;
-    if(hash_password(login, pwd) != user.password) return null;
+    if(hash_password(login, pwd, user.pepper) != user.password) return null;
 
-    return user.id;
+    // add peppers to users with no peppers
+    if(user.pepper == ""){
+        console.log("unpeppered user");
+        // TODO
+    }
+
+    return [user.id, user.pepper];
 }
 
 /**

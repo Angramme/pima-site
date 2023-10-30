@@ -1,5 +1,5 @@
 import prisma from '$lib/prisma';
-import { check_password, end_session, hash_password } from '$lib/sessions';
+import { check_password, end_session, generate_pepper, hash_password } from '$lib/sessions';
 import { capFirst, generate_password, zip } from '$lib/utils';
 import { redirect } from '@sveltejs/kit';
 import { sendCreationMail } from '$lib/mail';
@@ -51,12 +51,12 @@ export const actions = {
         const old_pwd = data.get("old_pwd");
         const new_pwd = data.get("new_pwd");
         if(!locals.user || !old_pwd || !new_pwd) return { pwd_rst_missing: true };
-        const user_id = await check_password(locals.user.login, old_pwd.toString());
-        if(!user_id) return { pwd_rst_incorrect: true };
+        const [user_id, user_pepper] = await check_password(locals.user.login, old_pwd.toString()) || [null, null];
+        if(!user_id || !user_pepper) return { pwd_rst_incorrect: true };
         try{
             await prisma.user.update({
                 where: { id: user_id },
-                data: { password: hash_password(locals.user.login, new_pwd.toString()) },
+                data: { password: hash_password(locals.user.login, new_pwd.toString(), user_pepper) },
             });
         }catch(error){
             console.error(error);
@@ -144,7 +144,8 @@ export const actions = {
         const nom = data.get("nom")?.toString() || ""; 
         let login = `${nom.toLowerCase()}-${prenom.toLowerCase()}`; 
         const grad_year = Number(data.get("grad_year")?.toString()) || 0; 
-        const password_hash = hash_password(login, data.get("password")?.toString() || "");
+        const pepper = generate_pepper();
+        const password_hash = hash_password(login, data.get("password")?.toString() || "", pepper);
 
         // make login unique
         const logins = (await prisma.user.findMany({
@@ -160,7 +161,7 @@ export const actions = {
 
         try{
             await prisma.user.create({
-                data: { prenom, nom, login, grad_year, password: password_hash }
+                data: { prenom, nom, login, grad_year, password: password_hash, pepper }
             });
         }catch(error){
             console.error(error);
@@ -220,23 +221,24 @@ export const actions = {
             }));
 
         const passwords = Array.from(unique_logins, _login=>generate_password());
+        const peppers = Array.from(unique_logins, _login=>generate_pepper());
         /** @type {string[]} */
-        const password_hashes = zip([unique_logins, passwords])
+        const password_hashes = zip([unique_logins, passwords, peppers])
             // @ts-ignore
-            .map(([login, pwd])=>hash_password(login, pwd));
+            .map(([login, pwd, pepper])=>hash_password(login, pwd, pepper));
 
-        // prenom, nom, login, pwd hash, pwd clear, email
-        /** @type {[string, string, string, string, string, string][]} */
-        const creation_data = zip([unique_logins, prenom_nom, password_hashes, passwords, emails_s])
+        // prenom, nom, login, pwd hash, pwd clear, pepper, email
+        /** @type {[string, string, string, string, string, string, string][]} */
+        const creation_data = zip([unique_logins, prenom_nom, password_hashes, passwords, peppers, emails_s])
             //@ts-ignore
-            .map(([login, [prenom, nom], pwshash, clearpwd, email])=>[prenom, nom, login, pwshash, clearpwd, email]);
+            .map(([login, [prenom, nom], pwshash, clearpwd, pepper, email])=>[prenom, nom, login, pwshash, clearpwd, pepper, email]);
 
         const grad_year = Number(data.get("grad_year")?.toString()) || 0; 
 
         try{
             await prisma.user.createMany({
-                    data: creation_data.map(([prenom, nom, login, pwdhash, _clearpwd, email])=>({
-                        prenom, nom, login, grad_year, password: pwdhash, email
+                    data: creation_data.map(([prenom, nom, login, pwdhash, _clearpwd, pepper, email])=>({
+                        prenom, nom, login, grad_year, password: pwdhash, email, pepper
                     })),
                 });
         }catch(error){
