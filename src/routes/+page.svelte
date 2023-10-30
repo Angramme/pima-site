@@ -1,6 +1,6 @@
 
 <script>
-    import links from "$data/external-links.json"
+    import { categorized_keys as keys } from "$data/external-links.js"
 
     export let data;
 </script>
@@ -53,10 +53,10 @@
 
 <h2>Liens externes : </h2>
 <p>🔒 protegé</p>
-{#each Object.entries(links) as [category, lks]}
+{#each keys as [category, lks]}
 <h3>{category} : </h3>
 <ul>
-    {#each Object.keys(lks) as lk}
+    {#each lks as lk}
         <li>{lk} : <a href="/restricted/external/{lk}" target=”_blank”  data-sveltekit-preload-data="off" data-sveltekit-preload-code="off">lien</a></li>
     {/each}
 </ul>
