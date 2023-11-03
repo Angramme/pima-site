@@ -87,7 +87,8 @@
 </div>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+    /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap'); */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,600;1,400;1,600&family=Roboto:ital,wght@0,700;1,300&display=swap');
     *{
         /* font-family: 'Courier New', Courier, monospace; */
         font-family: 'Roboto Condensed', sans-serif;
@@ -151,7 +152,7 @@
         top: 0;
         left: 0;
         right: 0;
-        background: var(--behind-color);
+        background-color: var(--behind-color);
         padding-bottom: 7px;
     }
     nav{
@@ -189,7 +190,7 @@
         background: var(--background-color);
     }
     a.current{
-        color: white;
-        background-color: black;
+        color: var(--background-color);
+        background-color: var(--font-color);
     }
 </style>

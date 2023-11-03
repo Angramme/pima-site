@@ -180,7 +180,7 @@ Rechercher : <input type="text" bind:value={search_term}/> -
         text-align: left;
     }
     table tr:nth-child(even) {
-        background: rgb(237, 237, 237);
+        background: var(--behind-color);
     }
     .sleeper{
         font-style: italic;
