@@ -16,7 +16,7 @@ Chargement...
 {:then descs}
     {#each descs as des}
     {#if des.description.length > 7}
-    <div>
+    <div class="conseil">
         <hr/>
         <h3>
             <a href={`/restricted/anciens/${des.id}`}>{des.prenom}</a> 
@@ -33,10 +33,10 @@ Chargement...
 {/await}
 
 <style>
-    div:nth-child(even) {
-        background-color: rgb(255, 246, 246);
+    div.conseil{
+        padding-bottom: 0.2rem;
     }
-    div:nth-child(odd) {
-        background-color: rgb(242, 255, 255);
+    div.conseil a {
+        text-decoration: wavy underline var(--accent-color);
     }
 </style>

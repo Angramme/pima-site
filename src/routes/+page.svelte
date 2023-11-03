@@ -68,8 +68,8 @@
         text-justify: distribute;
     }
     accent, accent *{
-        color: rgb(27, 143, 39);
-        text-decoration: wavy underline;
+        font-weight: bold;
+        text-decoration: wavy underline var(--accent-color);
     }
 
 </style>

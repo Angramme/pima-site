@@ -226,33 +226,29 @@
 <style>
     fieldset{
         margin-top: 20px;
-        border: none;
-        border-top: solid 2px gray;
-        background: var(--background-color);
     }
     form > fieldset{
         margin-top: 50px;
         margin-bottom: 50px;
         border: none;
-        /* background-image: radial-gradient(rgb(178, 178, 178) 1px, transparent 0);
-        background-size: 5px 5px; */
     }
     form > fieldset > fieldset {
-        background-color: rgb(234, 234, 234);
+        border: none;
+        background: linear-gradient(40deg, var(--behind-color), var(--background-color) 50% 100%);
     }
     form > fieldset > *{
         background-color: var(--background-color);
     }
     form > fieldset > legend{
         font-size: xx-large;
-        background-color: var(--behind-color);
+        font-weight: bold;
+        text-decoration: underline wavy var(--behind-color);
+    }
+    form > fieldset >fieldset > legend {
+        font-weight: bold;
     }
     input, textarea{
         width: 95%;
-        padding: 0.4rem;
-        border-radius: 0.4rem;
-        border: solid rgb(201, 201, 201) 1px;
-        /* background-color: rgb(243, 243, 243); */
     }
     input:read-only[type~="text"], input:read-only[type~="date"], textarea:read-only{
         background: rgb(196, 196, 196);
@@ -293,7 +289,7 @@
     table tr td:first-child {
         width: 100px;
         overflow: hidden;
-        border-bottom: solid 1px black;
+        border-bottom: solid 1px var(--font-color);
     }
     table tr:last-child td:first-child {
         border: none;
@@ -304,5 +300,8 @@
     }
     #mettre_a_jour:disabled {
         background-color: rgb(255, 147, 147);
+    }
+    #mettre_a_jour:enabled:hover {
+        background-color: rgb(86, 255, 86);
     }
 </style>

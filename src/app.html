@@ -10,27 +10,44 @@
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 	<style>
-		*{
-			--behind-color: rgb(243, 243, 243);
+		:root {
+			--behind-color: rgb(227, 236, 243);
 			--background-color: rgb(255, 255, 255);
-			--accent-color: rgb(46, 63, 94);
+			--accent-color: rgb(31, 145, 238);
 			--font-color: rgb(51, 45, 45);
+		}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--behind-color: rgb(16, 20, 27);
+				--background-color: rgb(35, 34, 34);
+				--accent-color: rgb(111, 79, 252);
+				--font-color: rgb(192, 179, 179);
+			}
+		}
+		*{
 			color: var(--font-color);
-			/* text-shadow: 0.7px 0.1px 0.8px rgba(124, 226, 254, 0.7); */
+			text-shadow: 0.4px 0.1px 0.8px var(--behind-color);
 		}
 		hr{
-			border-color: var(--font-color);
-		}
-		fieldset{
 			border-color: var(--font-color);
 		}
 		body{
 			margin: 0;
 			background-color: var(--behind-color);
-			/* background-image: radial-gradient(rgb(169, 169, 169) 1px, transparent 0);
-			background-size: 15px 15px; */
-			/* background-blend-mode: hard-light; */
-			/* background-repeat: ; */
+		}
+		input, button, fieldset, textarea{
+			border: solid 2px var(--font-color);
+			border-radius: 0.2rem;
+		}
+		input, button, textarea {
+			background-color: var(--background-color);
+			color: var(--font-color);
+		}
+		input:hover, button:hover, fieldset:hover, textarea:hover{
+			border-color: var(--accent-color);
+		}
+		h1, h2, h3, h4, h5, h6 {
+			text-decoration: underline wavy var(--behind-color);
 		}
 	</style>
 </html>
