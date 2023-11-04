@@ -1,7 +1,7 @@
 
 
 <script>
-    import { marked } from "marked";
+    import Markdown from "$lib/components/Markdown.svelte";
 
 
 export let data;
@@ -27,8 +27,8 @@ Chargement...
                 PIMA {des.grad_year-3}-{des.grad_year}
             </span>
         </h3>
-
-        <p>{@html marked(des.description)}</p>
+    
+        <Markdown markdown={des.description}/>
     </div>
     {/if}
     {/each}
