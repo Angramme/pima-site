@@ -1,6 +1,8 @@
 
 
 <script>
+    import { marked } from "marked";
+
 
 export let data;
 
@@ -26,7 +28,7 @@ Chargement...
             </span>
         </h3>
 
-        <p>{des.description}</p>
+        <p>{@html marked(des.description)}</p>
     </div>
     {/if}
     {/each}

@@ -28,7 +28,7 @@ export function user_data_into_forms(user){
             {k:"nom", l:"nom de famille (facultatif)", v:user.nom, t:"text", ro:false},
             {k:"prenom", l:"prénom", v:user.prenom, t:"text", ro:false},
             {k:"nationalite", l:"nationalité/s", v:user.nationalite, t:"textlist", ro:false},
-            {k:"description", l:"conseils pour les futurs pima et description", v:user.description, t:"longtext", ro:false},
+            {k:"description", l:"conseils pour les futurs pima et description", v:user.description, t:"markdown", ro:false},
         ]},
         {n:"Autres (Lecture seule)", l:[
             {k:"id", l:"id", v:user.id, t:"text", ro:true},

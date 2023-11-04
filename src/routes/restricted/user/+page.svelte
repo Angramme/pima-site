@@ -3,6 +3,7 @@
   import { invalidate } from '$app/navigation';
   import { user_data_into_forms } from '$lib/transformers';
   import { generate_password } from '$lib/utils';
+  import { marked } from 'marked'
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -24,6 +25,8 @@
     let new_pwd_val;
     /** @type {boolean}*/
     let con_pwd_val;
+
+    let desc_markdown = data.user?.description || "";
 
     /** @type {HTMLFormElement}*/
     let delete_account_form;
@@ -88,6 +91,13 @@
                                     {#if type=="textlist"} <div class="info">lister en séparant par des ","</div> {/if}
                                     <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 12} cols="40">{""+value}</textarea>
                                 </td>
+                            {:else if type == "markdown"}
+                                <h4>Markdown : </h4>
+                                <textarea bind:value={desc_markdown} name={key} id={`input_${key}`} rows={12} cols="40"></textarea>
+                                <h4>Preview : </h4>
+                                <div>
+                                    {@html marked(desc_markdown)}
+                                </div>
                             {:else if type=="date"}
                                 <td>{value}</td>
                             {:else}
