@@ -1,6 +1,7 @@
 <script>
   import { enhance } from '$app/forms';
   import { user_data_into_forms } from '$lib/transformers';
+    import { marked } from 'marked';
 
     /** @type {import('./$types').PageData} */
     export let data;
@@ -57,7 +58,7 @@
 {/if}
 
 <h2>Conseils / description : </h2>
-<p>{data.subject?.description}</p>
+<p>{@html marked(data.subject?.description)}</p>
 
 <style>
     td{
