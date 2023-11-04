@@ -1,9 +1,9 @@
 <script>
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
+    import Markdown from '$lib/components/Markdown.svelte';
   import { user_data_into_forms } from '$lib/transformers';
   import { generate_password } from '$lib/utils';
-  import { marked } from 'marked'
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -95,8 +95,8 @@
                                 <h4>Markdown : </h4>
                                 <textarea bind:value={desc_markdown} name={key} id={`input_${key}`} rows={12} cols="40"></textarea>
                                 <h4>Preview : </h4>
-                                <div>
-                                    {@html marked(desc_markdown)}
+                                <div class="markdown-preview">
+                                    <Markdown markdown={desc_markdown}/>
                                 </div>
                             {:else if type=="date"}
                                 <td>{value}</td>
@@ -313,5 +313,9 @@
     }
     #mettre_a_jour:enabled:hover {
         background-color: rgb(86, 255, 86);
+    }
+    .markdown-preview{
+        height: 50vh;
+        overflow-y: scroll;
     }
 </style>
