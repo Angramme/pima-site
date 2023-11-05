@@ -219,8 +219,8 @@
                         <td><textarea name="emails" id="create_emails" rows={3} cols="40"></textarea></td>
                     </tr>
                     <tr>
-                        <td><label for="create_grad_year">année fin L3</label></td>
-                        <td><input name="grad_year" id="create_grad_year" type="number"></td>
+                        <td><label for="create_grad_year2">année fin L3</label></td>
+                        <td><input name="grad_year" id="create_grad_year2" type="number"></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -315,7 +315,7 @@
         background-color: rgb(86, 255, 86);
     }
     .markdown-preview{
-        height: 50vh;
+        max-height: 50vh;
         overflow-y: scroll;
     }
 </style>

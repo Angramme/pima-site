@@ -50,11 +50,11 @@ export function capFirst(str){
 /**
  * Purifies and displays markdown as HTML
  * @param {string | undefined} str 
+ * @param {import("marked").MarkedOptions | undefined} options 
  * @returns {Promise.<string>}
  */
-export async function display_mardkown(str) {
-    if(!str) return new Promise(()=>"null");
+export async function display_mardkown(str, options=undefined) {
+    if(str == undefined) return "???";
     const m = (await import("dompurify")).default;
-    console.log(m.sanitize(marked(str)))
-    return browser ? m.sanitize(marked(str)) : new Promise(()=>"not browser");
+    return browser ? m.sanitize(marked(str, options)) : "not browser";
 }

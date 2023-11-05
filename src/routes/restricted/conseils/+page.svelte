@@ -2,6 +2,7 @@
 
 <script>
     import Markdown from "$lib/components/Markdown.svelte";
+    import Rolldown from "$lib/components/Rolldown.svelte";
 
 
 export let data;
@@ -28,7 +29,9 @@ Chargement...
             </span>
         </h3>
     
-        <Markdown markdown={des.description}/>
+        <Rolldown>
+            <Markdown markdown={des.description}/>
+        </Rolldown>
     </div>
     {/if}
     {/each}
