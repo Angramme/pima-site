@@ -47,7 +47,6 @@
                 </tr>
             </table>
         </nav>
-        <!-- <div id="gradient"></div> -->
     </div>
     {#if user?.sleeping}
         <div class="pls-wake-up">
@@ -103,6 +102,7 @@
         background-color: var(--background-color);
         display: flex;
         flex-direction: column;
+        box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42);
     }
     #slot-cont{
         margin: 20px;
@@ -149,17 +149,25 @@
 
     #nav-cont{
         position: fixed;
+        z-index: 1;
         top: 0;
         left: 0;
         right: 0;
-        background-color: var(--behind-color);
-        padding-bottom: 7px;
+        border-bottom: solid 7px var(--behind-color);
+        background: var(--background-color);
     }
     nav{
         border-bottom: solid 1px black;
-        background: var(--background-color);
         padding-top: 5px;
         padding-bottom: 5px;
+    }
+    @media (hover:hover) {
+        #nav-cont{
+            background: none;
+        }
+        nav{
+            backdrop-filter: blur(5px);
+        }
     }
     nav td *{
         text-decoration: none;
