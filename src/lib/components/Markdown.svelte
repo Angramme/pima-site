@@ -1,21 +1,31 @@
 <script>
     import { display_mardkown } from "$lib/utils";
-    import { afterUpdate } from "svelte";
+    import { marked } from "marked";
     /** @type {string} */
     export let markdown;
 
-    /** @type {number} */
-    let height;
-    /** @type {HTMLElement} */
-    let real;
+    const renderer = {
+        /**
+         * @param text {string}
+         * @param level {number}
+         * @param raw {string}
+         */
+        heading(text, level, raw){ // make heading smaller
+            const lvl = Math.min(Math.max(level, 3), 6);
+            return `<h${lvl}>${text}</h${lvl}>`;
+        },
+        hr(){ return "<div style=\"text-align: center; margin: 1rem;\">§</div>"; }
+    };
 
-    afterUpdate(()=>{
-        height = real.offsetHeight;
-    });
+    marked.use({ renderer });
+
+    let data = display_mardkown(markdown);
+     $: display_mardkown(markdown)
+        .then((res)=>data = new Promise((f)=>f(res)));
 </script>
 
-{#await display_mardkown(markdown)}
-    <div style={`height: ${height}px`}>Chargement de Markdown... {markdown}</div>
+{#await data}
+    <div>[Chargement et sanitation de Markdown...] {markdown}</div>
 {:then ht} 
-    <p bind:this={real}>{@html ht}</p>
+    <p>{@html ht}</p>
 {/await}
