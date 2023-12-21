@@ -1,7 +1,8 @@
 
 
 <script>
-    import Markdown from "$lib/components/Markdown.svelte";
+    import Banner from "$lib/components/Banner.svelte";
+import Markdown from "$lib/components/Markdown.svelte";
     import Rolldown from "$lib/components/Rolldown.svelte";
 
 
@@ -9,10 +10,13 @@ export let data;
 
 </script>
 
+<Banner/>
 
 <h1>Conseils des anciens</h1>
 
 <p>Conseils des anciens du parcours listés par l'ordre de plus récent (année fin L3).</p>
+
+<br/>
 
 {#await data.streamed.descs}
 Chargement...
