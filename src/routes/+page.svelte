@@ -1,18 +1,15 @@
 
 <script>
     import links from "$data/external-links.json"
-    import Banner from "$lib/components/Banner.svelte";
 
     export let data;
 </script>
 
-<Banner src="/img/banners/1.jpg"/>
-
-<h1 class="header">
-    <span><b>D</b>ouble</span>
-    <span><b>M</b>ajeure</span>
-    <span><b>M</b>athématiques</span>
-    <span><b>I</b>nformatique</span>
+<h1 style="font-weight:normal;">
+    <b>D</b>ouble<br/>
+    <b>M</b>ajeure<br/>
+    <b>M</b>athématiques<br/>
+    <b>I</b>nformatique<br/>
 </h1>
 
 <p>
@@ -72,16 +69,7 @@
     }
     accent, accent *{
         font-weight: bold;
-        text-decoration: underline var(--accent-color);
+        text-decoration: wavy underline var(--accent-color);
     }
-    .header{
-        font-weight:normal;
-        /* text-align: center;
-        margin-bottom: 5rem; */
-        text-decoration: none;
-    }
-    .header > span{
-        display: block;
-        /* margin-right: 2rem; */
-    }
+
 </style>

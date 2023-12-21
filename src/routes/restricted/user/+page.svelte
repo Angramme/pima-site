@@ -1,7 +1,6 @@
 <script>
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
-    import Banner from '$lib/components/Banner.svelte';
     import Markdown from '$lib/components/Markdown.svelte';
   import { user_data_into_forms } from '$lib/transformers';
   import { generate_password } from '$lib/utils';
@@ -40,8 +39,6 @@
     /** @type {HTMLInputElement}*/
     let create_pwd;
 </script>
-
-<Banner/>
 
 <h1>Donnes et parametres utilisateur</h1>
 

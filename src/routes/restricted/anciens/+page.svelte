@@ -1,8 +1,6 @@
 <script>
     // import anciens_r from "$data/contact-anciens.json"
 
-    import Banner from "$lib/components/Banner.svelte";
-
     export let data;
 
     /** @param {string} st*/
@@ -133,8 +131,6 @@
     let show_hint = false;
 </script>
 
-<Banner/>
-
 <h1>Repertoire des anciens :</h1>
 
 <p>
@@ -208,7 +204,6 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 <style>
     table{
         width: 100%;
-        /* table-layout: fixed; */
     }
     table td, table th{
         text-align: left;
