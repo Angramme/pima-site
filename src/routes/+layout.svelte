@@ -2,20 +2,21 @@
     import { browser } from '$app/environment';
     import { invalidate } from '$app/navigation';
     import { page } from '$app/stores';
-    import Nav from '$lib/components/Nav.svelte';
-    import { setContext } from 'svelte';
-    import { writable } from 'svelte/store';
+
+
+    const pages = [
+        ["/", "acceuil"],
+        ["/restricted/anciens", "anciens"],
+        ["/restricted/conseils", "conseils"],
+        ["/restricted/external/Google Drive", "drive"],
+        // ["/restricted/faq", "FAQ"],
+    ]
 
     export let data;
 
     let hide_cookie_msg = Boolean(data.cookies_accepted);
 
-    // Create a store and update it when necessary...
-	const user = writable();
-	$: user.set(data.user);
-
-	// ...and add it to the context for child components to access
-	setContext('user', user);
+    $: user = data.user;
     $: cookies_accepted = data.cookies_accepted;
 </script>
 
@@ -24,8 +25,30 @@
 </svelte:head>
 
 <div id="cont">
-    <Nav></Nav>
-    {#if $user?.sleeping}
+    <div id="nav-cont">
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <span class="logo-text">Æ PIMA</span>
+                    </td>
+                    <td>
+                        {#each pages as p}
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href={p[0]} class={$page.url.pathname == p[0] ? "current":""}> {p[1]} </a> 
+                        {/each}
+                    </td>
+                    <td id="user-td">
+                        {#if user}
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} 🛠</a>  
+                        {:else}
+                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a>
+                        {/if}
+                    </td>
+                </tr>
+            </table>
+        </nav>
+    </div>
+    {#if user?.sleeping}
         <div class="pls-wake-up">
             <div>
                 Votre compte est pour l'instant caché sur le serveur, pour publier votre compte, mettez a jour vos données dans la section utilisateur en haut a droite!
@@ -71,15 +94,15 @@
     }
     #cont{
         position: relative;
-        /* width: 85vh; */
-        max-width: 100vh;
+        width: 85vh;
+        max-width: 100vw;
         min-height: 100vh;
         margin: auto;
         padding-top: 90px;
         background-color: var(--background-color);
         display: flex;
         flex-direction: column;
-        /* box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42); */
+        box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42);
     }
     #slot-cont{
         margin: 20px;
@@ -124,7 +147,43 @@
         margin: auto;
     }
 
-    
+    #nav-cont{
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+        border-bottom: solid 7px var(--behind-color);
+        background: var(--background-color);
+    }
+    nav{
+        border-bottom: solid 1px black;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    @media (hover:hover) {
+        #nav-cont{
+            background: none;
+        }
+        nav{
+            backdrop-filter: blur(5px);
+        }
+    }
+    nav td *{
+        text-decoration: none;
+        font-size: larger;
+        padding: 4px;
+        margin: 5px;
+    }
+    nav > table{
+        margin: auto;
+        width: calc(85vh + 30px);
+        max-width: 100vw;
+        border-spacing: 10px;
+    }
+    #user-td{
+        text-align: right;
+    }
 
     .pls-wake-up{
         background: var(--background-color);
@@ -137,5 +196,9 @@
     .pls-wake-up > * {
         padding: 10px;
         background: var(--background-color);
+    }
+    a.current{
+        color: var(--background-color);
+        background-color: var(--font-color);
     }
 </style>
