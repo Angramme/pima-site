@@ -133,7 +133,9 @@
     let show_hint = false;
 </script>
 
-<Banner/>
+<Banner src="/img/banners/4.jpg" 
+    title="Anciens"
+    />
 
 <h1>Repertoire des anciens :</h1>
 
@@ -208,13 +210,20 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 <style>
     table{
         width: 100%;
-        /* table-layout: fixed; */
+        table-layout: fixed;
     }
     table td, table th{
         text-align: left;
     }
     table tr:nth-child(even) {
         background: var(--behind-color);
+    }
+    table tr td:last-child, table tr th:last-child{
+        text-align: right;
+        width: 5rem;
+    }
+    table tr td:nth-child(2), table tr th:nth-child(2){
+        width: 5rem;
     }
     .sleeper{
         font-style: italic;

@@ -12,3 +12,11 @@ export async function load({ locals, url }) {
         })
     }
 }
+
+export const actions = {
+    accept_cookies: async ({ cookies, request }) => {
+        const formData = await request.formData();
+        const accept_cookies = formData.get('cookies_accepted')?.toString() || 'false';
+        cookies.set('cookies_accepted', accept_cookies);
+    }
+}
