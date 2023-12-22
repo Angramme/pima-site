@@ -13,9 +13,10 @@
     })
 </script>
 
+<h2>Connexion</h2>
+
 <form method="POST" use:enhance>
     <fieldset>
-        <legend>Connexion</legend>
         {#if form?.missing}<p class="error">Le login <u>et</u> mot de passe sont primordiaux!</p>{/if}
         {#if form?.incorrect}<p class="error">Mot de passe ou login incorrect!</p>{/if}
         {#if form?.success}<p class="success">Connexion réussie!</p>{/if}
