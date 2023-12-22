@@ -21,7 +21,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@prisma/client": "^5.0.0"
+		"@prisma/client": "^5.0.0",
+		"dompurify": "^3.0.6",
+		"marked": "^9.1.5",
+		"nodemailer": "^6.9.7"
 	},
 	"prisma": {
 		"seed": "node ./prisma/seed.js"

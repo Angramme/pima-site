@@ -1,6 +1,7 @@
 <script>
-  import { enhance } from '$app/forms';
-  import { user_data_into_forms } from '$lib/transformers';
+    import { enhance } from '$app/forms';
+    import Markdown from '$lib/components/Markdown.svelte';
+    import { user_data_into_forms } from '$lib/transformers';
 
     /** @type {import('./$types').PageData} */
     export let data;
@@ -56,8 +57,8 @@
     </fieldset>
 {/if}
 
-<h2>Description : </h2>
-<p>{data.subject?.description}</p>
+<h2>Conseils / description : </h2>
+<Markdown markdown={data.subject?.description || ""}/>
 
 <style>
     td{

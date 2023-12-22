@@ -1,15 +1,21 @@
 <script>
-    import { browser } from '$app/environment';
-    import { invalidate } from '$app/navigation';
     import { page } from '$app/stores';
-
+    import Cookies from '$lib/components/Cookies.svelte';
+    import Nav from '$lib/components/Nav.svelte';
+    import { setContext } from 'svelte';
+    import { writable } from 'svelte/store';
 
     export let data;
 
-    let hide_cookie_msg = Boolean(data.cookies_accepted);
+    // Create a store and update it when necessary...
+	const user = writable();
+    const cookies_accepted = writable();
+	$: user.set(data.user);
+    $: cookies_accepted.set(Boolean(data.cookies_accepted));
 
-    $: user = data.user;
-    $: cookies_accepted = data.cookies_accepted;
+	// ...and add it to the context for child components to access
+	setContext('user', user);
+    setContext('cookies_accepted', cookies_accepted);
 </script>
 
 <svelte:head>
@@ -17,54 +23,15 @@
 </svelte:head>
 
 <div id="cont">
-    <div id="nav-cont">
-        <nav>
-            <table>
-                <tr>
-                    <td>
-                        <span class="logo-text">Æ PIMA</span>
-                    </td>
-                    <td>
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/"> acceuil </a> 
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/anciens"> anciens </a> 
-                        <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/faq"> FAQ </a>
-                    </td>
-                    <td id="user-td">
-                        {#if user}
-                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {user.prenom} 🛠</a>  
-                        {:else}
-                            <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a>
-                        {/if}
-                    </td>
-                </tr>
-            </table>
-        </nav>
-        <!-- <div id="gradient"></div> -->
-    </div>
-    {#if user?.sleeping}
+    <Nav></Nav>
+    <Cookies/>
+    {#if $user?.sleeping}
         <div class="pls-wake-up">
             <div>
                 Votre compte est pour l'instant caché sur le serveur, pour publier votre compte, mettez a jour vos données dans la section utilisateur en haut a droite!
             </div>
             <div>
                 Une fois dans la section utilisateur, cherchez la section "Mes donnes" et remplissez vos informations. Un fois terminé, appuyez sur "Mettre a jour".
-            </div>
-        </div>
-    {/if}
-    {#if (browser ? document.cookie.indexOf('cookiesAccepted=')==-1 : !cookies_accepted) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
-        <div class="cookies">
-            <div> 
-                <!-- TODO: replace this logic with a form with use:enhance use https://kit.svelte.dev/docs/form-actions#progressive-enhancement-applyaction for the form-->
-                <h2>Cookies</h2>
-                <img src="img/dancing_dog.gif" alt="dancing dog gif"/><br/>
-                En utilisant ce site web vous acceptez l'utilisation des cookies essentiels pour son fonctionnement, pour plus d'informations veuillez consulter le <a target="_blank" href="/reglementation/cookie_policy">Cookie Policy</a>
-                <br/>
-                <br/>
-                <button on:click={()=>{
-                    document.cookie="cookiesAccepted=1;path=/";
-                    hide_cookie_msg = true;
-                    invalidate("cookies:update");
-                }}>Je donne mon accord</button>
             </div>
         </div>
     {/if}
@@ -78,22 +45,25 @@
     </footer>
 </div>
 
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+    /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap'); */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,600;1,400;1,600&family=Roboto:ital,wght@0,700;1,300&display=swap');
     *{
         /* font-family: 'Courier New', Courier, monospace; */
         font-family: 'Roboto Condensed', sans-serif;
     }
     #cont{
         position: relative;
-        width: 85vh;
-        max-width: 100vw;
+        /* width: 85vh; */
+        max-width: 100vh;
         min-height: 100vh;
         margin: auto;
         padding-top: 90px;
-        background-color: var(--background-color);
+        /* background-color: var(--background-color); */
         display: flex;
         flex-direction: column;
+        /* box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42); */
     }
     #slot-cont{
         margin: 20px;
@@ -110,62 +80,6 @@
         0% {background-color: blue;}
         50% {background-color: var(--background-color);}
         100% {background-color: var(--background-color);}
-    }
-    .cookies{
-        position: fixed;
-        display: flex;
-        bottom: 25vh;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.619);
-    }
-    .cookies > div{
-        margin: auto;
-        padding: 20px;
-        width: 75vh;
-        max-width: 100vw;
-    }
-    .cookies > *{
-        background-color: var(--background-color);
-        padding: 10px;
-    }
-    .cookies img{
-        display: block;
-        margin: auto;
-    }
-
-    #nav-cont{
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: var(--behind-color);
-        padding-bottom: 7px;
-    }
-    nav{
-        border-bottom: solid 1px black;
-        background: var(--background-color);
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    nav td *{
-        text-decoration: none;
-        font-size: larger;
-        padding: 4px;
-        margin: 5px;
-    }
-    nav > table{
-        margin: auto;
-        width: calc(85vh + 30px);
-        max-width: 100vw;
-        border-spacing: 10px;
-    }
-    #user-td{
-        text-align: right;
     }
 
     .pls-wake-up{

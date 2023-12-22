@@ -1,7 +1,10 @@
 <script>
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
+    import Banner from '$lib/components/Banner.svelte';
+    import Markdown from '$lib/components/Markdown.svelte';
   import { user_data_into_forms } from '$lib/transformers';
+  import { generate_password } from '$lib/utils';
 
     /** @type {HTMLInputElement}*/
     let delete_account_btn;
@@ -24,6 +27,8 @@
     /** @type {boolean}*/
     let con_pwd_val;
 
+    let desc_markdown = data.user?.description || "";
+
     /** @type {HTMLFormElement}*/
     let delete_account_form;
     const delete_account_now = async ()=>{
@@ -34,15 +39,9 @@
 
     /** @type {HTMLInputElement}*/
     let create_pwd;
-
-    const generate_password = (
-        length = 30,
-        wishlist = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
-    ) =>
-        Array.from(crypto.getRandomValues(new Uint32Array(length)))
-            .map((x) => wishlist[x % wishlist.length])
-            .join('');
 </script>
+
+<Banner/>
 
 <h1>Donnes et parametres utilisateur</h1>
 
@@ -93,8 +92,15 @@
                             {#if type=="textlist" || type=="longtext"}
                                 <td>
                                     {#if type=="textlist"} <div class="info">lister en séparant par des ","</div> {/if}
-                                    <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 5} cols="40">{""+value}</textarea>
+                                    <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 12} cols="40">{""+value}</textarea>
                                 </td>
+                            {:else if type == "markdown"}
+                                <h4>Markdown : </h4>
+                                <textarea bind:value={desc_markdown} name={key} id={`input_${key}`} rows={12} cols="40"></textarea>
+                                <h4>Preview : </h4>
+                                <div class="markdown-preview">
+                                    <Markdown markdown={desc_markdown}/>
+                                </div>
                             {:else if type=="date"}
                                 <td>{value}</td>
                             {:else}
@@ -110,9 +116,15 @@
             <legend>Soumettre</legend>
             {#if form?.update_success}<p class="success">Mise a jour réussie!</p>{/if}
             {#if form?.update_failure}<p class="error">Erreur de mise à jour: "{form.update_failure}""</p>{/if}
-            <input bind:checked={user_agreed} id="agreement" type="checkbox"/>
-            <label for="agreement"><u>J'ai pris conaissance</u> de la réglementation <a href="/reglementation" target="_blank">ici</a> et <u>je donne mon accord</u> pour utilisation de mes donnees plus haut.</label><br/>
-            <input type="submit" disabled={!user_agreed} value="Mettre a jour"/>
+            <table>
+                <tr>
+                    <input bind:checked={user_agreed} id="agreement" type="checkbox"/>
+                    <label for="agreement"><u>J'ai pris conaissance</u> de la réglementation <a href="/reglementation" target="_blank">ici</a> et <u>je donne mon accord</u> pour utilisation de mes donnees plus haut.</label>
+                </tr>
+                <tr>
+                    <input type="submit" disabled={!user_agreed} id="mettre_a_jour" value="Mettre a jour"/>
+                </tr>
+            </table>
         </fieldset>
     </fieldset>
 </form>
@@ -197,32 +209,58 @@
             </fieldset>
         </fieldset>
     </form>
+    <form method="POST" action="?/mass_create_accounts" use:enhance>
+        <fieldset class="admin">
+            <legend>Admin</legend>
+            <fieldset>
+                <legend>Créer des comptes à partir des emails</legend>
+                {#if form?.creation_failure}<p class="error">Erreur serveur: "{form.creation_failure}"</p>{/if}
+                {#if form?.creation_success}<p class="success">Creation réussie! logins: {form.new_account_login} </p>{/if}        
+                <table>
+                    <tr>
+                        <td><label for="create_emails">emails (separate with ";")</label></td>
+                        <td><textarea name="emails" id="create_emails" rows={3} cols="40"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label for="create_grad_year2">année fin L3</label></td>
+                        <td><input name="grad_year" id="create_grad_year2" type="number"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Créer"></td>
+                    </tr>
+                </table>
+                <p class="info">Entrez des emails des personnes et l'année de leur L3</p>
+            </fieldset>
+        </fieldset>
+    </form>
 {/if}
 
 <style>
     fieldset{
         margin-top: 20px;
-        border: solid 2px gray;
-        background: var(--background-color);
     }
     form > fieldset{
         margin-top: 50px;
         margin-bottom: 50px;
         border: none;
-        background-image: radial-gradient(rgb(178, 178, 178) 1px, transparent 0);
-        background-size: 5px 5px;
+    }
+    form > fieldset > fieldset {
+        border: none;
+        background: linear-gradient(40deg, var(--behind-color), var(--background-color) 50% 100%);
     }
     form > fieldset > *{
         background-color: var(--background-color);
     }
     form > fieldset > legend{
-        font-size: x-large;
-        background-color: var(--behind-color);
+        font-size: xx-large;
+        font-weight: bold;
+        text-decoration: underline wavy var(--behind-color);
     }
-    input{
-        width: 95%;
+    form > fieldset >fieldset > legend {
+        font-weight: bold;
     }
-    textarea{
+    input, textarea{
         width: 95%;
     }
     input:read-only[type~="text"], input:read-only[type~="date"], textarea:read-only{
@@ -263,5 +301,24 @@
     }
     table tr td:first-child {
         width: 100px;
+        overflow: hidden;
+        border-bottom: solid 1px var(--font-color);
+    }
+    table tr:last-child td:first-child {
+        border: none;
+    }
+
+    #mettre_a_jour:enabled {
+        background-color: rgb(196, 255, 196);
+    }
+    #mettre_a_jour:disabled {
+        background-color: rgb(255, 147, 147);
+    }
+    #mettre_a_jour:enabled:hover {
+        background-color: rgb(86, 255, 86);
+    }
+    .markdown-preview{
+        max-height: 50vh;
+        overflow-y: scroll;
     }
 </style>

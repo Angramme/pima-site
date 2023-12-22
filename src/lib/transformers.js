@@ -9,16 +9,16 @@ export function user_data_into_forms(user){
     if(!user) return [];
     return [
         {n:"Ecoles", l:[
-            {k:"admis", l:"admis dans", v:user.admis, t:"textlist", ro:false},
-            {k:"choisi", l:"choisi", v:user.choisi, t:"text", ro:false},
+            {k:"admis", l:"admis dans (masters / ecoles d'inge hors licence)", v:user.admis, t:"textlist", ro:false},
+            {k:"choisi", l:"choisi (master / ecoles d'inge hors licence)", v:user.choisi, t:"text", ro:false},
         ]},
-        {n:"#PIMAlife", l:[
-            {k:"grad_year", l:"année en fin L3", v:user.grad_year, t:"number", ro:false},
+        {n:"PIMA", l:[
+            {k:"grad_year", l:"année en fin L3 (année fin S6)", v:user.grad_year, t:"number", ro:false},
             {k:"moyenneL2", l:"moyenne generale L2", v:user.moyenneL2, t:"number", ro:false},
             {k:"moyenneL3", l:"moyenne generale L3", v:user.moyenneL3, t:"number", ro:false},
         ]},
         {n:"Vie profesionelle", l:[
-            {k:"travails", l:"à travaillé/e dans ces entreprises/labos", v:user.travails, t:"textlist", ro:false},
+            {k:"travails", l:"à travaillé/e dans ces entreprises / labos / startup / non-profit...", v:user.travails, t:"textlist", ro:false},
         ]},
         {n:"Contact", l:[
             {k:"email", l:"email", v:user.email, t:"email", ro:false},
@@ -28,7 +28,7 @@ export function user_data_into_forms(user){
             {k:"nom", l:"nom de famille (facultatif)", v:user.nom, t:"text", ro:false},
             {k:"prenom", l:"prénom", v:user.prenom, t:"text", ro:false},
             {k:"nationalite", l:"nationalité/s", v:user.nationalite, t:"textlist", ro:false},
-            {k:"description", l:"description et conseils pour les futurs pima", v:user.description, t:"longtext", ro:false},
+            {k:"description", l:"conseils pour les futurs pima et description", v:user.description, t:"markdown", ro:false},
         ]},
         {n:"Autres (Lecture seule)", l:[
             {k:"id", l:"id", v:user.id, t:"text", ro:true},

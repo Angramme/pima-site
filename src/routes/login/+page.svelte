@@ -1,7 +1,6 @@
 <script>
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
-  import admins from "$data/admins.json"
   import { onMount } from 'svelte';
 
     /** @type {import('./$types').ActionData} */
@@ -14,9 +13,10 @@
     })
 </script>
 
+<h2>Connexion</h2>
+
 <form method="POST" use:enhance>
     <fieldset>
-        <legend>Connexion</legend>
         {#if form?.missing}<p class="error">Le login <u>et</u> mot de passe sont primordiaux!</p>{/if}
         {#if form?.incorrect}<p class="error">Mot de passe ou login incorrect!</p>{/if}
         {#if form?.success}<p class="success">Connexion réussie!</p>{/if}
@@ -38,12 +38,12 @@
                 <td><input type="button" id="forgot" value="mdb ou identifiant oublié" disabled/></td>
             </tr>
         </table>
-        <p>Attention en vous connectant sur ce site vous acceptez l'utilisant des cookies essentiels. En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a></p>
+        <p>Veuillez noter qu'en vous connectant sur ce site, vous acceptez l'utilisation de cookies essentiels. En utilisant ce site et les services qui y sont proposés, vous acceptez la <a href="/reglementation">réglementation</a></p>
     </fieldset>
 </form>
 
 <h3>Infos : </h3>
-<p>Pour creer un compte, contacter un des admins: </p>
+<p>Pour créer un compte, veuillez prendre contact avec l'un des administrateurs : </p>
 {#await data.streamed.admins}
     Chargement des admins...
 {:then admins} 

@@ -28,7 +28,7 @@ model User {
   moyenneL2   Float?
   moyenneL3   Float?
   admis       String[] // ecoles ou admis
-  choisi      String // ecole choisie
+  choisi      String @default("? 😴") // ecole choisie
   travails    String[] // entreprises/labos ou à travaillé
   description String @default("TODO 😴") // description parcours, conseils perso, etc
   
