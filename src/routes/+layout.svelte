@@ -1,22 +1,21 @@
 <script>
-    import { browser } from '$app/environment';
-    import { invalidate } from '$app/navigation';
     import { page } from '$app/stores';
+    import Cookies from '$lib/components/Cookies.svelte';
     import Nav from '$lib/components/Nav.svelte';
     import { setContext } from 'svelte';
     import { writable } from 'svelte/store';
 
     export let data;
 
-    let hide_cookie_msg = Boolean(data.cookies_accepted);
-
     // Create a store and update it when necessary...
 	const user = writable();
+    const cookies_accepted = writable();
 	$: user.set(data.user);
+    $: cookies_accepted.set(Boolean(data.cookies_accepted));
 
 	// ...and add it to the context for child components to access
 	setContext('user', user);
-    $: cookies_accepted = data.cookies_accepted;
+    setContext('cookies_accepted', cookies_accepted);
 </script>
 
 <svelte:head>
@@ -25,6 +24,7 @@
 
 <div id="cont">
     <Nav></Nav>
+    <Cookies/>
     {#if $user?.sleeping}
         <div class="pls-wake-up">
             <div>
@@ -32,23 +32,6 @@
             </div>
             <div>
                 Une fois dans la section utilisateur, cherchez la section "Mes donnes" et remplissez vos informations. Un fois terminé, appuyez sur "Mettre a jour".
-            </div>
-        </div>
-    {/if}
-    {#if (browser ? document.cookie.indexOf('cookiesAccepted=')==-1 : !cookies_accepted) && !hide_cookie_msg && !$page.url.pathname.startsWith("/reglementation")}
-        <div class="cookies">
-            <div> 
-                <!-- TODO: replace this logic with a form with use:enhance use https://kit.svelte.dev/docs/form-actions#progressive-enhancement-applyaction for the form-->
-                <h2>Cookies</h2>
-                <img src="img/dancing_dog.gif" alt="dancing dog gif"/><br/>
-                En utilisant ce site web vous acceptez l'utilisation des cookies essentiels pour son fonctionnement, pour plus d'informations veuillez consulter le <a target="_blank" href="/reglementation/cookie_policy">Cookie Policy</a>
-                <br/>
-                <br/>
-                <button on:click={()=>{
-                    document.cookie="cookiesAccepted=1;path=/";
-                    hide_cookie_msg = true;
-                    invalidate("cookies:update");
-                }}>Je donne mon accord</button>
             </div>
         </div>
     {/if}
@@ -61,6 +44,7 @@
         En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a>
     </footer>
 </div>
+
 
 <style>
     /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap'); */
@@ -76,7 +60,7 @@
         min-height: 100vh;
         margin: auto;
         padding-top: 90px;
-        background-color: var(--background-color);
+        /* background-color: var(--background-color); */
         display: flex;
         flex-direction: column;
         /* box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42); */
@@ -97,34 +81,6 @@
         50% {background-color: var(--background-color);}
         100% {background-color: var(--background-color);}
     }
-    .cookies{
-        position: fixed;
-        display: flex;
-        bottom: 25vh;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.619);
-    }
-    .cookies > div{
-        margin: auto;
-        padding: 20px;
-        width: 75vh;
-        max-width: 100vw;
-    }
-    .cookies > *{
-        background-color: var(--background-color);
-        padding: 10px;
-    }
-    .cookies img{
-        display: block;
-        margin: auto;
-    }
-
-    
 
     .pls-wake-up{
         background: var(--background-color);
