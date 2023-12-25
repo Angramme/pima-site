@@ -133,7 +133,7 @@
     let show_hint = false;
 </script>
 
-<Banner src="/img/banners/4.jpg" 
+<Banner
     title="Anciens"
     />
 

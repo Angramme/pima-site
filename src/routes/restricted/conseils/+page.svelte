@@ -10,7 +10,7 @@ export let data;
 
 </script>
 
-<Banner title="Conseils" src="/img/banners/5.jpg"/>
+<Banner title="Conseils"/>
 
 <h1>Conseils des anciens</h1>
 

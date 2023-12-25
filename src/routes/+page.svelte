@@ -6,7 +6,7 @@
     export let data;
 </script>
 
-<Banner src="/img/banners/1.jpg"/>
+<Banner/>
 
 <h1 class="header">
     <span><b>D</b>ouble</span>
