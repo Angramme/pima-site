@@ -2,15 +2,15 @@
 <h2>Réglementation</h2>
 
 <p>
-    <b>IMPORTANT NOTICE</b>: AE PIMA is not in any way an official website of Sorbonne Universtié nor is it related financially, administratively, publicly or in any other official manner to Sorbonne Universtié. We are merely students who got together to create AE PIMA. AE PIMA's purpose is to share resources and create a network of alumni of the PIMA programme. 
+    <b>IMPORTANT NOTICE</b>: AE PIMA is an independent initiative and is not an official website of Sorbonne Université. There is no financial, administrative, public, or any other official affiliation with Sorbonne Université. AE PIMA is a collaborative effort by students to share resources and establish a network of alumni from the PIMA program.
 </p>
 
 <p>
-    Below we tried including basic legal agreements to protect ourselves from legal action and any other harm which might be caused through the legal system. Please keep in mind that we used an online generator to create the agreements and that we have no legal training.  
+    The inclusion of basic legal agreements below is an attempt to safeguard ourselves from legal repercussions and potential harm through the legal system. It is important to note that these agreements were generated online, and we, as students, do not possess legal expertise.
 </p>
 
 <p>
-    By agreeing to "réglementation", you agree to the following:
+    By consenting to the "réglementation," you are acknowledging and agreeing to the following:
 </p>
 
 <ul>
@@ -21,3 +21,5 @@
     <li><a href="/reglementation/disclaimer">Disclaimer</a></li>
     <li><a href="/reglementation/banana_policy">Banana Policy</a></li>
 </ul>
+
+Your understanding and compliance with these agreements contribute to a transparent and respectful online environment for all users involved.
