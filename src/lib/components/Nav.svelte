@@ -3,7 +3,7 @@
     import { page } from '$app/stores';
 
     const pages = [
-        ["/", "acceuil"],
+        ["/", "accueil"],
         ["/restricted/anciens", "anciens"],
         ["/restricted/conseils", "conseils"],
         ["/restricted/external/Google Drive", "drive"],
