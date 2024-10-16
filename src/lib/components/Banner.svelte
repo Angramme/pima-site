@@ -7,7 +7,7 @@
 </script>
 
 <div class="cont">
-    <img class="banner" src={src} alt="banner">
+    <img loading="lazy" fetchpriority="low" class="banner" src={src} alt="banner">
     {#if title}
         <span>{title}</span>
     {/if}

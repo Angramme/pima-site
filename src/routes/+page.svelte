@@ -45,7 +45,22 @@
 <h3>En chiffres :</h3>
 
 <p>
-    Actuellement, pima.ozieblowski.dev a <accent><strong>{data.members_count}</strong> membres</accent>, dont <strong>{data.ancien_count}</strong> qui ont obtenu leur licence en {new Date().getFullYear()} ou avant. (i.e. les anciens)
+    Actuellement, pima.ozieblowski.dev a 
+    <accent><strong>
+        {#await data.streamed.members_count}
+            ...
+        {:then members} 
+            {members}
+        {/await}
+    </strong> membres</accent>, dont 
+    <strong>
+        {#await data.streamed.ancien_count}
+            ...
+        {:then members} 
+            {members}
+        {/await}
+    </strong> 
+    qui ont obtenu leur licence en {new Date().getFullYear()} ou avant. (i.e. les anciens)
 </p>
 
 
