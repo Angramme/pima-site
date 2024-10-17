@@ -103,6 +103,8 @@
                                 </div>
                             {:else if type=="date"}
                                 <td>{value}</td>
+                            {:else if type=="checkbox"}
+                                <td><input name={key} id={`input_${key}`} type={type} checked={value} readonly={read_only}/></td>
                             {:else}
                                 <td><input name={key} id={`input_${key}`} type={type} value={""+value} readonly={read_only}/></td>
                             {/if}

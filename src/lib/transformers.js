@@ -37,5 +37,8 @@ export function user_data_into_forms(user){
             {k:"createdAt", l:"date création", v:user.createdAt, t:"date", ro:true},
             {k:"updatedAt", l:"derniere mise a jour", v:user.updatedAt, t:"date", ro:true},
         ]},
+        {n:"Visibilité", l:[
+            {k:"public_description", l:"afficher votre conseils/description pour les utilisateurs sans compte", v:user.public_description, t:"checkbox", ro:false},
+        ]},
     ];
 }

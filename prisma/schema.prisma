@@ -18,6 +18,8 @@ model User {
   admin       Boolean @default(false) // true if has admin privilages
   session     Session? // current sesion
   sleeping    Boolean @default(true) // was the account activated by the user (ie, has the user uploaded data)
+
+  public_description Boolean @default(false) // true if the user wants to share their data to users without an account
   
   prenom      String
   nom         String?

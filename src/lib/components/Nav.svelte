@@ -5,7 +5,7 @@
     const pages = [
         ["/", "accueil"],
         ["/restricted/anciens", "anciens"],
-        ["/restricted/conseils", "conseils"],
+        ["/conseils", "conseils"],
         ["/restricted/external/Google Drive", "drive"],
         // ["/restricted/faq", "FAQ"],
     ];

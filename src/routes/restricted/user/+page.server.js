@@ -15,6 +15,7 @@ export async function load({ locals, depends }) {
             admis: true,
             choisi: true,
             grad_year: true,
+            public_description: true,
             
             email: true,
             contact: true,
@@ -80,6 +81,7 @@ export const actions = {
             "travails",
             "moyenneL2",
             "moyenneL3",
+            "public_description",
         ];
         const list_entries = [
             "nationalite",
@@ -91,10 +93,13 @@ export const actions = {
             "grad_year",
             "moyenneL2",
             "moyenneL3",
-         ];
+        ];
+        const bool_entries = [
+            "public_description",
+        ];
 
         if(!locals.user) return { update_failure: "user logged out!" };
-        if(keys_to_update.some(k=>!data.has(k))) return { update_failure: "Invalid form data submitted!" };
+        if(keys_to_update.some(k=>!data.has(k) && !bool_entries.includes(k))) return { update_failure: "Invalid form data submitted!" };
 
         let prisma_data = Object();
         prisma_data["sleeping"] = false;
@@ -102,8 +107,7 @@ export const actions = {
         /// @ts-ignore
         for(let k of list_entries) prisma_data[k] = prisma_data[k].split(",").map(x=>x.trim());
         for(let k of number_entries) prisma_data[k] = Number(prisma_data[k]);
-
-        console.log(prisma_data);
+        for(let k of bool_entries) prisma_data[k] = prisma_data[k] ? true : false;
 
         try{
             await prisma.user.update({

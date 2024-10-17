@@ -4,7 +4,9 @@ import prisma from '$lib/prisma'
 export async function load({ locals, depends }) {
     depends("user:update");
 
-    if(!locals.user) return { streamed: { descs: Promise.resolve([]) } }; // user is not logged in...
+    const loggedIn = locals.user ? true : false;
+
+    // if(!locals.user) return { streamed: { descs: Promise.resolve([]) } }; // user is not logged in...
 
     let descs = prisma.user.findMany({
         where: {
@@ -14,28 +16,30 @@ export async function load({ locals, depends }) {
             },
             grad_year: {
                 lte: new Date().getFullYear(),
-            }
+            },
+            ...(loggedIn ? {} : {public_description:true})
         },
         select: {
             // never show
             login: false,
             password: false,
-            // show if admin
-            updatedAt: false,
-            sleeping: false,
-            // safe info
-            admin: false,
-            id: true,
-            prenom: true,
-            nom: true,
             email: false,
             contact: false,
-            grad_year: true,
-            nationalite: false,
             admis: false,
-            choisi: true,
-            description: true,
+            nationalite: false,
             createdAt: false,
+            // show if admin
+            admin: false,
+            updatedAt: false,
+            sleeping: false,
+            // show if logged in
+            id: loggedIn,
+            nom: loggedIn,
+            // show no matter what
+            choisi: true,
+            grad_year: true,
+            prenom: true,
+            description: true,
         },
         orderBy: {
             grad_year: "desc",
