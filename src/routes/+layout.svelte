@@ -59,15 +59,12 @@
 	}
 	#cont {
 		position: relative;
-		/* width: 85vh; */
-		max-width: 100vh;
+		max-width: 100%;
 		min-height: 100vh;
 		margin: auto;
 		padding-top: 90px;
-		/* background-color: var(--background-color); */
 		display: flex;
 		flex-direction: column;
-		/* box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42); */
 	}
     #slot-cont{
         margin: 20px;
