@@ -1,21 +1,22 @@
 <script>
-    import { page } from '$app/stores';
-    import Cookies from '$lib/components/Cookies.svelte';
-    import Nav from '$lib/components/Nav.svelte';
-    import { setContext } from 'svelte';
-    import { writable } from 'svelte/store';
+	import '$lib/assets/css/dist/themes.css';
+	import { page } from '$app/stores';
+	import Cookies from '$lib/components/Cookies.svelte';
+	import Nav from '$lib/components/Nav.svelte';
+	import { setContext } from 'svelte';
+	import { writable } from 'svelte/store';
 
-    export let data;
+	export let data;
 
-    // Create a store and update it when necessary...
+	// Create a store and update it when necessary...
 	const user = writable();
-    const cookies_accepted = writable();
+	const cookies_accepted = writable();
 	$: user.set(data.user);
-    $: cookies_accepted.set(Boolean(data.cookies_accepted));
+	$: cookies_accepted.set(Boolean(data.cookies_accepted));
 
 	// ...and add it to the context for child components to access
 	setContext('user', user);
-    setContext('cookies_accepted', cookies_accepted);
+	setContext('cookies_accepted', cookies_accepted);
 </script>
 
 <svelte:head>
@@ -47,24 +48,27 @@
 
 
 <style>
-    /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap'); */
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,600;1,400;1,600&family=Roboto:ital,wght@0,700;1,300&display=swap');
-    *{
-        /* font-family: 'Courier New', Courier, monospace; */
-        font-family: 'Roboto Condensed', sans-serif;
-    }
-    #cont{
-        position: relative;
-        /* width: 85vh; */
-        max-width: 100vh;
-        min-height: 100vh;
-        margin: auto;
-        padding-top: 90px;
-        /* background-color: var(--background-color); */
-        display: flex;
-        flex-direction: column;
-        /* box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42); */
-    }
+	/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap'); */
+	@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,600;1,400;1,600&family=Roboto:ital,wght@0,700;1,300&display=swap');
+	:global(body) {
+		font-family: 'Roboto', sans-serif;
+		font-size: 1.1rem;
+		font-weight: 300;
+		background-color: var(--background-color);
+		color: var(--font-color);
+	}
+	#cont {
+		position: relative;
+		/* width: 85vh; */
+		max-width: 100vh;
+		min-height: 100vh;
+		margin: auto;
+		padding-top: 90px;
+		/* background-color: var(--background-color); */
+		display: flex;
+		flex-direction: column;
+		/* box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.42); */
+	}
     #slot-cont{
         margin: 20px;
     }

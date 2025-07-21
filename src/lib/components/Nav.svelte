@@ -1,37 +1,62 @@
 <script>
-    import { getContext } from "svelte";
-    import { page } from '$app/stores';
+	import { getContext, onMount } from 'svelte';
+	import { page } from '$app/stores';
 
-    const pages = [
-        ["/", "accueil"],
-        ["/restricted/anciens", "anciens"],
-        ["/conseils", "conseils"],
-        ["/restricted/external/Google Drive", "drive"],
-        // ["/restricted/faq", "FAQ"],
-    ];
+	const pages = [
+		['/', 'accueil'],
+		['/restricted/anciens', 'anciens'],
+		['/conseils', 'conseils'],
+		['/restricted/external/Google Drive', 'drive']
+		// ["/restricted/faq", "FAQ"],
+	];
 
-    const user = getContext('user');
+	const user = getContext('user');
+
+	let theme = 'dark';
+
+	onMount(() => {
+		if (localStorage.getItem('theme')) {
+			theme = localStorage.getItem('theme');
+		}
+	});
+
+	function toggleTheme() {
+		theme = theme === 'dark' ? 'light' : 'dark';
+		localStorage.setItem('theme', theme);
+		document.documentElement.setAttribute('data-theme', theme);
+	}
 </script>
 
-
 <div id="nav-cont">
-    <nav>
-        <div class="logo">
-            <span>Æ PIMA</span>
-        </div>
-        {#each pages as p}
-            <div>
-                <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href={p[0]} class={$page.url.pathname == p[0] ? "current":""}> {p[1]} </a> 
-            </div>
-        {/each}
-        <div class="login">
-            {#if $user}
-                <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user"> {$user.prenom}</a>  
-            {:else}
-                <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login"> connexion </a>
-            {/if}
-        </div>
-    </nav>
+	<nav>
+		<div class="logo">
+			<span>Æ PIMA</span>
+		</div>
+		{#each pages as p}
+			<div>
+				<a
+					data-sveltekit-preload-data="off"
+					data-sveltekit-preload-code="off"
+					href={p[0]}
+					class={$page.url.pathname == p[0] ? 'current' : ''}
+				>
+					{p[1]}
+				</a>
+			</div>
+		{/each}
+		<div class="login">
+			<button on:click={toggleTheme}>{theme === 'dark' ? '🌞' : '🌙'}</button>
+			{#if $user}
+				<a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user">
+					{$user.prenom}
+				</a>
+			{:else}
+				<a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login">
+					connexion
+				</a>
+			{/if}
+		</div>
+	</nav>
 </div>
 
 <style>

@@ -1,18 +1,21 @@
 
 <script>
-    import links from "$data/external-links.json"
-    import Banner from "$lib/components/Banner.svelte";
+	import links from '$data/external-links.json';
+	import Banner from '$lib/components/Banner.svelte';
 
-    export let data;
+	export let data;
 </script>
 
-<Banner src="/img/banners/1.jpg"/>
+<div class="banner-cont">
+	<img src="/img/banners/1.jpg" alt="banner" class="banner-img" />
+	<div class="banner-overlay" />
+</div>
 
 <h1 class="header">
-    <span><b>D</b>ouble</span>
-    <span><b>M</b>ajeure</span>
-    <span><b>M</b>athématiques</span>
-    <span><b>I</b>nformatique</span>
+	<span><b>D</b>ouble</span>
+	<span><b>M</b>ajeure</span>
+	<span><b>M</b>athématiques</span>
+	<span><b>I</b>nformatique</span>
 </h1>
 
 <p>
@@ -81,22 +84,47 @@
 {/each}
 
 <style>
-    p{
-        text-align: justify;
-        text-justify: distribute;
-    }
-    accent, accent *{
-        font-weight: bold;
-        text-decoration: underline var(--accent-color);
-    }
-    .header{
-        font-weight:normal;
-        /* text-align: center;
-        margin-bottom: 5rem; */
-        text-decoration: none;
-    }
-    .header > span{
-        display: block;
-        /* margin-right: 2rem; */
-    }
+	.banner-cont {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		z-index: -1;
+	}
+	.banner-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: blur(5px);
+	}
+	.banner-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	p {
+		text-align: justify;
+		text-justify: distribute;
+	}
+	accent,
+	accent * {
+		font-weight: bold;
+		text-decoration: underline var(--accent-color);
+	}
+	.header {
+		font-weight: normal;
+		text-decoration: none;
+		font-size: 3rem;
+		text-align: center;
+		margin-top: 20vh;
+		color: white;
+		text-shadow: 0 0 10px black;
+	}
+	.header > span {
+		display: block;
+	}
 </style>
