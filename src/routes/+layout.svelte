@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import Cookies from '$lib/components/Cookies.svelte';
 	import Nav from '$lib/components/Nav.svelte';
+	import Particles from '$lib/components/Particles.svelte';
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
@@ -24,26 +25,30 @@
 </svelte:head>
 
 <div id="cont">
-    <Nav></Nav>
-    <Cookies/>
-    {#if $user?.sleeping}
-        <div class="pls-wake-up">
-            <div>
-                Votre compte est pour l'instant caché sur le serveur, pour publier votre compte, mettez a jour vos données dans la section utilisateur en haut a droite!
-            </div>
-            <div>
-                Une fois dans la section utilisateur, cherchez la section "Mes donnes" et remplissez vos informations. Un fois terminé, appuyez sur "Mettre a jour".
-            </div>
-        </div>
-    {/if}
-    <div id="slot-cont">
-        <slot/>
-    </div>
-    <footer>
-        <hr/>
-        Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br/>
-        En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a>
-    </footer>
+	<Particles />
+	<Nav />
+	<Cookies />
+	{#if $user?.sleeping}
+		<div class="pls-wake-up">
+			<div>
+				Votre compte est pour l'instant caché sur le serveur, pour publier votre compte, mettez a
+				jour vos données dans la section utilisateur en haut a droite!
+			</div>
+			<div>
+				Une fois dans la section utilisateur, cherchez la section "Mes donnes" et remplissez vos
+				informations. Un fois terminé, appuyez sur "Mettre a jour".
+			</div>
+		</div>
+	{/if}
+	<div id="slot-cont">
+		<slot />
+	</div>
+	<footer>
+		<hr />
+		Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br />
+		En utilisant ce site et les services y présents vous acceptez la
+		<a href="/reglementation">réglementation</a>
+	</footer>
 </div>
 
 
@@ -66,9 +71,17 @@
 		display: flex;
 		flex-direction: column;
 	}
-    #slot-cont{
-        margin: 20px;
-    }
+	:global(#tsparticles) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+	}
+	#slot-cont {
+		margin: 20px;
+	}
     footer{
         margin: 20px;
         margin-top: auto;
