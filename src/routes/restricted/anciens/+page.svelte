@@ -1,8 +1,9 @@
 <script>
-    // import anciens_r from "$data/contact-anciens.json"
+	// import anciens_r from "$data/contact-anciens.json"
 
-    import Banner from "$lib/components/Banner.svelte";
-    import { parse_ast, ast_match } from "$lib/search.js";
+	import Banner from '$lib/components/Banner.svelte';
+	import UserCard from '$lib/components/UserCard.svelte';
+	import { parse_ast, ast_match } from '$lib/search.js';
 
     export let data;
 
@@ -72,58 +73,32 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 {:then anciens} 
 {anciens.length} résultat{anciens.length==1 ? "" : "s"}
 {/await}
-<hr/>
-<table>
-    <tr>
-        <th>Nom</th>
-        <th>PIMA</th>
-        <th>Suite</th>
-        <th></th>
-    </tr>
-    {#await anciens_P}
-    <tr>
-        <td>Chargement...</td>
-    </tr>
-    {:then anciens} 
-        {#each anciens as data}
-            <tr>
-                <td class={(data.sleeping ? "sleeper " : "") + (data.admin ? "admin " : "")}>{data.nom || "🤐"} {data.prenom}</td> 
-                <td>{data.grad_year-3}-{data.grad_year}</td>
-                <td>{data.choisi}</td>
-                <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
-            </tr>
-        {/each}
-    {/await}
-</table>
-
+<hr />
+<div class="user-cards">
+	{#await anciens_P}
+		<p>Chargement...</p>
+	{:then anciens}
+		{#each anciens as user}
+			<UserCard {user} />
+		{/each}
+	{/await}
+</div>
 
 <style>
-    table{
-        width: 100%;
-        table-layout: fixed;
-    }
-    table td, table th{
-        text-align: left;
-    }
-    table tr:nth-child(even) {
-        background: var(--behind-color);
-    }
-    table tr td:last-child, table tr th:last-child{
-        text-align: right;
-        width: 5rem;
-    }
-    table tr td:nth-child(2), table tr th:nth-child(2){
-        width: 5rem;
-    }
-    .sleeper{
-        font-style: italic;
-        color: blueviolet;
-    }
-    .sleeper::after{
-        content: " 😴";
-    }
-    .admin{
-        font-style: italic;
-        color: green;
-    }
+	.user-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 20px;
+	}
+	.sleeper {
+		font-style: italic;
+		color: blueviolet;
+	}
+	.sleeper::after {
+		content: ' 😴';
+	}
+	.admin {
+		font-style: italic;
+		color: green;
+	}
 </style>
