@@ -1,22 +1,34 @@
 <script>
-	import { onMount } from 'svelte';
+	import UserProfileModal from './UserProfileModal.svelte';
 	import { quintOut } from 'svelte/easing';
 	import { scale } from 'svelte/transition';
 
 	export let user;
 
-	let clicked = false;
-
-	function handleClick() {
-		clicked = !clicked;
-	}
+	let showModal = false;
 </script>
+
+{#if showModal}
+	<UserProfileModal {user} on:close={() => (showModal = false)}>
+		<div class="user-profile">
+			<h2>{user.nom} {user.prenom}</h2>
+			<p>Email: {user.email}</p>
+			<p>Contact: {user.contact}</p>
+			<p>Nationalité: {user.nationalite}</p>
+			<p>Admis: {user.admis}</p>
+			<p>Choisi: {user.choisi}</p>
+			<p>Description: {user.description}</p>
+			<p>Travails: {user.travails}</p>
+			<p>Moyenne L2: {user.moyenneL2}</p>
+			<p>Moyenne L3: {user.moyenneL3}</p>
+		</div>
+	</UserProfileModal>
+{/if}
 
 <div
 	class="user-card"
-	on:click={handleClick}
+	on:click={() => (showModal = true)}
 	transition:scale={{ duration: 300, easing: quintOut }}
-	style={clicked ? 'transform: scale(1.1); z-index: 10;' : ''}
 >
 	<div class="user-card-header">
 		<div class="initials">
@@ -27,9 +39,6 @@
 	</div>
 	<div class="user-card-body">
 		<p>{user.choisi}</p>
-	</div>
-	<div class="user-card-footer">
-		<a href={`/restricted/anciens/${user.id}`}>View Profile</a>
 	</div>
 </div>
 
@@ -78,7 +87,7 @@
 	.user-card-body {
 		flex-grow: 1;
 	}
-	.user-card-footer {
-		text-align: right;
+	.user-profile h2 {
+		margin-top: 0;
 	}
 </style>

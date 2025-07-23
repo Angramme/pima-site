@@ -29,10 +29,10 @@
 		pointer-events: none;
 		z-index: -1;
 		background: radial-gradient(
-			circle at var(--x) var(--y),
-			color-mix(in srgb, var(--accent-color) 20%, transparent),
-			transparent 10vw
+			600px circle at var(--x) var(--y),
+			color-mix(in srgb, var(--accent-color) 50%, transparent),
+			transparent 40%
 		);
-		transition: background 0.2s ease;
+		transition: background 0.3s ease-out;
 	}
 </style>
