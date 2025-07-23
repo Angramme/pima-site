@@ -70,10 +70,16 @@
 	}
     #slot-cont{
         margin: 20px;
+        background-color: color-mix(in srgb, var(--background-color) 80%, transparent);
+        padding: 20px;
+        border-radius: 10px;
     }
     footer{
         margin: 20px;
         margin-top: auto;
+        background-color: color-mix(in srgb, var(--background-color) 80%, transparent);
+        padding: 20px;
+        border-radius: 10px;
     }
     footer > hr{
         margin-top: 80px;
