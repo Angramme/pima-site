@@ -17,7 +17,10 @@
 			<p>Nationalité: {user.nationalite}</p>
 			<p>Admis: {user.admis}</p>
 			<p>Choisi: {user.choisi}</p>
-			<p>Description: {user.description}</p>
+			<div class="description">
+				<h4>Description:</h4>
+				{@html user.description.replace(/\\n/g, '<br>')}
+			</div>
 			<p>Travails: {user.travails}</p>
 			<p>Moyenne L2: {user.moyenneL2}</p>
 			<p>Moyenne L3: {user.moyenneL3}</p>
@@ -89,5 +92,11 @@
 	}
 	.user-profile h2 {
 		margin-top: 0;
+	}
+	.description {
+		margin-top: 1rem;
+	}
+	.description h4 {
+		margin-bottom: 0.5rem;
 	}
 </style>
