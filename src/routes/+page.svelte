@@ -11,12 +11,10 @@
 	<div class="banner-overlay" />
 </div>
 
-<h1 class="header">
-	<span><b>D</b>ouble</span>
-	<span><b>M</b>ajeure</span>
-	<span><b>M</b>athématiques</span>
-	<span><b>I</b>nformatique</span>
-</h1>
+<div class="hero">
+	<h1>Double Majeure Mathématiques Informatique</h1>
+	<p>Le portail non-officiel des étudiants de la PIMA</p>
+</div>
 
 <p>
     Site <i>non-officiel</i> DMMI/PIMA. 
@@ -85,46 +83,38 @@
 
 <style>
 	.banner-cont {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100vh;
-		z-index: -1;
+		display: none;
 	}
-	.banner-img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		filter: blur(5px);
+	.hero {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 60vh;
+		text-align: center;
+		background: linear-gradient(
+			45deg,
+			var(--accent-color),
+			color-mix(in srgb, var(--accent-color) 50%, var(--background-color))
+		);
+		color: var(--background-color);
 	}
-	.banner-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
+	.hero h1 {
+		font-size: 4rem;
+		font-weight: bold;
+		margin-bottom: 1rem;
+	}
+	.hero p {
+		font-size: 1.5rem;
 	}
 	p {
 		text-align: justify;
 		text-justify: distribute;
+		line-height: 1.6;
 	}
 	accent,
 	accent * {
 		font-weight: bold;
-		text-decoration: underline var(--accent-color);
-	}
-	.header {
-		font-weight: normal;
-		text-decoration: none;
-		font-size: 3rem;
-		text-align: center;
-		margin-top: 20vh;
-		color: white;
-		text-shadow: 0 0 10px black;
-	}
-	.header > span {
-		display: block;
+		color: var(--accent-color);
 	}
 </style>
