@@ -27,7 +27,7 @@
 <div id="cont">
     <VantaBackground />
     <Nav></Nav>
-    <Cookies/>
+    <!-- <Cookies/> -->
     {#if $user?.sleeping}
         <div class="pls-wake-up">
             <div>
