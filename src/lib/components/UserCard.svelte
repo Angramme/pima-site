@@ -11,19 +11,36 @@
 {#if showModal}
 	<UserProfileModal {user} on:close={() => (showModal = false)}>
 		<div class="user-profile">
-			<h2>{user.nom} {user.prenom}</h2>
-			<p>Email: {user.email}</p>
-			<p>Contact: {user.contact}</p>
-			<p>Nationalité: {user.nationalite}</p>
-			<p>Admis: {user.admis}</p>
-			<p>Choisi: {user.choisi}</p>
-			<div class="description">
-				<h4>Description:</h4>
-				{@html user.description.replace(/\\n/g, '<br>')}
+			<div class="profile-header">
+				<div class="initials">
+					{user.prenom[0]}{user.nom[0]}
+				</div>
+				<h2>{user.nom} {user.prenom}</h2>
+				<div class="l3">L3 {user.l3}</div>
 			</div>
-			<p>Travails: {user.travails}</p>
-			<p>Moyenne L2: {user.moyenneL2}</p>
-			<p>Moyenne L3: {user.moyenneL3}</p>
+			<div class="profile-details">
+				<div class="profile-card">
+					<h4>Contact</h4>
+					<p>Email: {user.email}</p>
+					<p>Contact: {user.contact}</p>
+					<p>Nationalité: {user.nationalite}</p>
+				</div>
+				<div class="profile-card">
+					<h4>Parcours</h4>
+					<p>Admis: {user.admis}</p>
+					<p>Choisi: {user.choisi}</p>
+					<p>Moyenne L2: {user.moyenneL2}</p>
+					<p>Moyenne L3: {user.moyenneL3}</p>
+				</div>
+				<div class="profile-card description">
+					<h4>Description</h4>
+					{@html user.description.replace(/\\n/g, '<br>')}
+				</div>
+				<div class="profile-card">
+					<h4>Travails</h4>
+					<p>{user.travails}</p>
+				</div>
+			</div>
 		</div>
 	</UserProfileModal>
 {/if}
@@ -90,13 +107,34 @@
 	.user-card-body {
 		flex-grow: 1;
 	}
-	.user-profile h2 {
+	.user-profile .profile-header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 2rem;
+	}
+	.user-profile .profile-header .initials {
+		width: 80px;
+		height: 80px;
+		font-size: 2.5rem;
+	}
+	.user-profile .profile-header h2 {
+		margin: 0;
+		flex-grow: 1;
+	}
+	.user-profile .profile-details {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1rem;
+	}
+	.user-profile .profile-card {
+		background-color: color-mix(in srgb, var(--background-color) 50%, transparent);
+		padding: 1rem;
+		border-radius: 10px;
+	}
+	.user-profile .profile-card h4 {
 		margin-top: 0;
 	}
 	.description {
-		margin-top: 1rem;
-	}
-	.description h4 {
-		margin-bottom: 0.5rem;
+		grid-column: 1 / -1;
 	}
 </style>
