@@ -30,10 +30,10 @@
 <div id="nav-cont">
 	<nav>
 		<div class="logo">
-			<span>Æ PIMA</span>
+			<a href="/">Æ PIMA</a>
 		</div>
-		{#each pages as p}
-			<div>
+		<div class="links">
+			{#each pages as p}
 				<a
 					data-sveltekit-preload-data="off"
 					data-sveltekit-preload-code="off"
@@ -42,16 +42,16 @@
 				>
 					{p[1]}
 				</a>
-			</div>
-		{/each}
-		<div class="login">
+			{/each}
+		</div>
+		<div class="actions">
 			<button on:click={toggleTheme}>{theme === 'dark' ? '🌞' : '🌙'}</button>
 			{#if $user}
-				<a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user">
+				<a class="button" data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/restricted/user">
 					{$user.prenom}
 				</a>
 			{:else}
-				<a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login">
+				<a class="button" data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login">
 					connexion
 				</a>
 			{/if}
@@ -60,47 +60,76 @@
 </div>
 
 <style>
-    #nav-cont{
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: var(--background-color);
-    }
-    @media (hover:hover) {
-        #nav-cont{
-            background: none;
-        }
-        nav{
-            backdrop-filter: blur(5px);
-        }
-    }
-    nav{
-        display: flex;
-        justify-content :right;
-        align-items: center;
-        padding: 1rem;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    nav div *{
-        font-weight: normal;
-        text-decoration: none;
-        font-size: larger;
-        padding: 4px;
-        margin: 5px;
-    }
-    a.current{
-        color: var(--background-color);
-        background-color: var(--font-color);
-    }
-    .logo{
-        flex-grow: 1;
-    }
-    .login{
-        border-left: 1px solid var(--font-color);
-        padding-left: 0.5rem;
-    }
+	#nav-cont {
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		right: 0;
+		background-color: transparent;
+		transition: background-color 0.3s ease;
+	}
+	#nav-cont:hover {
+		background-color: var(--background-color);
+	}
+	nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 2rem;
+		backdrop-filter: blur(5px);
+	}
+	.logo a {
+		font-weight: bold;
+		font-size: 1.5rem;
+		text-decoration: none;
+		color: var(--font-color);
+	}
+	.links {
+		display: flex;
+		gap: 1.5rem;
+	}
+	.links a {
+		text-decoration: none;
+		font-size: 1.1rem;
+		color: var(--font-color);
+		position: relative;
+	}
+	.links a::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background-color: var(--accent-color);
+		transition: width 0.3s ease;
+	}
+	.links a:hover::after,
+	.links a.current::after {
+		width: 100%;
+	}
+	.actions {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+	.actions button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		font-size: 1.5rem;
+	}
+	.actions .button {
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--accent-color);
+		border-radius: 5px;
+		text-decoration: none;
+		color: var(--accent-color);
+		transition: background-color 0.3s ease, color 0.3s ease;
+	}
+	.actions .button:hover {
+		background-color: var(--accent-color);
+		color: var(--background-color);
+	}
 </style>
