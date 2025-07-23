@@ -16,6 +16,7 @@
             v.map(d=>{
                 // @ts-ignore
                 if(d.admin) d._admin = "admin";
+                 d.l3 = d.grad_year;
                 return d;
             })
             // @ts-ignore

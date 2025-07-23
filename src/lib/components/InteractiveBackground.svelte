@@ -30,8 +30,9 @@
 		z-index: -1;
 		background: radial-gradient(
 			circle at var(--x) var(--y),
-			rgba(255, 62, 0, 0.2),
-			transparent 20vw
+			color-mix(in srgb, var(--accent-color) 20%, transparent),
+			transparent 10vw
 		);
+		transition: background 0.2s ease;
 	}
 </style>
