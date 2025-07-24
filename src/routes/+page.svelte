@@ -18,6 +18,7 @@
 	<span><b>I</b>nformatique</span>
 </h1>
 
+<div class="content">
 <p>
     Site <i>non-officiel</i> DMMI/PIMA. 
     <br/>"Æ PIMA" : "Anciens-Etudiants-du-Parcours-PIMA"
@@ -28,6 +29,7 @@
 <p>
     Ce site est maintenu par les étudiants de la double majeure en Mathématiques et Informatique à Sorbonne Université, également connue sous l'acronyme PIMA. L'objectif de ce site est de rassembler des ressources utiles, telles que des <accent>comptes rendus</accent> au format PDF rédigés par d'anciens étudiants, des instructions pour obtenir des documents administratifs tels que les <accent>descriptifs des Unités d'Enseignement</accent> (UE), des <accent>conseils pour la rédaction</accent> de lettres de recommandation, de lettres de motivation, de CV, et bien plus encore.
 </p>
+</div>
 
 <p>
     Sur ce site, vous trouverez également des informations sur les <accent>procédures d'admission</accent>, des conseils, des documents partagés sur le drive, et même la possibilité de <accent>contacter d'anciens étudiants</accent> de la PIMA qui ont intégré les écoles que vous visez. De plus, nous prévoyons également de fournir des <accent>conseils sur les documents administratifs</accent> et sur la manière de naviguer au mieux dans les méandres de l'administration de la Sorbonne.
@@ -105,6 +107,9 @@
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.5);
+	}
+	.content {
+		margin-top: 100vh;
 	}
 	p {
 		text-align: justify;

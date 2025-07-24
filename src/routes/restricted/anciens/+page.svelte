@@ -17,6 +17,7 @@
                 // @ts-ignore
                 if(d.admin) d._admin = "admin";
                  d.l3 = d.grad_year;
+                 d.conseils = d.conseils;
                 return d;
             })
             // @ts-ignore
@@ -36,22 +37,26 @@
 </p>
 {#if show_hint}
 <ul>
-    <li>Trouver une personne: taper son nom ou prenom, par exemple "fred"</li>
-    <li>Recherche par mot clef: taper le mot clef, par exemple "ingé", cela cherche dans toutes les proprietes</li>
-    <li>Sinon il y a 3 operateurs
+    <li><b>Recherche par nom:</b> tapez le nom ou prénom de la personne. <i>Ex: "fred"</i></li>
+    <li><b>Recherche par université:</b> tapez `admis:` suivi du nom de l'université. <i>Ex: "admis:polytechnique"</i></li>
+    <li><b>Recherche par entreprise:</b> tapez `travails:` suivi du nom de l'entreprise. <i>Ex: "travails:google"</i></li>
+    <li><b>Recherche par mot-clé:</b> tapez un mot-clé pour rechercher dans toutes les propriétés. <i>Ex: "ingénieur"</i></li>
+    <br>
+    <li><b>Opérateurs logiques:</b>
         <ul>
-            <li>| ou logique</li>
-            <li>& et logique</li>
-            <li>: inclusion</li>
+            <li>`|` pour OU logique</li>
+            <li>`&` pour ET logique</li>
+            <li>`:` pour l'inclusion</li>
         </ul>
     </li>
-    <li>Trouver tout le monde admis a l'X: taper "admis : (poly | X)" (i.e le champ "admis" contient "poly" ou "X")</li>
-    <li>Trouver des Telecom admis en 2023: taper "(admis:tele) & (grad_year:2023)".</li>
-    <li>Trouver des Telecom admis strictement apres 2022: taper "(admis:tele) & (grad_year:>2022)".</li>
-    <li>Trouver des gens de nationalié Polonaise: taper "nationalite:(pl | polo)"</li>
-    <li>Trouver tout le monde avec 18 de moyenne en L2 OU en L3: taper "(moyenneL2|moyenneL3):18" </li>
-    <li>Trouver tout le monde avec au moins 15 de moyenne en L2 ET en L3: taper "(moyenneL2&moyenneL3):>14" </li>
-    <li>En general vous pouvez cherchez toutes les données :)</li>
+    <br>
+    <li><b>Exemples combinés:</b>
+        <ul>
+            <li>Trouver les admis à l'X ou à l'ENS: `"admis:(poly | ens)"`</li>
+            <li>Trouver les admis à Télécom en 2023: `"(admis:telecom) & (grad_year:2023)"`</li>
+            <li>Trouver les polonais avec 18 de moyenne en L2 ou L3: `"(nationalite:(pl | polo)) & ((moyenneL2|moyenneL3):18)"`</li>
+        </ul>
+    </li>
 </ul>
 Voici les proprietes possibles:
 <ul>
