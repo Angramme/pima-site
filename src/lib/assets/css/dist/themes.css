@@ -1,11 +1,11 @@
 :root {
-	--font-color: #000000;
-	--background-color: #ffffff;
-	--accent-color: #ff3e00;
+	--font-color: rgb(221, 226, 231);
+	--background-color: rgb(30, 30, 30);
+	--accent-color: rgb(64, 48, 121);
 }
 
 :root[data-theme='dark'] {
-	--font-color: #000000;
-	--background-color: #121212;
-	--accent-color: #ff3e00;
+	--font-color: rgb(221, 226, 231);
+	--background-color: rgb(44, 69, 45);
+	--accent-color: rgb(81, 193, 171);
 }
