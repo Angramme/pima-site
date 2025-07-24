@@ -1,6 +1,4 @@
 <script>
-	import { page } from '$app/stores';
-	import { enhance } from '$app/forms';
 	import Markdown from './Markdown.svelte';
 	import UserProfileModal from './UserProfileModal.svelte';
 	import { quintOut } from 'svelte/easing';
@@ -37,7 +35,7 @@
 				</div>
 				<div class="profile-card description">
 					<h4>Description</h4>
-					{@html user.description}
+					<Markdown markdown={user.description} />
 				</div>
 				<div class="profile-card">
 					<h4>Travails</h4>
@@ -45,35 +43,9 @@
 				</div>
 				<div class="profile-card">
 					<h4>Conseils</h4>
-					<Markdown markdown={user.conseils} />
+					<p>{user.conseils}</p>
 				</div>
 			</div>
-			{#if $page.data.user?.admin}
-				<div class="profile-card admin-controls">
-					<h4>Admin Controls</h4>
-					<h5>Autres (Lecture seule)</h5>
-					<p>id: {user.id}</p>
-					<p>login: {user.login}</p>
-					<p>admin privileges: {user.admin}</p>
-					<p>date création: {user.createdAt}</p>
-					<p>derniere mise a jour: {user.updatedAt}</p>
-					<h5>Visibilité</h5>
-					<p>TODO</p>
-					<h5>Admin actions</h5>
-					<form method="POST" action="/restricted/user?/set_admin" use:enhance>
-						<input type="hidden" name="login" value={user.login} />
-						<button type="submit">Give admin permissions</button>
-					</form>
-					<form method="POST" action="/restricted/user?/unset_admin" use:enhance>
-						<input type="hidden" name="login" value={user.login} />
-						<button type="submit">Remove admin permissions</button>
-					</form>
-					<form method="POST" action="/restricted/user?/delete_user" use:enhance>
-						<input type="hidden" name="login" value={user.login} />
-						<button type="submit">Delete this user</button>
-					</form>
-				</div>
-			{/if}
 		</div>
 	</UserProfileModal>
 {/if}
@@ -172,20 +144,5 @@
 	}
 	.description {
 		grid-column: 1 / -1;
-	}
-	.admin-controls {
-		background-color: #f0f0f0;
-		border: 1px solid #ccc;
-		padding: 1rem;
-	}
-	.admin-controls h4 {
-		margin-top: 0;
-	}
-	.admin-controls h5 {
-		margin-top: 1rem;
-		margin-bottom: 0.5rem;
-	}
-	.admin-controls form {
-		margin-bottom: 0.5rem;
 	}
 </style>
