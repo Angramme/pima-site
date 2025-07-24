@@ -267,6 +267,8 @@
     }
     input:read-only[type~="text"], input:read-only[type~="date"], textarea:read-only{
         background: rgb(196, 196, 196);
+        background-color: #444;
+        color: #fff;
     }
     input[type="checkbox"] {
         width: auto;
