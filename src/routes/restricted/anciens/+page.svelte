@@ -10,7 +10,7 @@
     let school_status = "admis";
     let work_search = "";
 
-    $: search_term = `${name_search} & (${school_status}:${school_search}) & (travails:${work_search})`;
+    $: search_term = (name_search || school_search || work_search) ? `${name_search} & (${school_status}:${school_search}) & (travails:${work_search})` : "";
     $: ast_term = parse_ast(search_term);
     $: ast_term && console.log(ast_term);
 
