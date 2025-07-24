@@ -1,13 +1,16 @@
 <script>
-	// import anciens_r from "$data/contact-anciens.json"
-
 	import Banner from '$lib/components/Banner.svelte';
 	import UserCard from '$lib/components/UserCard.svelte';
 	import { parse_ast, ast_match } from '$lib/search.js';
 
     export let data;
 
-    let search_term = "";
+    let name_search = "";
+    let school_search = "";
+    let school_status = "admis";
+    let work_search = "";
+
+    $: search_term = `${name_search} & (${school_status}:${school_search}) & (travails:${work_search})`;
     $: ast_term = parse_ast(search_term);
     $: ast_term && console.log(ast_term);
 
@@ -73,12 +76,24 @@ Voici les proprietes possibles:
     Les informations présentes ont été fournies par les élèves eux-mêmes avec leur consentement.
 </p>
 
-Rechercher : <input type="text" bind:value={search_term}/> - 
-{#await anciens_P}
-? résultat
-{:then anciens} 
-{anciens.length} résultat{anciens.length==1 ? "" : "s"}
-{/await}
+<div class="search-form">
+    <div class="form-group">
+        <label for="name-search">Nom:</label>
+        <input id="name-search" type="text" bind:value={name_search} />
+    </div>
+    <div class="form-group">
+        <label for="school-search">École:</label>
+        <input id="school-search" type="text" bind:value={school_search} />
+        <select bind:value={school_status}>
+            <option value="admis">Admis</option>
+            <option value="suivi">Suivi</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="work-search">Entreprise:</label>
+        <input id="work-search" type="text" bind:value={work_search} />
+    </div>
+</div>
 <hr />
 <div class="user-cards">
 	{#await anciens_P}
@@ -91,6 +106,15 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 </div>
 
 <style>
+    .search-form {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
 	.user-cards {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
