@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import Markdown from './Markdown.svelte';
+	import { enhance } from '$app/forms';
 	import UserProfileModal from './UserProfileModal.svelte';
 	import { quintOut } from 'svelte/easing';
 	import { scale } from 'svelte/transition';
@@ -8,21 +8,6 @@
 	export let user;
 
 	let showModal = false;
-
-	async function deleteUser() {
-		if (confirm('Are you sure you want to delete this user?')) {
-			const res = await fetch(`/api/user/${user.id}`, {
-				method: 'POST',
-				body: JSON.stringify({ action: 'delete' }),
-			});
-
-			if (res.ok) {
-				location.reload();
-			} else {
-				alert('An error occurred while deleting the user.');
-			}
-		}
-	}
 </script>
 
 {#if showModal}
@@ -50,14 +35,44 @@
 					<p>Moyenne L3: {user.moyenneL3}</p>
 				</div>
 				<div class="profile-card description">
-					<h4>Conseils</h4>
-					<Markdown markdown={user.description} />
+					<h4>Description</h4>
+					{@html user.description}
 				</div>
 				<div class="profile-card">
 					<h4>Travails</h4>
 					<p>{user.travails}</p>
 				</div>
+				<div class="profile-card">
+					<h4>Conseils</h4>
+					<p>{user.conseils}</p>
+				</div>
 			</div>
+			{#if $page.data.user?.admin}
+				<div class="profile-card admin-controls">
+					<h4>Admin Controls</h4>
+					<h5>Autres (Lecture seule)</h5>
+					<p>id: {user.id}</p>
+					<p>login: {user.login}</p>
+					<p>admin privileges: {user.admin}</p>
+					<p>date création: {user.createdAt}</p>
+					<p>derniere mise a jour: {user.updatedAt}</p>
+					<h5>Visibilité</h5>
+					<p>TODO</p>
+					<h5>Admin actions</h5>
+					<form method="POST" action="/restricted/user?/set_admin" use:enhance>
+						<input type="hidden" name="login" value={user.login} />
+						<button type="submit">Give admin permissions</button>
+					</form>
+					<form method="POST" action="/restricted/user?/unset_admin" use:enhance>
+						<input type="hidden" name="login" value={user.login} />
+						<button type="submit">Remove admin permissions</button>
+					</form>
+					<form method="POST" action="/restricted/user?/delete_user" use:enhance>
+						<input type="hidden" name="login" value={user.login} />
+						<button type="submit">Delete this user</button>
+					</form>
+				</div>
+			{/if}
 		</div>
 	</UserProfileModal>
 {/if}
@@ -80,11 +95,6 @@
 	<div class="user-card-body">
 		<p>{user.choisi}</p>
 	</div>
-	{#if $page.data.user?.admin}
-		<div class="user-card-actions">
-			<button on:click|stopPropagation={deleteUser}>Delete</button>
-		</div>
-	{/if}
 </div>
 
 <style>
@@ -162,17 +172,19 @@
 	.description {
 		grid-column: 1 / -1;
 	}
-	.user-card-actions {
-		display: flex;
-		justify-content: flex-end;
-		margin-top: 1rem;
+	.admin-controls {
+		background-color: #f0f0f0;
+		border: 1px solid #ccc;
+		padding: 1rem;
 	}
-	.user-card-actions button {
-		background-color: var(--accent-color);
-		color: var(--background-color);
-		border: none;
-		padding: 0.5rem 1rem;
-		border-radius: 5px;
-		cursor: pointer;
+	.admin-controls h4 {
+		margin-top: 0;
+	}
+	.admin-controls h5 {
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+	}
+	.admin-controls form {
+		margin-bottom: 0.5rem;
 	}
 </style>

@@ -318,4 +318,28 @@ export const actions = {
       new_account_login: unique_logins.join(";"),
     };
   },
+  set_admin: async ({ locals, request }) => {
+    if (!locals.user?.admin) return { failure: "not an admin" };
+    const data = await request.formData();
+    const login = data.get("login")?.toString();
+    if (!login) return { failure: "no login provided" };
+    await prisma.user.update({ where: { login }, data: { admin: true } });
+    return { success: true };
+  },
+  unset_admin: async ({ locals, request }) => {
+    if (!locals.user?.admin) return { failure: "not an admin" };
+    const data = await request.formData();
+    const login = data.get("login")?.toString();
+    if (!login) return { failure: "no login provided" };
+    await prisma.user.update({ where: { login }, data: { admin: false } });
+    return { success: true };
+  },
+  delete_user: async ({ locals, request }) => {
+    if (!locals.user?.admin) return { failure: "not an admin" };
+    const data = await request.formData();
+    const login = data.get("login")?.toString();
+    if (!login) return { failure: "no login provided" };
+    await prisma.user.delete({ where: { login } });
+    return { success: true };
+  },
 };
