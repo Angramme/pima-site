@@ -5,7 +5,7 @@
 }
 
 :root[data-theme='dark'] {
-	--font-color: #ffffff;
+	--font-color: #000000;
 	--background-color: #121212;
 	--accent-color: #ff3e00;
 }
