@@ -15,9 +15,9 @@
 			skyColor: 0x68b8d7,
 			cloudColor: 0xadc1c4,
 			cloudShadowColor: 0x18354a,
-			sunColor: 0_x_0,
-			sunGlareColor: 0_x_0,
-			sunlightColor: 0_x_0
+			sunColor: 0x0,
+			sunGlareColor: 0x0,
+			sunlightColor: 0x0
 		});
 	});
 
