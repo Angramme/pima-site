@@ -109,7 +109,7 @@
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 	.content {
-		margin-top: 80vh;
+		margin-top: 0;
 	}
 	p {
 		text-align: justify;
@@ -125,7 +125,7 @@
 		text-decoration: none;
 		font-size: 3rem;
 		text-align: center;
-		margin-top: 20vh;
+		padding-top: 20vh;
 		color: white;
 		text-shadow: 0 0 10px black;
 	}

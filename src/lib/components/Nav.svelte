@@ -94,6 +94,7 @@
 		font-size: 1.1rem;
 		color: var(--font-color);
 		position: relative;
+		text-transform: capitalize;
 	}
 	.links a::after {
 		content: '';
