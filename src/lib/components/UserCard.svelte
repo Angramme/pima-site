@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
+	import Markdown from './Markdown.svelte';
 	import UserProfileModal from './UserProfileModal.svelte';
 	import { quintOut } from 'svelte/easing';
 	import { scale } from 'svelte/transition';
@@ -44,7 +45,7 @@
 				</div>
 				<div class="profile-card">
 					<h4>Conseils</h4>
-					<p>{user.conseils}</p>
+					<Markdown markdown={user.conseils} />
 				</div>
 			</div>
 			{#if $page.data.user?.admin}
