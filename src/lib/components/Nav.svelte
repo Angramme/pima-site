@@ -3,10 +3,10 @@
 	import { page } from '$app/stores';
 
 	const pages = [
-		['/', 'accueil'],
-		['/restricted/anciens', 'anciens'],
-		['/conseils', 'conseils'],
-		['/restricted/external/Google Drive', 'drive']
+		['/', 'Accueil'],
+		['/restricted/anciens', 'Anciens'],
+		['/conseils', 'Conseils'],
+		['/restricted/external/Google Drive', 'Drive']
 		// ["/restricted/faq", "FAQ"],
 	];
 
@@ -94,6 +94,7 @@
 		font-size: 1.1rem;
 		color: var(--font-color);
 		position: relative;
+		text-transform: capitalize;
 	}
 	.links a::after {
 		content: '';

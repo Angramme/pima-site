@@ -30,19 +30,19 @@
     Ce site est maintenu par les étudiants de la double majeure en Mathématiques et Informatique à Sorbonne Université, également connue sous l'acronyme PIMA. L'objectif de ce site est de rassembler des ressources utiles, telles que des <accent>comptes rendus</accent> au format PDF rédigés par d'anciens étudiants, des instructions pour obtenir des documents administratifs tels que les <accent>descriptifs des Unités d'Enseignement</accent> (UE), des <accent>conseils pour la rédaction</accent> de lettres de recommandation, de lettres de motivation, de CV, et bien plus encore.
 </p>
 </div>
-
+<hr/>
 <p>
     Sur ce site, vous trouverez également des informations sur les <accent>procédures d'admission</accent>, des conseils, des documents partagés sur le drive, et même la possibilité de <accent>contacter d'anciens étudiants</accent> de la PIMA qui ont intégré les écoles que vous visez. De plus, nous prévoyons également de fournir des <accent>conseils sur les documents administratifs</accent> et sur la manière de naviguer au mieux dans les méandres de l'administration de la Sorbonne.
 </p>
-
+<hr/>
 <p>
     L'idée maîtresse qui sous-tend ce projet est que, une fois que vous aurez également réussi à intégrer une école, vous serez encouragés à contribuer au site en partageant vos expériences et connaissances pour aider les générations futures d'étudiants de la PIMA.
 </p>
-
+<hr/>
 <p>
     Actuellement, l'accès au site est exclusif, ce qui signifie que vous devez créer un compte pour accéder aux informations existantes et ajouter de nouvelles ressources. Cette approche vise à garantir que les contacts des anciens étudiants et les informations demeurent aussi confidentiels que possible. Nous voulons également nous assurer que les personnes extérieures à la PIMA, pour ne pas les nommer, ne puissent pas accéder à nos précieuses données.
 </p>
-
+<hr/>
 <p>
     Dans l'ensemble, ce site offre un véritable réseau et une source de connaissances précieuses pour la vie académique et professionnelle des étudiants de la PIMA, à condition qu'un nombre suffisant d'étudiants s'y inscrivent.
 </p>
@@ -109,7 +109,7 @@
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 	.content {
-		margin-top: 100vh;
+		margin-top: 0;
 	}
 	p {
 		text-align: justify;
@@ -125,7 +125,7 @@
 		text-decoration: none;
 		font-size: 3rem;
 		text-align: center;
-		margin-top: 20vh;
+		padding-top: 20vh;
 		color: white;
 		text-shadow: 0 0 10px black;
 	}
