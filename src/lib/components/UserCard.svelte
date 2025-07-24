@@ -51,7 +51,10 @@
 
 <div
 	class="user-card"
+	role="button"
+	tabindex="0"
 	on:click={() => (showModal = true)}
+	on:keydown={(e) => e.key === 'Enter' && (showModal = true)}
 	transition:scale={{ duration: 300, easing: quintOut }}
 >
 	<div class="user-card-header">
