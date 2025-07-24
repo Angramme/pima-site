@@ -34,7 +34,7 @@
 				</div>
 				<div class="profile-card description">
 					<h4>Description</h4>
-					{@html user.description.replace(/\./g, '.<br><br>')}
+					{@html user.description}
 				</div>
 				<div class="profile-card">
 					<h4>Travails</h4>

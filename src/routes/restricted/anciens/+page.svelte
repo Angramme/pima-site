@@ -47,6 +47,9 @@
     <li>Trouver tout le monde admis a l'X: taper "admis : (poly | X)" (i.e le champ "admis" contient "poly" ou "X")</li>
     <li>Trouver des Telecom admis en 2023: taper "(admis:tele) & (grad_year:2023)".</li>
     <li>Trouver des Telecom admis strictement apres 2022: taper "(admis:tele) & (grad_year:>2022)".</li>
+    <li>Trouver les gens qui travaillent chez Google: taper "travails:google"</li>
+    <li>Trouver les gens admis à Cambridge: taper "admis:cambridge"</li>
+    <li>Trouver les gens qui ont choisi Cambridge: taper "choisi:cambridge"</li>
     <li>Trouver des gens de nationalié Polonaise: taper "nationalite:(pl | polo)"</li>
     <li>Trouver tout le monde avec 18 de moyenne en L2 OU en L3: taper "(moyenneL2|moyenneL3):18" </li>
     <li>Trouver tout le monde avec au moins 15 de moyenne en L2 ET en L3: taper "(moyenneL2&moyenneL3):>14" </li>
