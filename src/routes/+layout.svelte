@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 	import Cookies from '$lib/components/Cookies.svelte';
 	import Nav from '$lib/components/Nav.svelte';
-	import VantaBackground from '$lib/components/VantaBackground.svelte';
+	import InteractiveBackground from '$lib/components/InteractiveBackground.svelte';
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
@@ -25,7 +25,7 @@
 </svelte:head>
 
 <div id="cont">
-    <VantaBackground />
+    <InteractiveBackground />
     <Nav></Nav>
     <Cookies/>
     {#if $user?.sleeping}
