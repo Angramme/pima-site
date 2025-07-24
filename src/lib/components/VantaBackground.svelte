@@ -5,17 +5,19 @@
 	let vantaRef;
 
 	onMount(() => {
-		vantaEffect = window.VANTA.GLOBE({
+		vantaEffect = window.VANTA.CLOUDS({
 			el: vantaRef,
 			mouseControls: true,
 			touchControls: true,
 			gyroControls: false,
 			minHeight: 200.0,
 			minWidth: 200.0,
-			scale: 1.0,
-			scaleMobile: 1.0,
-			color: 0xff3f81,
-			backgroundColor: 0x121212
+			skyColor: 0x68b8d7,
+			cloudColor: 0xadc1c4,
+			cloudShadowColor: 0x18354a,
+			sunColor: 0_x_0,
+			sunGlareColor: 0_x_0,
+			sunlightColor: 0_x_0
 		});
 	});
 
