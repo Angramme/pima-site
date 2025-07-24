@@ -41,10 +41,6 @@
 					<h4>Travails</h4>
 					<p>{user.travails}</p>
 				</div>
-				<div class="profile-card">
-					<h4>Conseils</h4>
-					<p>{user.conseils}</p>
-				</div>
 			</div>
 		</div>
 	</UserProfileModal>
