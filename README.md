@@ -37,8 +37,21 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
+## Packages Used
 
+### Dependencies
+* **@prisma/client:** ^5.21.0
+* **dompurify:** ^3.0.6
+* **marked:** ^9.1.5
+* **nodemailer:** ^6.9.7
 
-
-
-GG
+### Dev Dependencies
+* **@sveltejs/adapter-auto:** ^2.0.0
+* **@sveltejs/kit:** ^1.20.4
+* **prettier:** ^3.6.2
+* **prettier-plugin-svelte:** ^3.4.0
+* **prisma:** ^5.21.0
+* **svelte:** ^4.0.5
+* **svelte-check:** ^3.4.3
+* **typescript:** ^5.0.0
+* **vite:** ^4.4.2
