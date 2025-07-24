@@ -87,18 +87,14 @@
 
 <style>
 	.banner-cont {
-		position: absolute;
-		top: 0;
-		left: 0;
 		width: 100%;
-		height: 100vh;
-		z-index: -1;
+		height: 80vh;
+		position: relative;
 	}
 	.banner-img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		filter: blur(5px);
 	}
 	.banner-overlay {
 		position: absolute;
@@ -109,7 +105,7 @@
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 	.content {
-		margin-top: 0;
+		margin-top: 2rem;
 	}
 	p {
 		text-align: justify;
