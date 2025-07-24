@@ -34,11 +34,15 @@
 				</div>
 				<div class="profile-card description">
 					<h4>Description</h4>
-					{@html user.description.replace(/\\n/g, '<br>')}
+					{@html user.description.replace(/\./g, '.<br><br>')}
 				</div>
 				<div class="profile-card">
 					<h4>Travails</h4>
 					<p>{user.travails}</p>
+				</div>
+				<div class="profile-card">
+					<h4>Conseils</h4>
+					<p>{user.conseils}</p>
 				</div>
 			</div>
 		</div>

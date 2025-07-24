@@ -37,6 +37,7 @@ export async function load({ locals, depends }) {
       travails: true,
       moyenneL2: true,
       moyenneL3: true,
+      conseils: true,
     },
   });
 
