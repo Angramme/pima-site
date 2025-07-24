@@ -3,10 +3,10 @@
 	import { page } from '$app/stores';
 
 	const pages = [
-		['/', 'accueil'],
-		['/restricted/anciens', 'anciens'],
-		['/conseils', 'conseils'],
-		['/restricted/external/Google Drive', 'drive']
+		['/', 'Accueil'],
+		['/restricted/anciens', 'Anciens'],
+		['/conseils', 'Conseils'],
+		['/restricted/external/Google Drive', 'Drive']
 		// ["/restricted/faq", "FAQ"],
 	];
 
