@@ -9,14 +9,13 @@
 <div class="banner-cont">
 	<img src="/img/banners/1.jpg" alt="banner" class="banner-img" />
 	<div class="banner-overlay" />
+	<h1 class="header">
+		<span><b>D</b>ouble</span>
+		<span><b>M</b>ajeure</span>
+		<span><b>M</b>athématiques</span>
+		<span><b>I</b>nformatique</span>
+	</h1>
 </div>
-
-<h1 class="header">
-	<span><b>D</b>ouble</span>
-	<span><b>M</b>ajeure</span>
-	<span><b>M</b>athématiques</span>
-	<span><b>I</b>nformatique</span>
-</h1>
 
 <div class="content">
 <p>
@@ -90,11 +89,16 @@
 		width: 100%;
 		height: 80vh;
 		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 	.banner-img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		position: absolute;
+		z-index: -1;
 	}
 	.banner-overlay {
 		position: absolute;
@@ -103,6 +107,7 @@
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.5);
+		z-index: -1;
 	}
 	.content {
 		margin-top: 2rem;
@@ -121,7 +126,6 @@
 		text-decoration: none;
 		font-size: 3rem;
 		text-align: center;
-		padding-top: 20vh;
 		color: white;
 		text-shadow: 0 0 10px black;
 	}
