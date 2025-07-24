@@ -1,4 +1,5 @@
 <script>
+	import Markdown from './Markdown.svelte';
 	import UserProfileModal from './UserProfileModal.svelte';
 	import { quintOut } from 'svelte/easing';
 	import { scale } from 'svelte/transition';
@@ -33,16 +34,12 @@
 					<p>Moyenne L3: {user.moyenneL3}</p>
 				</div>
 				<div class="profile-card description">
-					<h4>Description</h4>
-					{@html user.description}
+					<h4>Conseils</h4>
+					<Markdown markdown={user.description} />
 				</div>
 				<div class="profile-card">
 					<h4>Travails</h4>
 					<p>{user.travails}</p>
-				</div>
-				<div class="profile-card">
-					<h4>Conseils</h4>
-					<p>{user.conseils}</p>
 				</div>
 			</div>
 		</div>
