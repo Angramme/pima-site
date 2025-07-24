@@ -16,7 +16,7 @@
 					{user.prenom[0]}{user.nom[0]}
 				</div>
 				<h2>{user.nom} {user.prenom}</h2>
-				<div class="l3">L3 {user.l3}</div>
+				<div class="l3">L3 {user.grad_year}</div>
 			</div>
 			<div class="profile-details">
 				<div class="profile-card">
@@ -62,7 +62,7 @@
 			{user.prenom[0]}{user.nom[0]}
 		</div>
 		<h3>{user.nom} {user.prenom}</h3>
-		<div class="l3">L3 {user.l3}</div>
+		<div class="l3">L3 {user.grad_year}</div>
 	</div>
 	<div class="user-card-body">
 		<p>{user.choisi}</p>
