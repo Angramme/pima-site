@@ -90,15 +90,4 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		gap: 20px;
 	}
-	.sleeper {
-		font-style: italic;
-		color: blueviolet;
-	}
-	.sleeper::after {
-		content: ' 😴';
-	}
-	.admin {
-		font-style: italic;
-		color: green;
-	}
 </style>

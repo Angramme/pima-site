@@ -1,8 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 
-	export let user;
-
 	const dispatch = createEventDispatcher();
 
 	function closeModal() {
@@ -10,8 +8,14 @@
 	}
 </script>
 
-<div class="modal-overlay" on:click={closeModal}>
-	<div class="modal-content" on:click|stopPropagation>
+<div
+	class="modal-overlay"
+	role="button"
+	tabindex="0"
+	on:click={closeModal}
+	on:keydown={(e) => e.key === 'Escape' && closeModal()}
+>
+	<div class="modal-content" role="document" on:click|stopPropagation>
 		<button class="close-button" on:click={closeModal}>X</button>
 		<slot />
 	</div>
