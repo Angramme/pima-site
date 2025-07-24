@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import Markdown from './Markdown.svelte';
 	import UserProfileModal from './UserProfileModal.svelte';
 	import { quintOut } from 'svelte/easing';
@@ -7,6 +8,21 @@
 	export let user;
 
 	let showModal = false;
+
+	async function deleteUser() {
+		if (confirm('Are you sure you want to delete this user?')) {
+			const res = await fetch(`/api/user/${user.id}`, {
+				method: 'POST',
+				body: JSON.stringify({ action: 'delete' }),
+			});
+
+			if (res.ok) {
+				location.reload();
+			} else {
+				alert('An error occurred while deleting the user.');
+			}
+		}
+	}
 </script>
 
 {#if showModal}
@@ -64,6 +80,11 @@
 	<div class="user-card-body">
 		<p>{user.choisi}</p>
 	</div>
+	{#if $page.data.user?.admin}
+		<div class="user-card-actions">
+			<button on:click|stopPropagation={deleteUser}>Delete</button>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -140,5 +161,18 @@
 	}
 	.description {
 		grid-column: 1 / -1;
+	}
+	.user-card-actions {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 1rem;
+	}
+	.user-card-actions button {
+		background-color: var(--accent-color);
+		color: var(--background-color);
+		border: none;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		cursor: pointer;
 	}
 </style>
