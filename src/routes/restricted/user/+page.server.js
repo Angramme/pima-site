@@ -42,6 +42,38 @@ export async function load({ locals, depends }) {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
+  search: async ({ request }) => {
+    const data = await request.formData();
+    const query = data.get("query")?.toString();
+    if (!query) return { search_results: [] };
+    const users = await prisma.user.findMany({
+      where: {
+        OR: [
+          {
+            login: {
+              contains: query,
+            },
+          },
+          {
+            nom: {
+              contains: query,
+            },
+          },
+          {
+            prenom: {
+              contains: query,
+            },
+          },
+        ],
+      },
+      select: {
+        login: true,
+        nom: true,
+        prenom: true,
+      },
+    });
+    return { search_results: users };
+  },
   disconnect: async ({ cookies }) => {
     end_session(cookies);
     throw redirect(302, "/");
