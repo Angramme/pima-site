@@ -236,6 +236,66 @@
             </fieldset>
         </fieldset>
     </form>
+    <form method="POST" action="?/set_admin" use:enhance>
+        <fieldset class="admin">
+            <legend>Admin</legend>
+            <fieldset>
+                <legend>Donner les droits admin</legend>
+                {#if form?.failure}<p class="error">Erreur serveur: "{form.failure}"</p>{/if}
+                {#if form?.success}<p class="success">Action réussie!</p>{/if}
+                <table>
+                    <tr>
+                        <td><label for="set_admin_login">login</label></td>
+                        <td><input name="login" id="set_admin_login" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Donner les droits"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </fieldset>
+    </form>
+    <form method="POST" action="?/unset_admin" use:enhance>
+        <fieldset class="admin">
+            <legend>Admin</legend>
+            <fieldset>
+                <legend>Enlever les droits admin</legend>
+                {#if form?.failure}<p class="error">Erreur serveur: "{form.failure}"</p>{/if}
+                {#if form?.success}<p class="success">Action réussie!</p>{/if}
+                <table>
+                    <tr>
+                        <td><label for="unset_admin_login">login</label></td>
+                        <td><input name="login" id="unset_admin_login" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Enlever les droits"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </fieldset>
+    </form>
+    <form method="POST" action="?/delete_user" use:enhance>
+        <fieldset class="admin">
+            <legend>Admin</legend>
+            <fieldset>
+                <legend>Supprimer un utilisateur</legend>
+                {#if form?.failure}<p class="error">Erreur serveur: "{form.failure}"</p>{/if}
+                {#if form?.success}<p class="success">Action réussie!</p>{/if}
+                <table>
+                    <tr>
+                        <td><label for="delete_user_login">login</label></td>
+                        <td><input name="login" id="delete_user_login" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Supprimer"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </fieldset>
+    </form>
 {/if}
 
 <style>
