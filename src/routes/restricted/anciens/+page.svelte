@@ -90,7 +90,7 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 <style>
 	.user-cards {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 		gap: 5px;
 	}
 </style>
