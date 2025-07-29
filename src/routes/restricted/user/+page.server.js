@@ -371,6 +371,16 @@ export const actions = {
     const data = await request.formData();
     const login = data.get("login")?.toString();
     if (!login) return { failure: "no login provided" };
+
+    const user = await prisma.user.findFirst({
+      where: { login },
+      select: { id: true },
+    });
+    if (!user) return { failure: "user not found" };
+
+    await prisma.session.deleteMany({
+      where: { user_id: user.id },
+    });
     await prisma.user.delete({ where: { login } });
     return { success: true };
   },
