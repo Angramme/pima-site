@@ -178,13 +178,13 @@
 <hr/>
 
 {#if user?.admin}
-    <form method="POST" action="?/create_account" use:enhance>
-        <fieldset class="admin">
-            <legend>Admin</legend>
+    <fieldset class="admin">
+        <legend>Admin</legend>
+        <form method="POST" action="?/create_account" use:enhance>
             <fieldset>
                 <legend>Créer un compte</legend>
                 {#if form?.creation_failure}<p class="error">Erreur serveur: "{form.creation_failure}"</p>{/if}
-                {#if form?.creation_success}<p class="success">Creation réussie! login: {form.new_account_login} </p>{/if}        
+                {#if form?.creation_success}<p class="success">Creation réussie! login: {form.new_account_login} </p>{/if}
                 <table>
                     <tr>
                         <td><label for="create_prenom">prenom</label></td>
@@ -211,15 +211,12 @@
                 </table>
                 <p class="info">Copiez le mot de passe, cliquez sur creer puis copiez le login.</p>
             </fieldset>
-        </fieldset>
-    </form>
-    <form method="POST" action="?/mass_create_accounts" use:enhance>
-        <fieldset class="admin">
-            <legend>Admin</legend>
+        </form>
+        <form method="POST" action="?/mass_create_accounts" use:enhance>
             <fieldset>
                 <legend>Créer des comptes à partir des emails</legend>
                 {#if form?.creation_failure}<p class="error">Erreur serveur: "{form.creation_failure}"</p>{/if}
-                {#if form?.creation_success}<p class="success">Creation réussie! logins: {form.new_account_login} </p>{/if}        
+                {#if form?.creation_success}<p class="success">Creation réussie! logins: {form.new_account_login} </p>{/if}
                 <table>
                     <tr>
                         <td><label for="create_emails">emails (separate with ";")</label></td>
@@ -236,31 +233,7 @@
                 </table>
                 <p class="info">Entrez des emails des personnes et l'année de leur L3</p>
             </fieldset>
-        </fieldset>
-    </form>
-    <form method="POST" action="?/search" use:enhance>
-        <fieldset class="admin">
-            <legend>Admin</legend>
-            <fieldset>
-                <legend>Chercher un utilisateur</legend>
-                <input name="query" type="text" placeholder="login, nom, prenom">
-                <input type="submit" value="Chercher">
-                {#if form?.search_results}
-                    <ul>
-                        {#each form.search_results as user}
-                            <a href="/restricted/user/{user.login}">
-                                <li>
-                                    {user.prenom} {user.nom} ({user.login})
-                                </li>
-                            </a>
-                        {/each}
-                    </ul>
-                {/if}
-            </fieldset>
-        </fieldset>
-    </form>
-    <fieldset class="admin">
-        <legend>Admin</legend>
+        </form>
         <form method="POST" action="?/search" use:enhance>
             <fieldset>
                 <legend>Chercher un utilisateur</legend>
