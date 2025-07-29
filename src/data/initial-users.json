@@ -1,0 +1,22 @@
+[
+  {
+    "login": "kacper-ozieblowski",
+    "password": "pass123",
+    "admin": true,
+    "prenom": "Kacper",
+    "nom": "Ozieblowski",
+    "email": "ozieblowski.kacper@gmail.com",
+    "grad_year": 2023,
+    "nationalite": ["pl"],
+    "admis": [
+      "ETHZ",
+      "Imperial",
+      "UCL",
+      "Masters Info jussieu",
+      "Master Maths jussieu",
+      "Masters Paris-Saclay"
+    ],
+    "choisi": "ETHZ",
+    "description": "TODO"
+  }
+]
