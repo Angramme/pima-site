@@ -1,56 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width" />
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
-	<style>
-		:root {
-			/* --behind-color: rgb(227, 236, 243); */
-			--behind-color: rgb(242, 241, 241);
-			--background-color: rgb(255, 255, 255);
-			--accent-color: rgb(31, 145, 238);
-			--font-color: rgb(51, 45, 45);
-		}
-		@media (prefers-color-scheme: dark) {
-			:root {
-				/* --behind-color: rgb(16, 20, 27); */
-				--behind-color: rgb(24, 23, 23);
-				--background-color: rgb(35, 34, 34);
-				--accent-color: rgb(111, 79, 252);
-				--font-color: rgb(192, 179, 179);
-			}
-		}
-		*{
-			color: var(--font-color);
-			text-shadow: 0.4px 0.1px 0.8px var(--behind-color);
-		}
-		hr{
-			border-color: var(--font-color);
-			opacity: 15%;
-		}
-		body{
-			margin: 0;
-			background-color: var(--background-color);
-		}
-		input, button, fieldset, textarea{
-			border: solid 2px var(--font-color);
-			border-radius: 0.2rem;
-		}
-		input, button, textarea {
-			background-color: var(--background-color);
-			color: var(--font-color);
-		}
-		input:hover, button:hover, fieldset:hover, textarea:hover{
-			border-color: var(--accent-color);
-		}
-		h1, h2, h3, h4, h5, h6 {
-			text-decoration: underline var(--behind-color);
-		}
-	</style>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+  <style>
+    :root {
+      --behind-color: rgb(44, 47, 50);
+      --background-color: rgb(30, 30, 30);
+      --accent-color: rgb(64, 48, 121);
+      --font-color: rgb(221, 226, 231);
+    }
+    * {
+      color: var(--font-color);
+      text-shadow: 0.4px 0.1px 0.8px var(--behind-color);
+    }
+    hr {
+      border-color: var(--font-color);
+      opacity: 15%;
+    }
+    body {
+      margin: 0;
+      background-color: var(--background-color);
+    }
+    input,
+    button,
+    fieldset,
+    textarea {
+      border: solid 2px var(--font-color);
+      border-radius: 0.2rem;
+    }
+    input,
+    button,
+    textarea {
+      background-color: var(--background-color);
+      color: var(--font-color);
+    }
+    input:hover,
+    button:hover,
+    fieldset:hover,
+    textarea:hover {
+      border-color: var(--accent-color);
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-decoration: underline var(--behind-color);
+    }
+  </style>
 </html>
+
+
+
+
+

@@ -33,6 +33,7 @@ model User {
   choisi      String @default("? 😴") // ecole choisie
   travails    String[] // entreprises/labos ou à travaillé
   description String @default("TODO 😴") // description parcours, conseils perso, etc
+  conseils    String @default("TODO 😴") // conseils
   
   createdAt   DateTime @default(now()) // account created
   updatedAt   DateTime @updatedAt

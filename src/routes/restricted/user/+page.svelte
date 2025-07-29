@@ -39,6 +39,8 @@
 
     /** @type {HTMLInputElement}*/
     let create_pwd;
+
+    let login_to_modify = "";
 </script>
 
 <Banner/>
@@ -176,13 +178,13 @@
 <hr/>
 
 {#if user?.admin}
-    <form method="POST" action="?/create_account" use:enhance>
-        <fieldset class="admin">
-            <legend>Admin</legend>
+    <fieldset class="admin">
+        <legend>Admin</legend>
+        <form method="POST" action="?/create_account" use:enhance>
             <fieldset>
                 <legend>Créer un compte</legend>
                 {#if form?.creation_failure}<p class="error">Erreur serveur: "{form.creation_failure}"</p>{/if}
-                {#if form?.creation_success}<p class="success">Creation réussie! login: {form.new_account_login} </p>{/if}        
+                {#if form?.creation_success}<p class="success">Creation réussie! login: {form.new_account_login} </p>{/if}
                 <table>
                     <tr>
                         <td><label for="create_prenom">prenom</label></td>
@@ -209,15 +211,12 @@
                 </table>
                 <p class="info">Copiez le mot de passe, cliquez sur creer puis copiez le login.</p>
             </fieldset>
-        </fieldset>
-    </form>
-    <form method="POST" action="?/mass_create_accounts" use:enhance>
-        <fieldset class="admin">
-            <legend>Admin</legend>
+        </form>
+        <form method="POST" action="?/mass_create_accounts" use:enhance>
             <fieldset>
                 <legend>Créer des comptes à partir des emails</legend>
                 {#if form?.creation_failure}<p class="error">Erreur serveur: "{form.creation_failure}"</p>{/if}
-                {#if form?.creation_success}<p class="success">Creation réussie! logins: {form.new_account_login} </p>{/if}        
+                {#if form?.creation_success}<p class="success">Creation réussie! logins: {form.new_account_login} </p>{/if}
                 <table>
                     <tr>
                         <td><label for="create_emails">emails (separate with ";")</label></td>
@@ -234,8 +233,41 @@
                 </table>
                 <p class="info">Entrez des emails des personnes et l'année de leur L3</p>
             </fieldset>
+        </form>
+        <form method="POST" action="?/search" use:enhance>
+            <fieldset>
+                <legend>Chercher un utilisateur</legend>
+                <input name="query" type="text" placeholder="login, nom, prenom">
+                <input type="submit" value="Chercher">
+                {#if form?.search_results}
+                    <ul>
+                        {#each form.search_results as user}
+                            <li>
+                                {user.prenom} {user.nom} ({user.login})
+                                <button on:click={() => login_to_modify = user.login}>Sélectionner</button>
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
+            </fieldset>
+        </form>
+        <fieldset>
+            <legend>Actions sur l'utilisateur</legend>
+            <input type="text" placeholder="login" bind:value={login_to_modify}>
+            <form method="POST" action="?/set_admin" use:enhance>
+                <input type="hidden" name="login" value={login_to_modify} />
+                <input type="submit" value="Donner les droits admin">
+            </form>
+            <form method="POST" action="?/unset_admin" use:enhance>
+                <input type="hidden" name="login" value={login_to_modify} />
+                <input type="submit" value="Enlever les droits admin">
+            </form>
+            <form method="POST" action="?/delete_user" use:enhance>
+                <input type="hidden" name="login" value={login_to_modify} />
+                <input type="submit" value="Supprimer l'utilisateur">
+            </form>
         </fieldset>
-    </form>
+    </fieldset>
 {/if}
 
 <style>
@@ -267,12 +299,14 @@
     }
     input:read-only[type~="text"], input:read-only[type~="date"], textarea:read-only{
         background: rgb(196, 196, 196);
+        background-color: #444;
+        color: #fff;
     }
     input[type="checkbox"] {
         width: auto;
     }
     .admin{
-        background-color: aquamarine;
+        background-color: rgb(9, 84, 60);
     }
     .danger{
         background-color: rgb(255, 95, 95);
