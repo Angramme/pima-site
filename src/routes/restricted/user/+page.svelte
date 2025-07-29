@@ -306,7 +306,7 @@
         width: auto;
     }
     .admin{
-        background-color: aquamarine;
+        background-color: rgb(44, 88, 74);
     }
     .danger{
         background-color: rgb(255, 95, 95);
