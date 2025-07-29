@@ -44,32 +44,6 @@
 					<p>{user.travails}</p>
 				</div>
 			</div>
-			{#if $page.data.user?.admin}
-				<div class="profile-card admin-controls">
-					<h4>Admin Controls</h4>
-					<h5>Autres (Lecture seule)</h5>
-					<p>id: {user.id}</p>
-					<p>login: {user.login}</p>
-					<p>admin privileges: {user.admin}</p>
-					<p>date création: {user.createdAt}</p>
-					<p>derniere mise a jour: {user.updatedAt}</p>
-					<h5>Visibilité</h5>
-					<p>TODO</p>
-					<h5>Admin actions</h5>
-					<form method="POST" action="/restricted/user?/set_admin" use:enhance>
-						<input type="hidden" name="login" value={user.login} />
-						<button type="submit">Give admin permissions</button>
-					</form>
-					<form method="POST" action="/restricted/user?/unset_admin" use:enhance>
-						<input type="hidden" name="login" value={user.login} />
-						<button type="submit">Remove admin permissions</button>
-					</form>
-					<form method="POST" action="/restricted/user?/delete_user" use:enhance>
-						<input type="hidden" name="login" value={user.login} />
-						<button type="submit">Delete this user</button>
-					</form>
-				</div>
-			{/if}
 		</div>
 	</UserProfileModal>
 {/if}
