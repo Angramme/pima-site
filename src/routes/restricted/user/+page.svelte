@@ -269,8 +269,9 @@
                 {#if form?.search_results}
                     <ul>
                         {#each form.search_results as user}
-                            <li on:click={() => login_to_modify = user.login}>
+                            <li>
                                 {user.prenom} {user.nom} ({user.login})
+                                <button on:click={() => login_to_modify = user.login}>Sélectionner</button>
                             </li>
                         {/each}
                     </ul>
