@@ -71,7 +71,7 @@
 <style>
 	.user-card {
 		background-color: var(--background-color);
-		border-radius: 10px;
+		border-radius: 0px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 		padding: 15px;
 		margin: 0px;
