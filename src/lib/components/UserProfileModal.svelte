@@ -1,5 +1,11 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
+	import { enhance } from '$app/forms';
+
+	/** @type {Partial<import('@prisma/client').User>} */
+	export let user;
+	/** @type {Partial<import('@prisma/client').User> | undefined} */
+	export let me;
 
 	const dispatch = createEventDispatcher();
 
@@ -15,9 +21,23 @@
 	on:click={closeModal}
 	on:keydown={(e) => e.key === 'Escape' && closeModal()}
 >
-	<div class="modal-content" role="document" on:click|stopPropagation>
+	<div class="modal-content" role="document" on:click|stopPropagation on:keydown>
 		<button class="close-button" on:click={closeModal}>X</button>
 		<slot />
+		{#if me?.admin}
+			<div class="admin-controls">
+				<h4>Admin Controls</h4>
+				<p>ID: {user.id}</p>
+				<p>Last updated: {user.updatedAt}</p>
+				<p>Sleeping: {user.sleeping}</p>
+				<form method="POST" action="?/update_user_status" use:enhance>
+					<input type="hidden" name="id" value={user.id} />
+					<label for="sleeping">Sleeping:</label>
+					<input type="checkbox" name="sleeping" checked={user.sleeping} />
+					<button type="submit">Update</button>
+				</form>
+			</div>
+		{/if}
 	</div>
 </div>
 

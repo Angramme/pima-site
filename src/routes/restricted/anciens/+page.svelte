@@ -81,8 +81,8 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 	{#await anciens_P}
 		<p>Chargement...</p>
 	{:then anciens}
-		{#each anciens as user}
-			<UserCard {user} />
+		{#each anciens as u}
+			<UserCard user={u} me={data.user} />
 		{/each}
 	{/await}
 </div>
@@ -90,7 +90,7 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 <style>
 	.user-cards {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		gap: 5px;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 20px;
 	}
 </style>

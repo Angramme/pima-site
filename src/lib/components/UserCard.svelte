@@ -6,17 +6,20 @@
 	import { quintOut } from 'svelte/easing';
 	import { scale } from 'svelte/transition';
 
+	/** @type {Partial<import('@prisma/client').User>} */
 	export let user;
+	/** @type {Partial<import('@prisma/client').User> | undefined} */
+	export let me;
 
 	let showModal = false;
 </script>
 
 {#if showModal}
-	<UserProfileModal {user} on:close={() => (showModal = false)}>
+	<UserProfileModal {user} {me} on:close={() => (showModal = false)}>
 		<div class="user-profile">
 			<div class="profile-header">
 				<div class="initials">
-					{user.prenom[0]}{user.nom[0]}
+					{user.prenom?.[0] ?? ''}{user.nom?.[0] ?? ''}
 				</div>
 				<h2>{user.nom} {user.prenom}</h2>
 				<div class="l3">L3 {user.grad_year}</div>
@@ -37,7 +40,7 @@
 				</div>
 				<div class="profile-card description">
 					<h4>Description</h4>
-					<Markdown markdown={user.description} />
+					<Markdown markdown={user.description ?? ''} />
 				</div>
 				<div class="profile-card">
 					<h4>Travails</h4>
@@ -58,7 +61,7 @@
 >
 	<div class="user-card-header">
 		<div class="initials">
-			{user.prenom[0]}{user.nom[0]}
+			{user.prenom?.[0] ?? ''}{user.nom?.[0] ?? ''}
 		</div>
 		<h3>{user.nom} {user.prenom}</h3>
 		<div class="l3">L3 {user.grad_year}</div>
@@ -70,11 +73,12 @@
 
 <style>
 	.user-card {
-		background-color: var(--background-color);
-		border-radius: 0px;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-		padding: 15px;
-		margin: 0px;
+		background-color: color-mix(in srgb, var(--background-color) 90%, white);
+		border: 1px solid #eee;
+		border-radius: 10px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		margin: 10px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -82,7 +86,8 @@
 		cursor: pointer;
 	}
 	.user-card:hover {
-		transform: scale(1.05);
+		transform: translateY(-5px);
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 	}
 	.user-card-header {
 		display: flex;
@@ -94,21 +99,23 @@
 		height: 50px;
 		border-radius: 50%;
 		background-color: var(--accent-color);
-		color: var(--background-color);
+		color: white;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-size: 1.5rem;
 		font-weight: bold;
 		margin-right: 20px;
+		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 	}
 	.user-card-header h3 {
 		margin: 0;
 		flex-grow: 1;
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 	.l3 {
 		font-size: 0.9rem;
-		color: #aaa;
+		color: #888;
 	}
 	.user-card-body {
 		flex-grow: 1;
@@ -142,20 +149,5 @@
 	}
 	.description {
 		grid-column: 1 / -1;
-	}
-	.admin-controls {
-		background-color: #f0f0f0;
-		border: 1px solid #ccc;
-		padding: 1rem;
-	}
-	.admin-controls h4 {
-		margin-top: 0;
-	}
-	.admin-controls h5 {
-		margin-top: 1rem;
-		margin-bottom: 0.5rem;
-	}
-	.admin-controls form {
-		margin-bottom: 0.5rem;
 	}
 </style>

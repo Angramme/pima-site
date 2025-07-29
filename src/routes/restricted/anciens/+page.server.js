@@ -41,8 +41,41 @@ export async function load({ locals, depends }) {
   });
 
   return {
+    user: locals.user,
     streamed: {
       users: users,
     },
   };
 }
+/** @type {import('./$types').Actions} */
+export const actions = {
+  update_user_status: async ({ request, locals }) => {
+    if (!locals.user?.admin) {
+      return {
+        status: 403,
+        body: "You are not authorized to perform this action",
+      };
+    }
+
+    const data = await request.formData();
+    const id = data.get("id")?.toString();
+    const sleeping = data.get("sleeping") === "on";
+
+    if (!id) {
+      return {
+        status: 400,
+        body: "User ID is required",
+      };
+    }
+
+    await prisma.user.update({
+      where: { id },
+      data: { sleeping },
+    });
+
+    return {
+      status: 200,
+      body: "User status updated successfully",
+    };
+  },
+};
