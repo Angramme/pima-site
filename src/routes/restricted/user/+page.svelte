@@ -306,7 +306,7 @@
         width: auto;
     }
     .admin{
-        background-color: rgb(44, 88, 74);
+        background-color: rgb(9, 84, 60);
     }
     .danger{
         background-color: rgb(255, 95, 95);
