@@ -13,12 +13,16 @@
 
 	let showModal = false;
 
+	/** @param {string | undefined | null} str */
 	const toProperCase = (str) => {
 		if (!str) return '';
 		return str
 			.toLowerCase()
 			.split(/([ -])/g)
-			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.map(
+				(/** @type {string} */ word) =>
+					word.charAt(0).toUpperCase() + word.slice(1)
+			)
 			.join('');
 	};
 </script>

@@ -20,25 +20,21 @@ export async function load({ locals, depends }) {
       ...(loggedIn ? {} : { public_description: true }),
     },
     select: {
-      // never show
-      login: false,
-      password: false,
-      email: false,
-      contact: false,
-      admis: false,
-      nationalite: false,
-      createdAt: false,
-      // show if admin
-      admin: false,
-      updatedAt: false,
-      sleeping: false,
-      // show if logged in
-      id: loggedIn,
+      // Fields for UserProfileModal, only available when logged in
+      email: loggedIn,
+      contact: loggedIn,
+      nationalite: loggedIn,
+      admis: loggedIn,
+      moyenneL2: loggedIn,
+      moyenneL3: loggedIn,
+      travails: loggedIn,
       nom: loggedIn,
-      // show no matter what
-      choisi: true,
-      grad_year: true,
+      id: loggedIn,
+
+      // Fields always available for the card itself
       prenom: true,
+      grad_year: true,
+      choisi: true,
       description: true,
     },
     orderBy: {
