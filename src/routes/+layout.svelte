@@ -25,7 +25,7 @@
 
 <div id="cont">
     <Nav></Nav>
-    <!-- <Cookies/> -->
+    <Cookies/>
     {#if $user?.sleeping}
         <div class="pls-wake-up">
             <div>
