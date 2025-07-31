@@ -12,16 +12,22 @@
 	export let me;
 
 	let showModal = false;
+
+	const toProperCase = (str) => {
+		if (!str) return '';
+		return str
+			.toLowerCase()
+			.split(/([ -])/g)
+			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+			.join('');
+	};
 </script>
 
 {#if showModal}
 	<UserProfileModal {user} {me} on:close={() => (showModal = false)}>
 		<div class="user-profile">
 			<div class="profile-header">
-				<div class="initials">
-					{user.prenom?.[0] ?? ''}{user.nom?.[0] ?? ''}
-				</div>
-				<h2>{user.nom} {user.prenom}</h2>
+				<h2>{toProperCase(user.nom)} {toProperCase(user.prenom)}</h2>
 				<div class="l3">L3 {user.grad_year}</div>
 			</div>
 			<div class="profile-details">
@@ -60,10 +66,7 @@
 	transition:scale={{ duration: 300, easing: quintOut }}
 >
 	<div class="user-card-header">
-		<div class="initials">
-			{user.prenom?.[0] ?? ''}{user.nom?.[0] ?? ''}
-		</div>
-		<h3>{user.nom} {user.prenom}</h3>
+		<h3>{toProperCase(user.nom)} {toProperCase(user.prenom)}</h3>
 		<div class="l3">L3 {user.grad_year}</div>
 	</div>
 	<div class="user-card-body">
@@ -90,27 +93,10 @@
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 	}
 	.user-card-header {
-		display: flex;
-		align-items: center;
-		margin-bottom: 20px;
-	}
-	.initials {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		background-color: var(--accent-color);
-		color: white;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.5rem;
-		font-weight: bold;
-		margin-right: 20px;
-		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+		margin-bottom: 15px;
 	}
 	.user-card-header h3 {
-		margin: 0;
-		flex-grow: 1;
+		margin: 0 0 10px 0;
 		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
 	.l3 {
@@ -121,18 +107,10 @@
 		flex-grow: 1;
 	}
 	.user-profile .profile-header {
-		display: flex;
-		align-items: center;
 		margin-bottom: 2rem;
 	}
-	.user-profile .profile-header .initials {
-		width: 80px;
-		height: 80px;
-		font-size: 2.5rem;
-	}
 	.user-profile .profile-header h2 {
-		margin: 0;
-		flex-grow: 1;
+		margin: 0 0 10px 0;
 	}
 	.user-profile .profile-details {
 		display: grid;
