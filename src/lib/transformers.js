@@ -96,7 +96,7 @@ export function user_data_into_forms(user) {
         },
         {
           k: "description",
-          l: "conseils pour les futurs pima et description",
+          l: "conseils pour les futurs pima\net description",
           v: user.description,
           t: "markdown",
           ro: false,
