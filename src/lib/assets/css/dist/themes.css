@@ -1,11 +1,59 @@
-:root {
-	--font-color: rgb(221, 226, 231);
-	--background-color: rgb(30, 30, 30);
-	--accent-color: rgb(64, 48, 121);
+:root, :root[data-theme='dark'] {
+    --behind-color: rgb(44, 47, 50);
+    --background-color: rgb(30, 30, 30);
+    --accent-color: rgb(64, 48, 121);
+    --font-color: rgb(221, 226, 231);
 }
 
-:root[data-theme='dark'] {
-	--font-color: rgb(221, 226, 231);
-	--background-color: rgb(44, 69, 45);
-	--accent-color: rgb(81, 193, 171);
+:root[data-theme='light'] {
+    --behind-color: rgb(44, 47, 50);
+    --background-color: rgb(30, 30, 30);
+    --accent-color: rgb(64, 48, 121);
+    --font-color: rgb(221, 226, 231);
+}
+
+* {
+    color: var(--font-color);
+    text-shadow: 0.4px 0.1px 0.8px var(--behind-color);
+}
+
+hr {
+    border-color: var(--font-color);
+    opacity: 15%;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-color);
+}
+
+input,
+button,
+fieldset,
+textarea {
+    border: solid 2px var(--font-color);
+    border-radius: 0.2rem;
+}
+
+input,
+button,
+textarea {
+    background-color: var(--background-color);
+    color: var(--font-color);
+}
+
+input:hover,
+button:hover,
+fieldset:hover,
+textarea:hover {
+    border-color: var(--accent-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-decoration: underline var(--behind-color);
 }
