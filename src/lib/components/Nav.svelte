@@ -38,7 +38,7 @@
 		<div class="logo">
 			<a href="/">Æ PIMA</a>
 		</div>
-		<div class="nav-links-actions-wrapper" class:open={isMenuOpen}>
+		<div class="nav-links-actions-wrapper" class:open={isMenuOpen} on:click={() => isMenuOpen = false}>
 			<div class="links">
 				{#each pages as p}
 					<a
