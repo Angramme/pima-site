@@ -173,24 +173,28 @@
 	}
 	@media (max-width: 768px) {
 		.nav-links-actions-wrapper {
-			display: none;
-			flex-direction: column;
-			align-items: flex-start;
 			position: fixed;
 			top: 0;
 			left: 0;
 			width: 250px;
 			height: 100vh;
-			background-color: var(--background-color);
+			background-color: rgba(30, 30, 30, 0.8);
+			backdrop-filter: blur(10px);
 			padding: 2rem;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
 			transform: translateX(-100%);
-			transition: transform 0.3s ease-in-out;
+			transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s;
 			z-index: 10;
+			visibility: hidden;
+			opacity: 0;
 		}
 
 		.nav-links-actions-wrapper.open {
-			display: flex;
 			transform: translateX(0);
+			visibility: visible;
+			opacity: 1;
 		}
 
 		.hamburger {
