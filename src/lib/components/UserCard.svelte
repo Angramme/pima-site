@@ -132,4 +132,13 @@
 	.description {
 		grid-column: 1 / -1;
 	}
+	@media (max-width: 768px) {
+		.user-card {
+			padding: 15px;
+			margin: 5px;
+		}
+		.user-card-header h3 {
+			font-size: 1.1rem;
+		}
+	}
 </style>
