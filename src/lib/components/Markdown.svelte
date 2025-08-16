@@ -34,9 +34,3 @@
 {:then ht}
     <p>{@html ht}</p>
 {/await}
-
-<style>
-    li::marker{
-        
-    }
-</style>

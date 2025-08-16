@@ -17,7 +17,7 @@ export async function load({ locals, depends }) {
             grad_year: {
                 lte: new Date().getFullYear(),
             },
-            ...(loggedIn ? {} : {public_description:true})
+            ...(loggedIn ? {} : { public_description: true })
         },
         select: {
             // never show
@@ -51,7 +51,9 @@ export async function load({ locals, depends }) {
         return {
             ...rest,
             upvotes: upvotedByIds.length,
-            downvotes: downvotedByIds.length
+            downvotes: downvotedByIds.length,
+            weUpvoted: upvotedByIds.includes(locals.user?.id ?? ""),
+            weDownvoted: downvotedByIds.includes(locals.user?.id ?? ""),
         }
     }));
 
@@ -60,4 +62,127 @@ export async function load({ locals, depends }) {
             descs: descs,
         }
     }
+}
+
+
+export const actions = {
+    upvote: async ({ request, locals }) => {
+        if (!locals.user) return { creation_failure: "user logged out" };
+
+        const data = await request.formData();
+        if (!data.has("id"))
+            return { creation_failure: "form data incomplete" };
+
+        const id = data.get("id")?.toString();
+        if (!id)
+            return { creation_failure: "form data incomplete" };
+
+        try {
+            await prisma.user.update({
+                where: {
+                    id
+                },
+                data: {
+                    upvotedBy: {
+                        connect: [{ id: locals.user.id }]
+                    }
+                }
+            });
+            await prisma.user.update({
+                where: {
+                    id
+                },
+                data: {
+                    downvotedBy: {
+                        disconnect: [{ id: locals.user.id }]
+                    }
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            return { creation_failure: `Prisma Error: ${error}` }
+        }
+
+        return { creation_success: true };
+    },
+
+    downvote: async ({ request, locals }) => {
+        if (!locals.user) return { creation_failure: "user logged out" };
+
+        const data = await request.formData();
+        if (!data.has("id"))
+            return { creation_failure: "form data incomplete" };
+
+        const id = data.get("id")?.toString();
+        if (!id)
+            return { creation_failure: "form data incomplete" };
+
+        try {
+            await prisma.user.update({
+                where: {
+                    id
+                },
+                data: {
+                    upvotedBy: {
+                        disconnect: [{ id: locals.user.id }]
+                    }
+                }
+            });
+            await prisma.user.update({
+                where: {
+                    id
+                },
+                data: {
+                    downvotedBy: {
+                        connect: [{ id: locals.user.id }]
+                    }
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            return { creation_failure: `Prisma Error: ${error}` }
+        }
+
+        return { creation_success: true };
+    },
+
+    reset_vote: async ({ request, locals }) => {
+        if (!locals.user) return { creation_failure: "user logged out" };
+
+        const data = await request.formData();
+        if (!data.has("id"))
+            return { creation_failure: "form data incomplete" };
+
+        const id = data.get("id")?.toString();
+        if (!id)
+            return { creation_failure: "form data incomplete" };
+
+        try {
+            await prisma.user.update({
+                where: {
+                    id
+                },
+                data: {
+                    upvotedBy: {
+                        disconnect: [{ id: locals.user.id }]
+                    }
+                }
+            });
+            await prisma.user.update({
+                where: {
+                    id
+                },
+                data: {
+                    downvotedBy: {
+                        disconnect: [{ id: locals.user.id }]
+                    }
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            return { creation_failure: `Prisma Error: ${error}` }
+        }
+
+        return { creation_success: true };
+    },
 }

@@ -108,7 +108,10 @@
             </form>
 
             <div class="text-sm text-muted-foreground">
-                Score net : {user.upvotes - user.downvotes}
+                Score : 
+                <span class={user.upvotes - user.downvotes > 0 ? "text-green-500" : (user.upvotes - user.downvotes < 0 ? "text-red-500" : "")}>
+                    {user.upvotes - user.downvotes}
+                </span>
             </div>
         </div>
     </CardContent>

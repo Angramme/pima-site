@@ -40,18 +40,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-  --background: oklch(21.779% 0.00002 271.152);
+  --background: oklch(26.555% 0.00148 16.124);
   --foreground: oklch(0.984 0.003 247.858);
-  --card: rgb(35, 34, 34);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(26.863% 0.00975 268.329);
+  --card: var(--secondary);
+  --card-foreground: var(--secondary-foreground);
+  --popover: oklch(27.685% 0.00003 271.152);
   --popover-foreground: oklch(0.984 0.003 247.858);
   --primary: oklch(0.929 0.013 255.508);
   --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(32.109% 0.00004 271.152);
+  --secondary: oklch(29.012% 0.00144 15.981);
   --secondary-foreground: oklch(0.984 0.003 247.858);
   --muted: oklch(33.68% 0.00004 271.152);
-  --muted-foreground: oklch(0.704 0.04 256.788);
+  --muted-foreground: oklch(79.837% 0.00009 271.152);
   --accent: oklch(37.53% 0.00004 271.152);
   --accent-foreground: oklch(0.984 0.003 247.858);
   --destructive: oklch(0.704 0.191 22.216);

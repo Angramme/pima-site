@@ -331,4 +331,26 @@
         max-height: 50vh;
         overflow-y: scroll;
     }
+    hr{
+        border-color: var(--foreground);
+        opacity: 15%;
+    }
+    body{
+        margin: 0;
+        background-color: var(--background-color);
+    }
+    input, button, fieldset, textarea{
+        border: solid 2px var(--foreground);
+        border-radius: 0.2rem;
+    }
+    input, button, textarea {
+        background-color: var(--background-color);
+        color: var(--foreground);
+    }
+    input:hover, button:hover, fieldset:hover, textarea:hover{
+        border-color: var(--accent-color);
+    }
+    h1, h2, h3, h4, h5, h6 {
+        text-decoration: underline var(--behind-color);
+    }
 </style>

@@ -78,24 +78,24 @@
 <section class="max-w-4xl mx-auto px-6 py-12">
     <div class="grid grid-cols-2 gap-8">
         <div class="text-center">
-            <div class="text-4xl font-bold text-gray-900 mb-2">
+            <div class="text-4xl font-bold text-foreground mb-2">
                 {#await data.streamed.members_count}
                     ...
                 {:then members}
                     {members}
                 {/await}
             </div>
-            <div class="text-gray-600">Membres</div>
+            <div class="text-foreground">Membres</div>
         </div>
         <div class="text-center">
-            <div class="text-4xl font-bold text-gray-900 mb-2">
+            <div class="text-4xl font-bold text-foreground mb-2">
                 {#await data.streamed.ancien_count}
                     ...
                 {:then members}
                     {members}
                 {/await}
             </div>
-            <div class="text-gray-600">Anciens</div>
+            <div class="text-foreground">Anciens</div>
         </div>
     </div>
 </section>
