@@ -6,37 +6,9 @@
     export let title: string | null = null;
 </script>
 
-<div class="cont">
-    <img loading="lazy" fetchpriority="low" class="banner" src={src} alt="banner">
+<div class="relative mb-8">
+    <img loading="lazy" fetchpriority="low" class="h-80 w-full object-cover object-center" src={src} alt="banner">
     {#if title}
-        <span>{title}</span>
+        <span class="absolute inset-0 m-auto h-fit w-fit p-4 text-3xl font-bold backdrop-blur-[5px]">{title}</span>
     {/if}
 </div>
-
-<style>
-    .banner{
-        width: 100%;
-        height: 20rem;
-        object-fit: cover;
-        object-position: center;
-    }
-    span{
-        position: absolute;
-        bottom: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: fit-content;
-        height: fit-content;
-
-        padding: 1rem;
-        font-size: 2rem;
-        font-weight: bold;
-        backdrop-filter: blur(5px);
-    }
-    div.cont{
-        position: relative;
-        margin-bottom: 2rem;
-    }
-</style>
