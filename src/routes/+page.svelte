@@ -69,7 +69,7 @@
     Pour ajouter du contenu à ce site web, veuillez suivre les instructions sur la page <b>GitHub</b> (<a target="_blank" href="https://github.com/Angramme/pima-site">lien</a>). Pour ajouter du contenu sur le <b>Google Drive</b> contacter un des admins pour recevoir les droits. Pour suggerer des changement a ce site web, veuillez contacter les admins. Pour connaitre les admins, chercher simplement "admin" sur la page "anciens" ou consultez la page "login"/"connexion".
 </p>
 
-<h2>Liens externes : </h2>
+<!-- <h2>Liens externes : </h2>
 <p>🔒 protegé</p>
 {#each Object.entries(links) as [category, lks]}
 <h3>{category} : </h3>
@@ -78,7 +78,7 @@
         <li>{lk} : <a href="/restricted/external/{lk}" target=”_blank”  data-sveltekit-preload-data="off" data-sveltekit-preload-code="off">lien</a></li>
     {/each}
 </ul>
-{/each}
+{/each} -->
 
 <style>
     p{
