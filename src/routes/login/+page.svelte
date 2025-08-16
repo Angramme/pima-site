@@ -2,6 +2,10 @@
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import { onMount } from 'svelte';
+  import { Button } from "$lib/components/ui/button/index.js";
+  import * as Card from "$lib/components/ui/card/index.js";
+  import { Input } from "$lib/components/ui/input/index.js";
+  import { Label } from "$lib/components/ui/label/index.js";
 
     export let form: import('./$types').ActionData;
 
@@ -12,58 +16,60 @@
     })
 </script>
 
-<h2>Connexion</h2>
+<div class="mx-auto mt-8 flex max-w-sm flex-col items-center justify-center gap-8">
+	<Card.Root class="w-full">
+		<Card.Header>
+			<Card.Title class="text-2xl">Connexion</Card.Title>
+			<Card.Description>Entrez votre login et mot de passe pour vous connecter.</Card.Description>
+		</Card.Header>
+		<Card.Content>
+			<form method="POST" use:enhance class="grid gap-4">
+				{#if form?.missing}<p class="text-sm font-medium text-red-500">
+						Le login <u>et</u> mot de passe sont primordiaux!
+					</p>{/if}
+				{#if form?.incorrect}<p class="text-sm font-medium text-red-500">
+						Mot de passe ou login incorrect!
+					</p>{/if}
+				{#if form?.success}<p class="text-sm font-medium text-green-500">Connexion réussie!</p>{/if}
 
-<form method="POST" use:enhance>
-    <fieldset>
-        {#if form?.missing}<p class="error">Le login <u>et</u> mot de passe sont primordiaux!</p>{/if}
-        {#if form?.incorrect}<p class="error">Mot de passe ou login incorrect!</p>{/if}
-        {#if form?.success}<p class="success">Connexion réussie!</p>{/if}
-        <table>
-            <tbody>
-                <tr>
-                    <td><label for="user">Login:</label></td>
-                    <td><input type="text" id="user" name="login"/> <br/></td>
-                </tr>
-                <tr>
-                    <td><label for="pwd">Mot de passe:</label></td>
-                    <td><input type="password" id="pwd" name="password"/> <br/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" id="submit" value="Connexion"/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="button" id="forgot" value="mdb ou identifiant oublié" disabled/></td>
-                </tr>
-            </tbody>
-        </table>
-        <p>Veuillez noter qu'en vous connectant sur ce site, vous acceptez l'utilisation de cookies essentiels. En utilisant ce site et les services qui y sont proposés, vous acceptez la <a href="/reglementation">réglementation</a></p>
-    </fieldset>
-</form>
+				<div class="grid gap-2">
+					<Label for="user">Login</Label>
+					<Input id="user" type="text" name="login" required />
+				</div>
+				<div class="grid gap-2">
+					<Label for="pwd">Mot de passe</Label>
+					<Input id="pwd" type="password" name="password" required />
+				</div>
 
-<h3>Infos : </h3>
-<p>Pour créer un compte, veuillez prendre contact avec l'un des administrateurs : </p>
-{#await data.streamed.admins}
-    Chargement des admins...
-{:then admins} 
-    {#each admins as {nom, prenom, email}}
-        <li>
-            {nom} {prenom} : 
-            <button on:click={()=>alert(`email = ${email}`)}>email </button>
-        </li>
-    {/each}
-{/await}
+				<Button type="submit" class="w-full">Connexion</Button>
+				<Button variant="outline" class="w-full" disabled>Mot de passe ou identifiant oublié</Button>
+			</form>
+		</Card.Content>
+		<Card.Footer class="text-center text-sm">
+			<p>
+				En vous connectant, vous acceptez notre <a href="/reglementation" class="underline"
+					>réglementation</a
+				>.
+			</p>
+		</Card.Footer>
+	</Card.Root>
 
-<style>
-    table{
-        border-spacing: 7px;
-    }
-    .error{
-        color: red;
-    }
-    .success{
-        color: green;
-    }
-</style>
+	<div class="w-full rounded-lg border p-4">
+		<h3 class="mb-2 font-bold">Infos</h3>
+		<p>Pour créer un compte, veuillez prendre contact avec l'un des administrateurs :</p>
+		{#await data.streamed.admins}
+			<p>Chargement des admins...</p>
+		{:then admins}
+			<ul class="mt-2 list-inside list-disc">
+				{#each admins as { nom, prenom, email }}
+					<li>
+						{nom} {prenom} :
+						<Button variant="link" class="h-auto p-0" on:click={() => alert(`email = ${email}`)}
+							>contacter par email</Button
+						>
+					</li>
+				{/each}
+			</ul>
+		{/await}
+	</div>
+</div>
