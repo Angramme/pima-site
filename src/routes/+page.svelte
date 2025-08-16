@@ -93,7 +93,7 @@
             <p class="text-sm text-muted-foreground mb-6 flex-1">
               Discutez en temps réel, posez vos questions et partagez vos expériences avec d'autres étudiants.
             </p>
-            <Button class="w-full">Rejoindre Discord</Button>
+            <Button class="w-full" disabled={false}>Rejoindre Discord</Button>
           </CardContent>
         </Card>
 
@@ -109,7 +109,7 @@
             <p class="text-sm text-muted-foreground mb-6 flex-1">
               Développez votre réseau professionnel et découvrez des opportunités de carrière.
             </p>
-            <Button class="w-full">Suivre sur LinkedIn</Button>
+            <Button class="w-full" disabled={false}>Suivre sur LinkedIn</Button>
           </CardContent>
         </Card>
 
@@ -130,7 +130,7 @@
               <span class="font-medium text-foreground">conseils sur les documents administratifs</span> et sur la
               manière de naviguer au mieux dans les méandres de l'administration de la Sorbonne.
             </p>
-            <Button class="w-full">Accéder au Drive</Button>
+            <Button class="w-full" disabled={false}>Accéder au Drive</Button>
           </CardContent>
         </Card>
       </div>
