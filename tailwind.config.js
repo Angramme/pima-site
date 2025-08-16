@@ -3,7 +3,7 @@ module.exports = {
     preflight: false,
   },
   experimental: {
-    optimizeUniversalDefaults: true,
+    optimizeUniversalDefaults: false,
   },
   content: [
     // ..
