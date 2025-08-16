@@ -28,7 +28,7 @@
 {#if profile}
         <div class="mx-auto space-y-6">
             <!-- Header Section -->
-            <Card>
+            <Card class="">
                 <CardHeader class="pb-4">
                     <div class="flex items-center gap-4">
                         <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
@@ -38,7 +38,7 @@
                             <CardTitle class="text-2xl font-bold">
                                 {profile.prenom} {profile.nom}
                                 {#if profile.admin}
-                                    <Badge variant="destructive" class="ml-2">
+                                    <Badge href={null} variant="destructive" class="ml-2">
                                         Administrateur
                                     </Badge>
                                 {/if}
@@ -51,8 +51,8 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Contact Information -->
-                <Card>
-                    <CardHeader>
+                <Card class="">
+                    <CardHeader class="">
                         <CardTitle class="flex items-center gap-2">
                             <Mail class="w-5 h-5" />
                             Informations de Contact
@@ -80,7 +80,7 @@
                                 <p class="text-sm font-medium text-muted-foreground mb-2">Nationalité</p>
                                 <div class="flex flex-wrap gap-1">
                                     {#each profile.nationalite as nat}
-                                        <Badge variant="outline" class="text-xs">
+                                        <Badge href={null} variant="outline" class="text-xs">
                                             <Globe class="w-3 h-3 mr-1" />
                                             {nat}
                                         </Badge>
@@ -92,8 +92,8 @@
                 </Card>
 
                 <!-- Academic Information -->
-                <Card>
-                    <CardHeader>
+                <Card class="">
+                    <CardHeader class="">
                         <CardTitle class="flex items-center gap-2">
                             <GraduationCap class="w-5 h-5" />
                             Informations Académiques
@@ -112,13 +112,13 @@
                                     {#if profile.moyenneL2 !== null}
                                         <div class="flex justify-between">
                                             <span class="text-sm">Moyenne L2 :</span>
-                                            <Badge variant="secondary">{profile.moyenneL2}/20</Badge>
+                                            <Badge href={null} variant="secondary" class="">{profile.moyenneL2}/20</Badge>
                                         </div>
                                     {/if}
                                     {#if profile.moyenneL3 !== null}
                                         <div class="flex justify-between">
                                             <span class="text-sm">Moyenne L3 :</span>
-                                            <Badge variant="secondary">{profile.moyenneL3}/20</Badge>
+                                            <Badge href={null} variant="secondary" class="">{profile.moyenneL3}/20</Badge>
                                         </div>
                                     {/if}
                                 </div>
@@ -130,7 +130,7 @@
                                 <p class="text-sm font-medium text-muted-foreground mb-2">Programmes Admis</p>
                                 <div class="space-y-1">
                                     {#each profile.admis as program}
-                                        <Badge variant="outline" class="mr-1 mb-1">
+                                        <Badge href={null} variant="outline" class="mr-1 mb-1">
                                             <Award class="w-3 h-3 mr-1" />
                                             {program}
                                         </Badge>
@@ -141,7 +141,7 @@
 
                         <div>
                             <p class="text-sm font-medium text-muted-foreground">Programme Choisi</p>
-                            <Badge variant="default" class="mt-1">
+                            <Badge href={null} variant="default" class="mt-1">
                                 <Award class="w-3 h-3 mr-1" />
                                 {profile.choisi}
                             </Badge>
@@ -152,17 +152,17 @@
 
             <!-- Professional Experience -->
             {#if profile.jobs && profile.jobs.length > 0}
-                <Card>
-                    <CardHeader>
+                <Card class="">
+                    <CardHeader class="">
                         <CardTitle class="flex items-center gap-2">
                             <Briefcase class="w-5 h-5" />
                             Expérience Professionnelle
                         </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent class="">
                         <div class="flex flex-wrap gap-2">
                             {#each profile.jobs as job}
-                                <Badge variant="secondary">
+                                <Badge href={null} variant="secondary" class="">
                                     {job}
                                 </Badge>
                             {/each}
@@ -172,11 +172,11 @@
             {/if}
 
             <!-- Description -->
-            <Card>
-                <CardHeader>
-                    <CardTitle>À Propos</CardTitle>
+            <Card class="">
+                <CardHeader class="">
+                    <CardTitle class="">À Propos</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent class="">
                     <div class="prose prose-sm max-w-none dark:prose-invert">
                         <Markdown content={profile.description} />
                     </div>
@@ -184,8 +184,8 @@
             </Card>
 
             <!-- Account Information -->
-            <Card>
-                <CardHeader>
+            <Card class="">
+                <CardHeader class="">
                     <CardTitle class="flex items-center gap-2">
                         <Calendar class="w-5 h-5" />
                         Informations du Compte
