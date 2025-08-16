@@ -23,7 +23,7 @@
     <title>Æ PIMA : {$page.url.pathname.split("/").at(-1)}</title> 
 </svelte:head>
 
-<div class="relative min-h-screen max-w-screen-vh mx-auto flex flex-col pt-[90px] font-['Roboto_Condensed',sans-serif]">
+<div class="relative min-h-screen max-w-6xl mx-auto flex flex-col pt-[90px] font-['Roboto_Condensed',sans-serif]">
     <Nav></Nav>
     <Cookies/>
     {#if $user?.sleeping}

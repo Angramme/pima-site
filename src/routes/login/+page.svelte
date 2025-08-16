@@ -66,7 +66,7 @@
 				{#each admins as { nom, prenom, email }}
 					<li>
 						{nom} {prenom} :
-						<Button variant="link" class="h-auto p-0" on:click={() => alert(`email = ${email}`)}
+						<Button disabled={false} variant="link" class="h-auto p-0" on:click={() => alert(`email = ${email}`)}
 							>contacter par email</Button
 						>
 					</li>

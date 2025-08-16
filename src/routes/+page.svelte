@@ -29,12 +29,10 @@
     <br />"Æ PIMA" : "Anciens-Etudiants-du-Parcours-PIMA"
 </p>
 
-<section class="w-full my-12">
-    <h2 class="text-2xl font-bold text-center mb-8 mt-[10pt]">Nos Communautés</h2>
+<!-- <section class="w-full my-12">
     <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
     >
-        <!-- Discord Card -->
         <Card class="flex flex-col {!isLoggedIn ? 'opacity-60' : ''}">
             <CardHeader class="text-center">
                 <div
@@ -66,7 +64,6 @@
             </CardContent>
         </Card>
 
-        <!-- LinkedIn Card -->
         <Card class="flex flex-col {!isLoggedIn ? 'opacity-60' : ''}">
             <CardHeader class="text-center">
                 <div
@@ -97,9 +94,10 @@
             </CardContent>
         </Card>
 
-        <!-- Google Drive Card -->
         <Card
-            class="flex flex-col md:col-span-2 lg:col-span-1 {!isLoggedIn ? 'opacity-60' : ''}"
+            class="flex flex-col md:col-span-2 lg:col-span-1 {!isLoggedIn
+                ? 'opacity-60'
+                : ''}"
         >
             <CardHeader class="text-center">
                 <div
@@ -114,12 +112,7 @@
                         </div>
                     {/if}
                 </div>
-                <CardTitle class="text-xl font-semibold"
-                    >Google Drive</CardTitle
-                >
-                <CardDescription class=""
-                    >Accédez à toutes nos ressources partagées</CardDescription
-                >
+                <CardTitle class="text-xl font-semibold">Google Drive</CardTitle>
             </CardHeader>
             <CardContent class="text-center flex-1 flex flex-col">
                 <div class="text-sm text-muted-foreground mb-6 flex-1">
@@ -131,14 +124,11 @@
                             >
                         </li>
                         <li>• Conseils et guides pratiques</li>
-                        <li>• Documents partagés</li>
                         <li>
                             • <span class="font-medium text-foreground"
-                                >Conseils sur les documents
-                                administratifs</span
+                                >Conseils sur les documents administratifs</span
                             >
                         </li>
-                        <li>• Navigation dans l'administration Sorbonne</li>
                     </ul>
                 </div>
                 <Button class="w-full" disabled={!isLoggedIn}>
@@ -147,11 +137,11 @@
             </CardContent>
         </Card>
     </div>
-</section>
+</section> -->
 
 <hr class="mb-[15pt]" />
 
-<h2 class="text-lg mt-[10pt] mb-[5pt]">À propos de ce site</h2>
+<h2 class="text-xl font-bold mt-[10pt] mb-[5pt]">À propos de ce site</h2>
 <p class="my-[5pt] text-justify">
     Ce site est maintenu par les étudiants de la double majeure en Mathématiques
     et Informatique à Sorbonne Université, également connue sous l'acronyme
@@ -224,7 +214,7 @@
     </div>
 </section>
 
-<h2 class="text-lg mt-[10pt] mb-[5pt]">Contribuer :</h2>
+<h2 class="text-xl font-bold mt-[10pt] mb-[5pt]">Contribuer :</h2>
 <p class="my-[5pt] text-justify">
     Pour ajouter du contenu à ce site web, veuillez suivre les instructions sur
     la page <b>GitHub</b> (<a
@@ -236,17 +226,12 @@
     sur la page "anciens" ou consultez la page "login"/"connexion".
 </p>
 
-<!-- <h2>Liens externes : </h2>
-<h2>Liens externes : </h2>
-<p>🔒 protegé</p>
-{#each Object.entries(links) as [category, lks]}
-<h3>{category} : </h3>
-<ul>
-    {#each Object.keys(lks) as lk}
-        <li>{lk} : <a href="/restricted/external/{lk}" target=”_blank”  data-sveltekit-preload-data="off" data-sveltekit-preload-code="off">lien</a></li>
-    {/each}
+<h2 class="text-xl font-bold mt-[10pt] mb-[5pt]">Liens :</h2>
+<ul class="my-[5pt] text-justify">
+    <li>Discord: https://discord.gg/S8NJDG84</li>
+    <li>Linkedin: https://www.linkedin.com/groups/8184888/</li>
 </ul>
-{/each} -->
+
 
 <style>
     accent {
