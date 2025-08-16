@@ -2,10 +2,10 @@
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import { onMount } from 'svelte';
-  import { Button } from "$lib/components/ui/button";
-  import * as Card from "$lib/components/ui/card";
-  import { Input } from "$lib/components/ui/input";
-  import { Label } from "$lib/components/ui/label";
+  import { Button } from "$lib/components/ui/button/index.js";
+  import * as Card from "$lib/components/ui/card/index.js";
+  import { Input } from "$lib/components/ui/input/index.js";
+  import { Label } from "$lib/components/ui/label/index.js";
 
     export let form: import('./$types').ActionData;
 
@@ -18,11 +18,13 @@
 
 <div class="mx-auto mt-8 flex max-w-sm flex-col items-center justify-center gap-8">
 	<Card.Root class="w-full">
-		<Card.Header>
+		<Card.Header class="p-6 pb-3">
 			<Card.Title class="text-2xl">Connexion</Card.Title>
-			<Card.Description>Entrez votre login et mot de passe pour vous connecter.</Card.Description>
+			<Card.Description class="text-muted-foreground"
+				>Entrez votre login et mot de passe pour vous connecter.</Card.Description
+			>
 		</Card.Header>
-		<Card.Content>
+		<Card.Content class="p-6 pt-0">
 			<form method="POST" use:enhance class="grid gap-4">
 				{#if form?.missing}<p class="text-sm font-medium text-red-500">
 						Le login <u>et</u> mot de passe sont primordiaux!
@@ -33,15 +35,15 @@
 				{#if form?.success}<p class="text-sm font-medium text-green-500">Connexion réussie!</p>{/if}
 
 				<div class="grid gap-2">
-					<Label for="user">Login</Label>
-					<Input id="user" type="text" name="login" required />
+					<Label for="user" class="">Login</Label>
+					<Input id="user" type="text" name="login" required class="flex h-9 w-full rounded-md border px-3 py-1 text-sm" />
 				</div>
 				<div class="grid gap-2">
-					<Label for="pwd">Mot de passe</Label>
-					<Input id="pwd" type="password" name="password" required />
+					<Label for="pwd" class="">Mot de passe</Label>
+					<Input id="pwd" type="password" name="password" required class="flex h-9 w-full rounded-md border px-3 py-1 text-sm" />
 				</div>
 
-				<Button type="submit" class="w-full">Connexion</Button>
+				<Button type="submit" class="w-full" disabled={false}>Connexion</Button>
 				<Button variant="outline" class="w-full" disabled>Mot de passe ou identifiant oublié</Button>
 			</form>
 		</Card.Content>
