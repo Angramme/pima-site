@@ -98,7 +98,7 @@ Voici les proprietes possibles:
             <a href="/restricted/anciens/{data.id}" class="card-link">
                 <Card class="cursor-pointer hover:shadow-lg transition-shadow duration-200 hover:bg-accent/50 h-full">
                     <CardHeader class="pb-2">
-                        <CardTitle class="text-base font-semibold text-foreground leading-tight" class:sleeper={data.sleeping} class:admin={data.admin}>
+                        <CardTitle class="text-base font-semibold text-foreground leading-tight {data.sleeping ? 'sleeper' : ''} {data.admin ? 'admin' : ''}">
                             {data.prenom} {data.nom || ''}
                         </CardTitle>
                     </CardHeader>
