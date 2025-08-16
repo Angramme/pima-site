@@ -40,11 +40,20 @@ export async function load({ locals, depends }) {
             grad_year: true,
             prenom: true,
             description: true,
+            upvotedByIds: true,
+            downvotedByIds: true,
         },
         orderBy: {
             grad_year: "desc",
         }
-    });
+    }).then(users => users.map(u => {
+        const { upvotedByIds, downvotedByIds, ...rest } = u;
+        return {
+            ...rest,
+            upvotes: upvotedByIds.length,
+            downvotes: downvotedByIds.length
+        }
+    }));
 
     return {
         streamed: {
