@@ -25,8 +25,8 @@
 {#await profile}
     <p>Loading...</p>
 {:then profile}
-    <div class="min-h-screen bg-background p-6">
-        <div class="max-w-4xl mx-auto space-y-6">
+{#if profile}
+        <div class="mx-auto space-y-6">
             <!-- Header Section -->
             <Card>
                 <CardHeader class="pb-4">
@@ -207,5 +207,31 @@
                 </CardContent>
             </Card>
         </div>
-    </div>
+    
+        {/if}
+
+    {#if data.user?.admin}
+        <h2>Admin</h2>
+        <fieldset>
+            {#if form?.error}<p class="error">Erreur serveur: "{form.error}"</p>{/if}
+            {#if form?.success}<p class="success">Update successfull!!!! </p>{/if}        
+            <legend>Admin actions</legend>
+            <fieldset>
+                <legend>admin privilages</legend>
+                <form method="POST" action="?/user_status_change" use:enhance>
+                    <input name="user_id" type="text" value={profile?.id} hidden/>
+                    <button name="admin_rights_on" disabled={profile?.admin}>Give admin permissions</button>
+                    <button name="admin_rights_off" disabled={!profile?.admin || profile.id == data.user.id}>Remove admin permissions</button>
+                </form>
+            </fieldset>
+            <fieldset>
+                <legend>delete user</legend>
+                <form method="POST" action="?/user_delete" use:enhance>
+                    <input name="user_id" type="text" value={profile?.id} hidden/>
+                    <input bind:value={user_input} type="text">
+                    <button name="delete_user" disabled={user_input!=profile?.login || profile?.admin || profile?.id == data.user.id}>Delete this user</button>
+                </form>
+            </fieldset>
+        </fieldset>
+    {/if}
 {/await}
