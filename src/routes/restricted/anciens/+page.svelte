@@ -96,7 +96,7 @@ Voici les proprietes possibles:
         {#each anciens as data (data.id)}
             <a href="/restricted/anciens/{data.id}" class="card-link">
                 <Card class="cursor-pointer hover:shadow-lg transition-shadow duration-200 hover:bg-accent/50 h-full">
-                    <CardHeader class="pb-2">
+                    <CardHeader class="pb-1">
                         <CardTitle class="text-base font-semibold text-foreground leading-tight {data.sleeping ? 'sleeper' : ''} {data.admin ? 'admin' : ''}">
                             {data.prenom} {data.nom || ''}
                         </CardTitle>
