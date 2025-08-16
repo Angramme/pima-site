@@ -3,6 +3,10 @@
 
     import Banner from "$lib/components/Banner.svelte";
     import { parse_ast, ast_match } from "$lib/search";
+    import { Search } from "@lucide/svelte"
+    import { Input } from "$lib/components/ui/input"
+    import { Card, CardContent, CardHeader, CardTitle } from "$lib/components/ui/card"
+    import { Badge } from "$lib/components/ui/badge"
 
     export let data: import('./$types').PageData;
 
