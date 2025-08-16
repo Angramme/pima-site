@@ -87,8 +87,12 @@
                     variant="ghost"
                     size="sm"
                     type="submit"
-                    formaction="?/upvote"
+                    formaction={user.weUpvoted ? "?/reset_vote" : "?/upvote"}
                     class="flex items-center gap-2 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400"
+                    class:bg-green-50={user.weUpvoted}
+                    class:text-green-600={user.weUpvoted}
+                    class:dark:bg-green-950={user.weUpvoted}
+                    class:dark:text-green-400={user.weUpvoted}
                 >
                     <ChevronUp class="h-4 w-4" />
                     <span>{user.upvotes}</span>
@@ -99,8 +103,12 @@
                     variant="ghost"
                     size="sm"
                     type="submit"
-                    formaction="?/downvote"
+                    formaction={user.weDownvoted ? "?/reset_vote" : "?/downvote"}
                     class="flex items-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400"
+                    class:bg-red-50={user.weDownvoted}
+                    class:text-red-600={user.weDownvoted}
+                    class:dark:bg-red-950={user.weDownvoted}
+                    class:dark:text-red-400={user.weDownvoted}
                 >
                     <ChevronDown class="h-4 w-4" />
                     <span>{user.downvotes}</span>
