@@ -4,6 +4,7 @@
     import Nav from '$lib/components/Nav.svelte';
     import { setContext } from 'svelte';
     import { writable } from 'svelte/store';
+    import "../app.css";
 
     export let data: import('./$types').PageData;
 
