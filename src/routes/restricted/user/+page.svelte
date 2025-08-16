@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
     import Banner from '$lib/components/Banner.svelte';
@@ -6,39 +6,31 @@
   import { user_data_into_forms } from '$lib/transformers';
   import { generate_password } from '$lib/utils';
 
-    /** @type {HTMLInputElement}*/
-    let delete_account_btn;
-    /** @type {any}*/
-    let user_agreed;
+    let delete_account_btn: HTMLInputElement;
+    let user_agreed: boolean;
 
-    /** @type {import('./$types').PageData} */
-    export let data;
+    export let data: import('./$types').PageData;
 
-    /** @type {import('./$types').ActionData} */
-    export let form;
+    export let form: import('./$types').ActionData;
 
 
     $: user = data.user;
     $: sections = !user ? null :
         user_data_into_forms(user);
 
-    /** @type {boolean}*/
-    let new_pwd_val;
-    /** @type {boolean}*/
-    let con_pwd_val;
+    let new_pwd_val: string;
+    let con_pwd_val: string;
 
     let desc_markdown = data.user?.description || "";
 
-    /** @type {HTMLFormElement}*/
-    let delete_account_form;
+    let delete_account_form: HTMLFormElement;
     const delete_account_now = async ()=>{
         const yes = confirm("Veuillez vous vraiment supprimer votre compte? Attention cette opération n'est pas réversible.");
         if(!yes) return;
         delete_account_form.submit();
     }
 
-    /** @type {HTMLInputElement}*/
-    let create_pwd;
+    let create_pwd: HTMLInputElement;
 </script>
 
 <Banner/>

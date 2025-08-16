@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
     // import anciens_r from "$data/contact-anciens.json"
 
     import Banner from "$lib/components/Banner.svelte";
-    import { parse_ast, ast_match } from "$lib/search.js";
+    import { parse_ast, ast_match } from "$lib/search";
 
-    export let data;
+    export let data: import('./$types').PageData;
 
-    let search_term = "";
+    let search_term: string = "";
     $: ast_term = parse_ast(search_term);
     $: ast_term && console.log(ast_term);
 
@@ -20,7 +20,7 @@
             // @ts-ignore
             .filter(o=>!ast_term ? true : ast_match(ast_term, Object.values(o), o)));
 
-    let show_hint = false;
+    let show_hint: boolean = false;
 </script>
 
 <Banner src="/img/banners/4.jpg" 

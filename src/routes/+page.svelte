@@ -1,9 +1,9 @@
 
-<script>
+<script lang="ts">
     import links from "$data/external-links.json"
     import Banner from "$lib/components/Banner.svelte";
 
-    export let data;
+    export let data: import('./$types').PageData;
 </script>
 
 <Banner src="/img/banners/1.jpg"/>

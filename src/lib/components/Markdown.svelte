@@ -1,16 +1,10 @@
-<script>
+<script lang="ts">
     import { display_mardkown } from "$lib/utils";
     import { marked } from "marked";
-    /** @type {string} */
-    export let markdown;
+    export let markdown: string;
 
     const renderer = {
-        /**
-         * @param text {string}
-         * @param level {number}
-         * @param raw {string}
-         */
-        heading(text, level, raw){ // make heading smaller
+        heading(text: string, level: number, raw: string){ // make heading smaller
             const lvl = Math.min(Math.max(level, 3), 6);
             return `<h${lvl}>${text}</h${lvl}>`;
         },
@@ -19,7 +13,7 @@
 
     marked.use({ renderer });
 
-    let data = display_mardkown(markdown);
+    let data: Promise<string> = display_mardkown(markdown);
      $: display_mardkown(markdown)
         .then((res)=>data = new Promise((f)=>f(res)));
 </script>

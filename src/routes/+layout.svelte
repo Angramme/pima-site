@@ -1,15 +1,15 @@
-<script>
+<script lang="ts">
     import { page } from '$app/stores';
     import Cookies from '$lib/components/Cookies.svelte';
     import Nav from '$lib/components/Nav.svelte';
     import { setContext } from 'svelte';
     import { writable } from 'svelte/store';
 
-    export let data;
+    export let data: import('./$types').PageData;
 
     // Create a store and update it when necessary...
-	const user = writable();
-    const cookies_accepted = writable();
+	const user = writable(data.user);
+    const cookies_accepted = writable(Boolean(data.cookies_accepted));
 	$: user.set(data.user);
     $: cookies_accepted.set(Boolean(data.cookies_accepted));
 

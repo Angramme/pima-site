@@ -14,25 +14,7 @@
     //     .map(({n, l})=>({n, l: l
     //         .filter(({k})=>k!="description" && data.subject && data.subject.hasOwnProperty(k))}));
 
-    let sectioned = $state<{
-        id: string;
-        email: string | null;
-        login: string;
-        admin: boolean;
-        prenom: string;
-        nom: string | null;
-        contact: string[];
-        grad_year: number;
-        nationalite: string[];
-        moyenneL2: number | null;
-        moyenneL3: number | null;
-        admis: string[];
-        choisi: string;
-        travails: string[];
-        description: string;
-        createdAt: Date;
-        updatedAt: Date;
-    }>();
+    let sectioned: ReturnType<typeof user_data_into_forms> | undefined = $state();
 
     $effect(()=>{
         data.subject.then(subject=>{
@@ -44,8 +26,7 @@
         })
     });
 
-    /** @type {string | undefined}*/
-    let user_input = $state("user login");
+    let user_input: string | undefined = $state("user login");
 </script>
 
 

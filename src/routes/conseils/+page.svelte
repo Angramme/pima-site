@@ -1,12 +1,13 @@
-<script>
+<script lang="ts">
     import Banner from "$lib/components/Banner.svelte";
     import Markdown from "$lib/components/Markdown.svelte";
     import Rolldown from "$lib/components/Rolldown.svelte";
     import { getContext } from "svelte";
+    import type { Writable } from "svelte/store";
 
-    export let data;
+    export let data: import('./$types').PageData;
 
-    const user = getContext("user");
+    const user = getContext<Writable<App.Locals['user']>>("user");
 </script>
 
 <Banner title="Conseils" src="/img/banners/5.jpg" />

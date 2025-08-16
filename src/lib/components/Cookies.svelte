@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
     import { enhance } from '$app/forms';
     import { page } from '$app/stores';
     import { getContext } from 'svelte';
+    import type { Writable } from 'svelte/store';
 
     export const prerender = false;
 
-    $: cookies_accepted = getContext('cookies_accepted');
+    const cookies_accepted = getContext<Writable<boolean>>('cookies_accepted');
 </script>
 
 {#if (!$cookies_accepted) && !$page.url.pathname.startsWith("/reglementation")}

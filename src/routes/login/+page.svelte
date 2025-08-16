@@ -1,12 +1,11 @@
-<script>
+<script lang="ts">
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import { onMount } from 'svelte';
 
-    /** @type {import('./$types').ActionData} */
-    export let form;
+    export let form: import('./$types').ActionData;
 
-    export let data;
+    export let data: import('./$types').PageData;
 
     onMount(()=>{
         invalidate("user:update");

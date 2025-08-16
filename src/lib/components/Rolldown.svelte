@@ -1,18 +1,16 @@
-<script>
-    import { afterUpdate, onMount } from "svelte";
+<script lang="ts">
+    import { afterUpdate } from "svelte";
 
-    /** @type {boolean} */
-    export let default_open = false;
-    /** @type {string} */
-    export let closed_height = "15vh";
+    export let default_open: boolean = false;
+    export let closed_height: string = "15vh";
 
-    let open = default_open;
-    let plus_needed = false;
+    let open: boolean = default_open;
+    let plus_needed: boolean = false;
 
-    /** @type {HTMLElement}*/
-    let main;
+    let main: HTMLElement;
 
     afterUpdate(()=>{
+        if (!main) return;
         plus_needed = plus_needed || open || main.scrollHeight != main.clientHeight;
     });
 

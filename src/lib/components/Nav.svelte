@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
     import { getContext } from "svelte";
     import { page } from '$app/stores';
+    import type { Writable } from "svelte/store";
 
-    const pages = [
+    const pages: string[][] = [
         ["/", "accueil"],
         ["/restricted/anciens", "anciens"],
         ["/conseils", "conseils"],
@@ -10,7 +11,7 @@
         // ["/restricted/faq", "FAQ"],
     ];
 
-    const user = getContext('user');
+    const user = getContext<Writable<App.Locals['user']>>('user');
 </script>
 
 
