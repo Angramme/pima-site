@@ -10,11 +10,7 @@
     let { data, form } = $props();
 
 
-    // $: sectioned = user_data_into_forms(data.subject)
-    //     .map(({n, l})=>({n, l: l
-    //         .filter(({k})=>k!="description" && data.subject && data.subject.hasOwnProperty(k))}));
-
-    let sectioned: { n: string, l: { k: string, l: string, v: any, t: string, ro?: boolean }[] }[] | undefined = $state();
+    let sectioned: { n: string, l: { k: string, l: string, v: any, t: string, ro?: boolean }[] }[] = $state([]);
 
     $effect(()=>{
         data.subject.then(subject=>{

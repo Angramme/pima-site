@@ -195,7 +195,7 @@ export const actions = {
              * @param {string} s 
              * @returns bool
              */
-            (s)=>(s.split('@')[1] == "etu.sorbonne-universite.fr");
+            (s: string)=>(s.split('@')[1] == "etu.sorbonne-universite.fr");
         if(!emails_s.every(email_correct)){
             return { creation_failure: "invalid email address host found (does not match etu.sorbonne-universite.fr) mismatches: [" + emails_s.filter(s=>!email_correct(s)).join("; ") + "]"};
         }
