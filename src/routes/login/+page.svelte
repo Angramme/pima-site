@@ -2,10 +2,10 @@
   import { enhance } from '$app/forms';
   import { invalidate } from '$app/navigation';
   import { onMount } from 'svelte';
-  import { Button } from "$lib/components/ui/button/index.js";
-  import * as Card from "$lib/components/ui/card/index.js";
-  import { Input } from "$lib/components/ui/input/index.js";
-  import { Label } from "$lib/components/ui/label/index.js";
+  import { Button } from "$lib/components/ui/button";
+  import * as Card from "$lib/components/ui/card";
+  import { Input } from "$lib/components/ui/input";
+  import { Label } from "$lib/components/ui/label";
 
     export let form: import('./$types').ActionData;
 
