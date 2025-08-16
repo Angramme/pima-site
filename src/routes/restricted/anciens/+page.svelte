@@ -31,8 +31,6 @@
     title="Anciens"
     />
 
-<h1>Repertoire des anciens :</h1>
-
 <p>
     Exemples d'utilisation <button on:click={()=>show_hint=!show_hint}>{show_hint ? "cacher" : "afficher"}</button>: 
 </p>
@@ -66,11 +64,8 @@ Voici les proprietes possibles:
 {/await}
 </ul>
 {/if}
-<p>
-    Les informations présentes ont été fournies par les élèves eux-mêmes avec leur consentement.
-</p>
 
-<div class="relative mb-8">
+<div class="relative mt-3">
     <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
     <Input
         type="text"
@@ -79,6 +74,10 @@ Voici les proprietes possibles:
         class="pl-10 h-12 text-base"
     />
 </div>
+<p class="text-sm m-2 mb-8">
+    Les informations présentes ont été fournies par les élèves eux-mêmes avec leur consentement.
+</p>
+
 
 <div class="mb-6">
     {#await anciens_P}
@@ -104,12 +103,17 @@ Voici les proprietes possibles:
                     </CardHeader>
                     <CardContent class="space-y-2 text-xs">
                         <div class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-center">
-                            <Badge variant="secondary">
+                            <Badge variant="secondary" class="" href="">
                                 Suite
                             </Badge>
                             <span class="text-muted-foreground truncate">{data.choisi || "non renseigné"}</span>
+                            
+                            <Badge variant="secondary" class="" href="">
+                                Travail
+                            </Badge>
+                            <span class="text-muted-foreground truncate">{data.travails.join(', ') || "non renseigné"}</span>
 
-                            <Badge variant="default">
+                            <Badge variant="default" class="" href="">
                                 PIMA
                             </Badge>
                             <span class="text-muted-foreground">{data.grad_year-3}-{data.grad_year}</span>
