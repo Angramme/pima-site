@@ -17,20 +17,20 @@
 
 <Banner src="/img/banners/1.jpg" />
 
-<h1 class="header">
-    <span><b>D</b>ouble</span>
-    <span><b>M</b>ajeure</span>
-    <span><b>M</b>athématiques</span>
-    <span><b>I</b>nformatique</span>
+<h1 class="text-2xl font-normal no-underline">
+    <span class="block"><b>D</b>ouble</span>
+    <span class="block"><b>M</b>ajeure</span>
+    <span class="block"><b>M</b>athématiques</span>
+    <span class="block"><b>I</b>nformatique</span>
 </h1>
 
-<p>
+<p class="my-[5pt] text-justify">
     Site <i>non-officiel</i> DMMI/PIMA.
     <br />"Æ PIMA" : "Anciens-Etudiants-du-Parcours-PIMA"
 </p>
 
 <section class="w-full my-12">
-    <h2 class="text-2xl font-bold text-center mb-8">Nos Communautés</h2>
+    <h2 class="text-2xl font-bold text-center mb-8 mt-[10pt]">Nos Communautés</h2>
     <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
     >
@@ -149,10 +149,10 @@
     </div>
 </section>
 
-<hr />
+<hr class="mb-[15pt]" />
 
-<h2>À propos de ce site</h2>
-<p>
+<h2 class="text-lg mt-[10pt] mb-[5pt]">À propos de ce site</h2>
+<p class="my-[5pt] text-justify">
     Ce site est maintenu par les étudiants de la double majeure en Mathématiques
     et Informatique à Sorbonne Université, également connue sous l'acronyme
     PIMA. L'objectif de ce site est de rassembler des ressources utiles, telles
@@ -163,7 +163,7 @@
     lettres de motivation, de CV, et bien plus encore.
 </p>
 
-<p>
+<p class="my-[5pt] text-justify">
     Sur ce site, vous trouverez également des informations sur les <accent
         >procédures d'admission</accent
     >, des conseils, des documents partagés sur le drive, et même la possibilité
@@ -173,14 +173,14 @@
     de naviguer au mieux dans les méandres de l'administration de la Sorbonne.
 </p>
 
-<p>
+<p class="my-[5pt] text-justify">
     L'idée maîtresse qui sous-tend ce projet est que, une fois que vous aurez
     également réussi à intégrer une école, vous serez encouragés à contribuer au
     site en partageant vos expériences et connaissances pour aider les
     générations futures d'étudiants de la PIMA.
 </p>
 
-<p>
+<p class="my-[5pt] text-justify">
     Actuellement, l'accès au site est exclusif, ce qui signifie que vous devez
     créer un compte pour accéder aux informations existantes et ajouter de
     nouvelles ressources. Cette approche vise à garantir que les contacts des
@@ -190,7 +190,7 @@
     données.
 </p>
 
-<p>
+<p class="my-[5pt] text-justify">
     Dans l'ensemble, ce site offre un véritable réseau et une source de
     connaissances précieuses pour la vie académique et professionnelle des
     étudiants de la PIMA, à condition qu'un nombre suffisant d'étudiants s'y
@@ -224,8 +224,8 @@
     </div>
 </section>
 
-<h2>Contribuer :</h2>
-<p>
+<h2 class="text-lg mt-[10pt] mb-[5pt]">Contribuer :</h2>
+<p class="my-[5pt] text-justify">
     Pour ajouter du contenu à ce site web, veuillez suivre les instructions sur
     la page <b>GitHub</b> (<a
         target="_blank"
@@ -249,33 +249,8 @@
 {/each} -->
 
 <style>
-    h1 {
-        font-size: x-large;
-    }
-    h2 {
-        font-size: larger;
-        margin: 10pt 0 5pt 0;
-    }
-    hr {
-        margin: 0 0 15pt 0;
-    }
-    p {
-        margin: 5pt 0 5pt 0;
-        text-align: justify;
-        text-justify: distribute;
-    }
     accent {
         font-weight: bold;
         text-decoration: underline var(--accent-color);
-    }
-    .header {
-        font-weight: normal;
-        /* text-align: center;
-        margin-bottom: 5rem; */
-        text-decoration: none;
-    }
-    .header > span {
-        display: block;
-        /* margin-right: 2rem; */
     }
 </style>
