@@ -2,10 +2,14 @@
     import Banner from "$lib/components/Banner.svelte";
     import Markdown from "$lib/components/Markdown.svelte";
     import Rolldown from "$lib/components/Rolldown.svelte";
+    import { Button } from "$lib/components/ui/button"
+    import { Card, CardContent, CardHeader } from "$lib/components/ui/card"
+    import { Badge } from "$lib/components/ui/badge"
+    import { ChevronUp, ChevronDown, User, GraduationCap } from "@lucide/svelte"
     import { getContext } from "svelte";
     import type { Writable } from "svelte/store";
 
-    export let data: import('./$types').PageData;
+    let { data } = $props();
 
     const user = getContext<Writable<App.Locals['user']>>("user");
 </script>
@@ -29,31 +33,8 @@
 
 {#await data.streamed.descs}
     Chargement...
-{:then descs}
-    {#each descs as des}
-        {#if des.description.length > 7}
-            <div class="pb-[0.2rem]">
-                <hr />
-                <h3>
-                    <a class="" href={`/restricted/anciens/${des.id}`}>{des.prenom}</a>
-                    <span style="float:right;font-size:80%;">
-                        {des.choisi}; PIMA {des.grad_year - 3}-{des.grad_year}
-                    </span>
-                </h3>
-
-                <Rolldown>
-                    <Markdown markdown={des.description} />
-                </Rolldown>
-            </div>
-        {/if}
+{:then user_profiles}
+    {#each user_profiles as des}
+        <!-- TODO... -->
     {/each}
-
-    {#if descs.length == 0}
-        {#if $user}
-            Personne n'a encore partagé de conseil.
-        {:else}
-            Aucun conseil n'est publique pour le moment. Connectez-vous pour
-            voir les conseils des anciens.
-        {/if}
-    {/if}
 {/await}
