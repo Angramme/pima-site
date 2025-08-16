@@ -87,7 +87,7 @@
               <MessageCircle class="h-8 w-8 text-muted-foreground" />
             </div>
             <CardTitle class="text-xl font-semibold">Discord</CardTitle>
-            <CardDescription>Rejoignez notre serveur Discord pour échanger avec la communauté</CardDescription>
+            <CardDescription class="">Rejoignez notre serveur Discord pour échanger avec la communauté</CardDescription>
           </CardHeader>
           <CardContent class="text-center flex-1 flex flex-col">
             <p class="text-sm text-muted-foreground mb-6 flex-1">
@@ -103,7 +103,7 @@
               <Linkedin class="h-8 w-8 text-muted-foreground" />
             </div>
             <CardTitle class="text-xl font-semibold">LinkedIn</CardTitle>
-            <CardDescription>Connectez-vous avec notre réseau professionnel</CardDescription>
+            <CardDescription class="">Connectez-vous avec notre réseau professionnel</CardDescription>
           </CardHeader>
           <CardContent class="text-center flex-1 flex flex-col">
             <p class="text-sm text-muted-foreground mb-6 flex-1">
@@ -119,7 +119,7 @@
               <FolderOpen class="h-8 w-8 text-muted-foreground" />
             </div>
             <CardTitle class="text-xl font-semibold">Google Drive</CardTitle>
-            <CardDescription>Accédez à toutes nos ressources partagées</CardDescription>
+            <CardDescription class="">Accédez à toutes nos ressources partagées</CardDescription>
           </CardHeader>
           <CardContent class="text-center flex-1 flex flex-col">
             <p class="text-sm text-muted-foreground mb-6 leading-relaxed flex-1">
