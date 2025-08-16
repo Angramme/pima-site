@@ -163,7 +163,7 @@
         text-align: justify;
         text-justify: distribute;
     }
-    accent, accent *{
+    accent{
         font-weight: bold;
         text-decoration: underline var(--accent-color);
     }
