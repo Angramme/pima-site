@@ -2,6 +2,7 @@
     import { getContext } from "svelte";
     import { page } from '$app/stores';
     import type { Writable } from "svelte/store";
+    import { Button } from "$lib/components/ui/button/index.js";
 
     const pages: string[][] = [
         ["/", "accueil"],
@@ -20,9 +21,9 @@
         <div class="logo">
             <span>Æ PIMA</span>
         </div>
-        {#each pages as p}
+        {#each pages as [link, name]}
             <div>
-                <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href={p[0]} class={$page.url.pathname == p[0] ? "current":""}> {p[1]} </a> 
+                <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href={link} class={$page.url.pathname == link ? "current":""}> {name} </a> 
             </div>
         {/each}
         <div class="login">
