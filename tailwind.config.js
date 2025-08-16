@@ -1,10 +1,4 @@
 module.exports = {
-  corePlugins: {
-    preflight: false,
-  },
-  experimental: {
-    optimizeUniversalDefaults: false,
-  },
   content: [
     // ..
   ],
