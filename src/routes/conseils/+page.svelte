@@ -10,6 +10,7 @@
         ChevronDown,
         User,
         GraduationCap,
+        ExternalLink,
     } from "@lucide/svelte";
     import { getContext } from "svelte";
     import type { Writable } from "svelte/store";
@@ -17,6 +18,17 @@
     let { data } = $props();
 
     const user = getContext<Writable<App.Locals["user"]>>("user");
+
+    let expandedTips = new Set<string>();
+
+    function toggleExpanded(id: string) {
+        if (expandedTips.has(id)) {
+            expandedTips.delete(id);
+        } else {
+            expandedTips.add(id);
+        }
+        expandedTips = expandedTips;
+    }
 
     function getNetScore(upvotes: number, downvotes: number) {
         return upvotes - downvotes;
@@ -75,25 +87,50 @@
                                 <span>Promotion {des.grad_year}</span>
                             </div>
                         </div>
-                        <Badge href="" variant="secondary" class="text-xs">
-                            {des.choisi}
-                        </Badge>
+                        <div class="flex items-center gap-2">
+                            <Badge variant="secondary" class="text-xs">
+                                {des.choisi}
+                            </Badge>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                href={`/restricted/anciens/${des.id}`}
+                                class="flex items-center gap-1 text-xs"
+                            >
+                                <ExternalLink class="h-3 w-3" />
+                                Voir plus
+                            </Button>
+                        </div>
                     </div>
                 </CardHeader>
 
-                <CardContent class="">
+                <CardContent>
+                    {@const isExpanded = expandedTips.has(des.id)}
+                    {@const isTruncated = des.description && des.description.length > 300}
                     <div
-                        class="text-sm prose prose-sm max-w-none mb-4 text-foreground prose-headings:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-blockquote:text-muted-foreground prose-li:text-foreground truncate max-h-50"
+                        class="text-sm prose prose-sm max-w-none mb-4 text-foreground prose-headings:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-blockquote:text-muted-foreground prose-li:text-foreground"
+                        class:truncate={isTruncated && !isExpanded}
+                        class:max-h-50={isTruncated && !isExpanded}
                     >
                         <Markdown markdown={des.description}></Markdown>
                     </div>
+
+                    {#if isTruncated}
+                        <Button
+                            variant="link"
+                            size="sm"
+                            on:click={() => toggleExpanded(des.id)}
+                            class="p-0 h-auto text-primary hover:text-primary/80"
+                        >
+                            {isExpanded ? "Voir moins" : "Lire la suite"}
+                        </Button>
+                    {/if}
 
                     <div
                         class="flex items-center justify-between pt-4 border-t border-border"
                     >
                         <div class="flex items-center gap-4">
                             <Button
-                                disabled={false}
                                 variant="ghost"
                                 size="sm"
                                 on:click={() => handleVote(des.id, "upvote")}
@@ -104,7 +141,6 @@
                             </Button>
 
                             <Button
-                                disabled={false}
                                 variant="ghost"
                                 size="sm"
                                 on:click={() => handleVote(des.id, "downvote")}
