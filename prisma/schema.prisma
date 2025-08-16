@@ -34,6 +34,16 @@ model User {
   travails    String[] // entreprises/labos ou à travaillé
   description String @default("TODO 😴") // description parcours, conseils perso, etc
   
+  upvotesIds     String[] @db.ObjectId
+  upvotedByIds   String[] @db.ObjectId
+  upvotes        User[]   @relation("UserUpvotes", fields: [upvotesIds], references: [id])
+  upvotedBy      User[]   @relation("UserUpvotes", fields: [upvotedByIds], references: [id])
+
+  downvotesIds   String[] @db.ObjectId
+  downvotedByIds String[] @db.ObjectId
+  downvotes      User[]   @relation("UserDownvotes", fields: [downvotesIds], references: [id])
+  downvotedBy    User[]   @relation("UserDownvotes", fields: [downvotedByIds], references: [id])
+
   createdAt   DateTime @default(now()) // account created
   updatedAt   DateTime @updatedAt
 }
