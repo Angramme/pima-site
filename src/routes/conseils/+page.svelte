@@ -2,22 +2,27 @@
     import Banner from "$lib/components/Banner.svelte";
     import Markdown from "$lib/components/Markdown.svelte";
     import Rolldown from "$lib/components/Rolldown.svelte";
-    import { Button } from "$lib/components/ui/button"
-    import { Card, CardContent, CardHeader } from "$lib/components/ui/card"
-    import { Badge } from "$lib/components/ui/badge"
-    import { ChevronUp, ChevronDown, User, GraduationCap } from "@lucide/svelte"
+    import { Button } from "$lib/components/ui/button";
+    import { Card, CardContent, CardHeader } from "$lib/components/ui/card";
+    import { Badge } from "$lib/components/ui/badge";
+    import {
+        ChevronUp,
+        ChevronDown,
+        User,
+        GraduationCap,
+    } from "@lucide/svelte";
     import { getContext } from "svelte";
     import type { Writable } from "svelte/store";
 
     let { data } = $props();
 
-    const user = getContext<Writable<App.Locals['user']>>("user");
+    const user = getContext<Writable<App.Locals["user"]>>("user");
 
     function getNetScore(upvotes: number, downvotes: number) {
         return upvotes - downvotes;
     }
 
-    function handleVote(id: string, voteType: 'upvote' | 'downvote') {
+    function handleVote(id: string, voteType: "upvote" | "downvote") {
         // TODO: implement voting logic
         console.log(`Voted ${voteType} on ${id}`);
     }
@@ -34,7 +39,12 @@
 
 {#if !$user}
     <p>
-        ⚠️ Vous voyez uniquement les conseils des anciens qui ont été partagés publiquement. <a data-sveltekit-preload-data="off" data-sveltekit-preload-code="off" href="/login">Connectez-vous</a> pour voir tous les conseils. ⚠️
+        ⚠️ Vous voyez uniquement les conseils des anciens qui ont été partagés
+        publiquement. <a
+            data-sveltekit-preload-data="off"
+            data-sveltekit-preload-code="off"
+            href="/login">Connectez-vous</a
+        > pour voir tous les conseils. ⚠️
     </p>
 {/if}
 
@@ -49,33 +59,41 @@
                 <CardHeader class="pb-4">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div
+                                class="flex items-center gap-2 text-sm text-muted-foreground"
+                            >
                                 <User class="h-4 w-4" />
                                 <span class="font-medium">
-                                    {des.prenom} {des.nom || ""}
+                                    {des.prenom}
+                                    {des.nom || ""}
                                 </span>
                             </div>
-                            <div class="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div
+                                class="flex items-center gap-2 text-sm text-muted-foreground"
+                            >
                                 <GraduationCap class="h-4 w-4" />
                                 <span>Promotion {des.grad_year}</span>
                             </div>
                         </div>
-                        <Badge variant="secondary" class="text-xs">
+                        <Badge href="" variant="secondary" class="text-xs">
                             {des.choisi}
                         </Badge>
                     </div>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent class="">
                     <div
-                        class="prose prose-sm max-w-none mb-4 text-foreground prose-headings:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-blockquote:text-muted-foreground prose-li:text-foreground"
+                        class="text-sm prose prose-sm max-w-none mb-4 text-foreground prose-headings:text-foreground prose-strong:text-foreground prose-em:text-foreground prose-code:text-foreground prose-blockquote:text-muted-foreground prose-li:text-foreground truncate max-h-50"
                     >
-                        {@html des.description}
+                        <Markdown markdown={des.description}></Markdown>
                     </div>
 
-                    <div class="flex items-center justify-between pt-4 border-t border-border">
+                    <div
+                        class="flex items-center justify-between pt-4 border-t border-border"
+                    >
                         <div class="flex items-center gap-4">
                             <Button
+                                disabled={false}
                                 variant="ghost"
                                 size="sm"
                                 on:click={() => handleVote(des.id, "upvote")}
@@ -86,6 +104,7 @@
                             </Button>
 
                             <Button
+                                disabled={false}
                                 variant="ghost"
                                 size="sm"
                                 on:click={() => handleVote(des.id, "downvote")}
@@ -97,7 +116,10 @@
                         </div>
 
                         <div class="text-sm text-muted-foreground">
-                            Score net : {getNetScore(des.upvotes, des.downvotes)}
+                            Score net : {getNetScore(
+                                des.upvotes,
+                                des.downvotes,
+                            )}
                         </div>
                     </div>
                 </CardContent>
