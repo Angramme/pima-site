@@ -70,57 +70,70 @@ Voici les proprietes possibles:
     Les informations présentes ont été fournies par les élèves eux-mêmes avec leur consentement.
 </p>
 
-Rechercher : <input type="text" bind:value={search_term}/> - 
+<div class="relative mb-8">
+    <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+    <Input
+        type="text"
+        placeholder="Rechercher par nom, université, année..."
+        bind:value={search_term}
+        class="pl-10 h-12 text-base"
+    />
+</div>
+
+<div class="mb-6">
+    {#await anciens_P}
+        <p class="text-sm text-muted-foreground">Recherche en cours...</p>
+    {:then anciens}
+        <p class="text-sm text-muted-foreground">
+            {anciens.length} résultat{anciens.length === 1 ? "" : "s"} trouvé{anciens.length === 1 ? "" : "s"}
+        </p>
+    {/await}
+</div>
+
 {#await anciens_P}
-? résultat
-{:then anciens} 
-{anciens.length} résultat{anciens.length==1 ? "" : "s"}
+    <p>Chargement...</p>
+{:then anciens}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {#each anciens as data (data.id)}
+            <a href="/restricted/anciens/{data.id}" class="card-link">
+                <Card class="cursor-pointer hover:shadow-lg transition-shadow duration-200 hover:bg-accent/50 h-full">
+                    <CardHeader class="pb-2">
+                        <CardTitle class="text-base font-semibold text-foreground leading-tight" class:sleeper={data.sleeping} class:admin={data.admin}>
+                            {data.prenom} {data.nom || ''}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent class="space-y-2 text-xs">
+                        <div class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-center">
+                            <Badge variant="secondary">
+                                Suite
+                            </Badge>
+                            <span class="text-muted-foreground truncate">{data.choisi || "non renseigné"}</span>
+
+                            <Badge variant="default">
+                                PIMA
+                            </Badge>
+                            <span class="text-muted-foreground">{data.grad_year-3}-{data.grad_year}</span>
+                        </div>
+                    </CardContent>
+                </Card>
+            </a>
+        {/each}
+    </div>
+
+    {#if anciens.length === 0}
+        <div class="text-center py-12">
+            {#if search_term}
+                <p class="text-muted-foreground text-lg">Aucun résultat trouvé pour "{search_term}"</p>
+                <p class="text-muted-foreground text-sm mt-2">Essayez de chercher avec d'autres mots-clefs.</p>
+            {:else}
+                <p class="text-muted-foreground text-lg">Aucun ancien trouvé.</p>
+            {/if}
+        </div>
+    {/if}
 {/await}
-<hr/>
-<table>
-    <tbody>
-        <tr>
-            <th>Nom</th>
-            <th>PIMA</th>
-            <th>Suite</th>
-            <th></th>
-        </tr>
-        {#await anciens_P}
-        <tr>
-            <td>Chargement...</td>
-        </tr>
-        {:then anciens} 
-            {#each anciens as data}
-                <tr>
-                    <td class={(data.sleeping ? "sleeper " : "") + (data.admin ? "admin " : "")}>{data.nom || "🤐"} {data.prenom}</td> 
-                    <td>{data.grad_year-3}-{data.grad_year}</td>
-                    <td>{data.choisi}</td>
-                    <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
-                </tr>
-            {/each}
-        {/await}
-    </tbody>
-</table>
 
 
 <style>
-    table{
-        width: 100%;
-        table-layout: fixed;
-    }
-    table td, table th{
-        text-align: left;
-    }
-    table tr:nth-child(even) {
-        background: var(--behind-color);
-    }
-    table tr td:last-child, table tr th:last-child{
-        text-align: right;
-        width: 5rem;
-    }
-    table tr td:nth-child(2), table tr th:nth-child(2){
-        width: 5rem;
-    }
     .sleeper{
         font-style: italic;
         color: blueviolet;
@@ -131,5 +144,9 @@ Rechercher : <input type="text" bind:value={search_term}/> -
     .admin{
         font-style: italic;
         color: green;
+    }
+    a.card-link {
+        text-decoration: none;
+        color: inherit;
     }
 </style>
