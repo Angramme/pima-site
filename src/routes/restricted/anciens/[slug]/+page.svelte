@@ -22,12 +22,14 @@
 <fieldset>
     <legend>{n}</legend>
     <table>
-        {#each list as {k, l, v}}
-        <tr>
-            <th>{l}</th>
-            <td>{v}</td>
-        </tr>
-        {/each}
+        <tbody>
+            {#each list as {k, l, v}}
+            <tr>
+                <th>{l}</th>
+                <td>{v}</td>
+            </tr>
+            {/each}
+        </tbody>
     </table>
 </fieldset>
 {/each}

@@ -33,7 +33,7 @@ export const actions = {
         const sessionID = await log_in_user(login.toString(), pwd.toString());
         if(!sessionID) return fail(400, { login, incorrect: true });
         
-        cookies.set('sessionID', sessionID);
+        cookies.set('sessionID', sessionID, { path: '/' });
 
         const redir = url.searchParams.get("redirect");
         if(redir) throw redirect(302, redir);

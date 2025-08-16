@@ -21,22 +21,24 @@
         {#if form?.incorrect}<p class="error">Mot de passe ou login incorrect!</p>{/if}
         {#if form?.success}<p class="success">Connexion réussie!</p>{/if}
         <table>
-            <tr>
-                <td><label for="user">Login:</label></td>
-                <td><input type="text" id="user" name="login"/> <br/></td>
-            </tr>
-            <tr>
-                <td><label for="pwd">Mot de passe:</label></td>
-                <td><input type="password" id="pwd" name="password"/> <br/></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" id="submit" value="Connexion"/></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="button" id="forgot" value="mdb ou identifiant oublié" disabled/></td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td><label for="user">Login:</label></td>
+                    <td><input type="text" id="user" name="login"/> <br/></td>
+                </tr>
+                <tr>
+                    <td><label for="pwd">Mot de passe:</label></td>
+                    <td><input type="password" id="pwd" name="password"/> <br/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" id="submit" value="Connexion"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="button" id="forgot" value="mdb ou identifiant oublié" disabled/></td>
+                </tr>
+            </tbody>
         </table>
         <p>Veuillez noter qu'en vous connectant sur ce site, vous acceptez l'utilisation de cookies essentiels. En utilisant ce site et les services qui y sont proposés, vous acceptez la <a href="/reglementation">réglementation</a></p>
     </fieldset>

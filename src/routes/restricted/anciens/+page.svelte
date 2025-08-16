@@ -74,26 +74,28 @@ Rechercher : <input type="text" bind:value={search_term}/> -
 {/await}
 <hr/>
 <table>
-    <tr>
-        <th>Nom</th>
-        <th>PIMA</th>
-        <th>Suite</th>
-        <th></th>
-    </tr>
-    {#await anciens_P}
-    <tr>
-        <td>Chargement...</td>
-    </tr>
-    {:then anciens} 
-        {#each anciens as data}
-            <tr>
-                <td class={(data.sleeping ? "sleeper " : "") + (data.admin ? "admin " : "")}>{data.nom || "🤐"} {data.prenom}</td> 
-                <td>{data.grad_year-3}-{data.grad_year}</td>
-                <td>{data.choisi}</td>
-                <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
-            </tr>
-        {/each}
-    {/await}
+    <tbody>
+        <tr>
+            <th>Nom</th>
+            <th>PIMA</th>
+            <th>Suite</th>
+            <th></th>
+        </tr>
+        {#await anciens_P}
+        <tr>
+            <td>Chargement...</td>
+        </tr>
+        {:then anciens} 
+            {#each anciens as data}
+                <tr>
+                    <td class={(data.sleeping ? "sleeper " : "") + (data.admin ? "admin " : "")}>{data.nom || "🤐"} {data.prenom}</td> 
+                    <td>{data.grad_year-3}-{data.grad_year}</td>
+                    <td>{data.choisi}</td>
+                    <td><a href="/restricted/anciens/{data.id}">plus d'infos</a></td>
+                </tr>
+            {/each}
+        {/await}
+    </tbody>
 </table>
 
 
