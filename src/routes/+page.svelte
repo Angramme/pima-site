@@ -9,9 +9,10 @@
         CardHeader,
         CardTitle,
     } from "$lib/components/ui/card";
-    import { MessageCircle, Linkedin, FolderOpen } from "@lucide/svelte";
+    import { MessageCircle, Linkedin, FolderOpen, Lock } from "@lucide/svelte";
 
     export let data: import("./$types").PageData;
+    $: isLoggedIn = !!data.user;
 </script>
 
 <Banner src="/img/banners/1.jpg" />
@@ -118,10 +119,20 @@
     <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
     >
-        <Card class="flex flex-col">
+        <!-- Discord Card -->
+        <Card class="flex flex-col" class:opacity-60={!isLoggedIn}>
             <CardHeader class="text-center">
-                <div class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit">
+                <div
+                    class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
+                >
                     <MessageCircle class="h-8 w-8 text-muted-foreground" />
+                    {#if !isLoggedIn}
+                        <div
+                            class="absolute -top-1 -right-1 bg-background border rounded-full p-1"
+                        >
+                            <Lock class="h-3 w-3 text-muted-foreground" />
+                        </div>
+                    {/if}
                 </div>
                 <CardTitle class="text-xl font-semibold">Discord</CardTitle>
                 <CardDescription class=""
@@ -134,16 +145,26 @@
                     Discutez en temps réel, posez vos questions et partagez vos
                     expériences avec d'autres étudiants.
                 </p>
-                <Button class="w-full" disabled={false}
-                    >Rejoindre Discord</Button
-                >
+                <Button class="w-full" disabled={!isLoggedIn}>
+                    {isLoggedIn ? "Rejoindre Discord" : "Connexion requise"}
+                </Button>
             </CardContent>
         </Card>
 
-        <Card class="flex flex-col">
+        <!-- LinkedIn Card -->
+        <Card class="flex flex-col" class:opacity-60={!isLoggedIn}>
             <CardHeader class="text-center">
-                <div class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit">
+                <div
+                    class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
+                >
                     <Linkedin class="h-8 w-8 text-muted-foreground" />
+                    {#if !isLoggedIn}
+                        <div
+                            class="absolute -top-1 -right-1 bg-background border rounded-full p-1"
+                        >
+                            <Lock class="h-3 w-3 text-muted-foreground" />
+                        </div>
+                    {/if}
                 </div>
                 <CardTitle class="text-xl font-semibold">LinkedIn</CardTitle>
                 <CardDescription class=""
@@ -155,44 +176,60 @@
                     Développez votre réseau professionnel et découvrez des
                     opportunités de carrière.
                 </p>
-                <Button class="w-full" disabled={false}
-                    >Suivre sur LinkedIn</Button
-                >
+                <Button class="w-full" disabled={!isLoggedIn}>
+                    {isLoggedIn ? "Suivre sur LinkedIn" : "Connexion requise"}
+                </Button>
             </CardContent>
         </Card>
 
-        <Card class="flex flex-col md:col-span-2 lg:col-span-1">
+        <!-- Google Drive Card -->
+        <Card
+            class="flex flex-col md:col-span-2 lg:col-span-1"
+            class:opacity-60={!isLoggedIn}
+        >
             <CardHeader class="text-center">
-                <div class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit">
+                <div
+                    class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
+                >
                     <FolderOpen class="h-8 w-8 text-muted-foreground" />
+                    {#if !isLoggedIn}
+                        <div
+                            class="absolute -top-1 -right-1 bg-background border rounded-full p-1"
+                        >
+                            <Lock class="h-3 w-3 text-muted-foreground" />
+                        </div>
+                    {/if}
                 </div>
-                <CardTitle class="text-xl font-semibold">Google Drive</CardTitle
+                <CardTitle class="text-xl font-semibold"
+                    >Google Drive</CardTitle
                 >
                 <CardDescription class=""
                     >Accédez à toutes nos ressources partagées</CardDescription
                 >
             </CardHeader>
             <CardContent class="text-center flex-1 flex flex-col">
-                <p
-                    class="text-sm text-muted-foreground mb-6 leading-relaxed flex-1"
-                >
-                    Vous y trouverez des <span
-                        class="font-medium text-foreground"
-                        >procédures d'admission</span
-                    >, des conseils, des documents partagés sur le drive, et
-                    même la possibilité de{" "}
-                    <span class="font-medium text-foreground"
-                        >contacter d'anciens étudiants</span
-                    >
-                    de la PIMA qui ont intégré les écoles que vous visez. De
-                    plus, nous prévoyons également de fournir des{" "}
-                    <span class="font-medium text-foreground"
-                        >conseils sur les documents administratifs</span
-                    > et sur la manière de naviguer au mieux dans les méandres de
-                    l'administration de la Sorbonne.
-                </p>
-                <Button class="w-full" disabled={false}>Accéder au Drive</Button
-                >
+                <div class="text-sm text-muted-foreground mb-6 flex-1">
+                    <p class="mb-3">Contenu disponible :</p>
+                    <ul class="text-left space-y-2">
+                        <li>
+                            • <span class="font-medium text-foreground"
+                                >Procédures d'admission</span
+                            >
+                        </li>
+                        <li>• Conseils et guides pratiques</li>
+                        <li>• Documents partagés</li>
+                        <li>
+                            • <span class="font-medium text-foreground"
+                                >Conseils sur les documents
+                                administratifs</span
+                            >
+                        </li>
+                        <li>• Navigation dans l'administration Sorbonne</li>
+                    </ul>
+                </div>
+                <Button class="w-full" disabled={!isLoggedIn}>
+                    {isLoggedIn ? "Accéder au Drive" : "Connexion requise"}
+                </Button>
             </CardContent>
         </Card>
     </div>
