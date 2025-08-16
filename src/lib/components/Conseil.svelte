@@ -10,15 +10,11 @@
         GraduationCap,
         ExternalLink,
     } from "@lucide/svelte";
+    import { enhance } from "$app/forms";
 
     let { user } = $props();
 
     let isExpanded = $state(false);
-
-    function handleVote(id: string, voteType: "upvote" | "downvote") {
-        // TODO: implement voting logic
-        console.log(`Voted ${voteType} on ${id}`);
-    }
 </script>
 
 <Card class="w-full">
@@ -84,12 +80,14 @@
         <div
             class="flex items-center justify-between pt-4 border-t border-border"
         >
-            <div class="flex items-center gap-4">
+            <form class="flex items-center gap-4" method="POST" use:enhance>
+                <input type="hidden" name="id" value={user.id} />
                 <Button
                     disabled={false}
                     variant="ghost"
                     size="sm"
-                    onclick={() => handleVote(user.id, "upvote")}
+                    type="submit"
+                    formaction="?/upvote"
                     class="flex items-center gap-2 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400"
                 >
                     <ChevronUp class="h-4 w-4" />
@@ -100,13 +98,14 @@
                     disabled={false}
                     variant="ghost"
                     size="sm"
-                    onclick={() => handleVote(user.id, "downvote")}
+                    type="submit"
+                    formaction="?/downvote"
                     class="flex items-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400"
                 >
                     <ChevronDown class="h-4 w-4" />
                     <span>{user.downvotes}</span>
                 </Button>
-            </div>
+            </form>
 
             <div class="text-sm text-muted-foreground">
                 Score net : {user.upvotes - user.downvotes}
