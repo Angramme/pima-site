@@ -88,11 +88,7 @@
                     size="sm"
                     type="submit"
                     formaction={user.weUpvoted ? "?/reset_vote" : "?/upvote"}
-                    class="flex items-center gap-2 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400"
-                    class:bg-green-50={user.weUpvoted}
-                    class:text-green-600={user.weUpvoted}
-                    class:dark:bg-green-950={user.weUpvoted}
-                    class:dark:text-green-400={user.weUpvoted}
+                    class="flex items-center gap-2 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400 {user.weUpvoted ? 'bg-green-50 text-green-600 dark:bg-green-950 dark:text-green-400' : ''}"
                 >
                     <ChevronUp class="h-4 w-4" />
                     <span>{user.upvotes}</span>
@@ -104,11 +100,7 @@
                     size="sm"
                     type="submit"
                     formaction={user.weDownvoted ? "?/reset_vote" : "?/downvote"}
-                    class="flex items-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400"
-                    class:bg-red-50={user.weDownvoted}
-                    class:text-red-600={user.weDownvoted}
-                    class:dark:bg-red-950={user.weDownvoted}
-                    class:dark:text-red-400={user.weDownvoted}
+                    class="flex items-center gap-2 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950 dark:hover:text-red-400 {user.weDownvoted ? 'bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400' : ''}"
                 >
                     <ChevronDown class="h-4 w-4" />
                     <span>{user.downvotes}</span>
