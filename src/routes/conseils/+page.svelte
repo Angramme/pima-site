@@ -32,10 +32,10 @@
 {:then descs}
     {#each descs as des}
         {#if des.description.length > 7}
-            <div class="conseil">
+            <div class="pb-[0.2rem]">
                 <hr />
                 <h3>
-                    <a href={`/restricted/anciens/${des.id}`}>{des.prenom}</a>
+                    <a class="" href={`/restricted/anciens/${des.id}`}>{des.prenom}</a>
                     <span style="float:right;font-size:80%;">
                         {des.choisi}; PIMA {des.grad_year - 3}-{des.grad_year}
                     </span>
@@ -57,12 +57,3 @@
         {/if}
     {/if}
 {/await}
-
-<style>
-    div.conseil {
-        padding-bottom: 0.2rem;
-    }
-    div.conseil a {
-        text-decoration: wavy underline var(--accent-color);
-    }
-</style>

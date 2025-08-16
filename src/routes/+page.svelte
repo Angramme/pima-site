@@ -1,7 +1,7 @@
 <script lang="ts">
-    import links from "$data/external-links.json";
+    // import links from "$data/external-links.json";
     import Banner from "$lib/components/Banner.svelte";
-    import { Button } from "$lib/components/ui/button";
+    import { LockIcon } from "@lucide/svelte"
     import {
         Card,
         CardContent,
@@ -9,7 +9,13 @@
         CardHeader,
         CardTitle,
     } from "$lib/components/ui/card";
-    import { MessageCircle, Linkedin, FolderOpen, Lock } from "@lucide/svelte";
+    // import { MessageCircle, Linkedin, FolderOpen, Lock } from "@lucide/svelte";
+
+    let links = [
+        ['Discord', 'https://discord.gg/S8NJDG84'],
+        ['Linkedin', 'https://www.linkedin.com/groups/8184888/'],
+        ['Google Drive', '/restricted/external/Google Drive'],
+    ];
 
     export let data: import("./$types").PageData;
     $: isLoggedIn = !!data.user;
@@ -29,119 +35,8 @@
     <br />"Æ PIMA" : "Anciens-Etudiants-du-Parcours-PIMA"
 </p>
 
-<!-- <section class="w-full my-12">
-    <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
-    >
-        <Card class="flex flex-col {!isLoggedIn ? 'opacity-60' : ''}">
-            <CardHeader class="text-center">
-                <div
-                    class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
-                >
-                    <MessageCircle class="h-8 w-8 text-muted-foreground" />
-                    {#if !isLoggedIn}
-                        <div
-                            class="absolute -top-1 -right-1 bg-background border rounded-full p-1"
-                        >
-                            <Lock class="h-3 w-3 text-muted-foreground" />
-                        </div>
-                    {/if}
-                </div>
-                <CardTitle class="text-xl font-semibold">Discord</CardTitle>
-                <CardDescription class=""
-                    >Rejoignez notre serveur Discord pour échanger avec la
-                    communauté</CardDescription
-                >
-            </CardHeader>
-            <CardContent class="text-center flex-1 flex flex-col">
-                <p class="text-sm text-muted-foreground mb-6 flex-1">
-                    Discutez en temps réel, posez vos questions et partagez vos
-                    expériences avec d'autres étudiants.
-                </p>
-                <Button class="w-full" disabled={!isLoggedIn}>
-                    {isLoggedIn ? "Rejoindre Discord" : "Connexion requise"}
-                </Button>
-            </CardContent>
-        </Card>
-
-        <Card class="flex flex-col {!isLoggedIn ? 'opacity-60' : ''}">
-            <CardHeader class="text-center">
-                <div
-                    class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
-                >
-                    <Linkedin class="h-8 w-8 text-muted-foreground" />
-                    {#if !isLoggedIn}
-                        <div
-                            class="absolute -top-1 -right-1 bg-background border rounded-full p-1"
-                        >
-                            <Lock class="h-3 w-3 text-muted-foreground" />
-                        </div>
-                    {/if}
-                </div>
-                <CardTitle class="text-xl font-semibold">LinkedIn</CardTitle>
-                <CardDescription class=""
-                    >Connectez-vous avec notre réseau professionnel</CardDescription
-                >
-            </CardHeader>
-            <CardContent class="text-center flex-1 flex flex-col">
-                <p class="text-sm text-muted-foreground mb-6 flex-1">
-                    Développez votre réseau professionnel et découvrez des
-                    opportunités de carrière.
-                </p>
-                <Button class="w-full" disabled={!isLoggedIn}>
-                    {isLoggedIn ? "Suivre sur LinkedIn" : "Connexion requise"}
-                </Button>
-            </CardContent>
-        </Card>
-
-        <Card
-            class="flex flex-col md:col-span-2 lg:col-span-1 {!isLoggedIn
-                ? 'opacity-60'
-                : ''}"
-        >
-            <CardHeader class="text-center">
-                <div
-                    class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
-                >
-                    <FolderOpen class="h-8 w-8 text-muted-foreground" />
-                    {#if !isLoggedIn}
-                        <div
-                            class="absolute -top-1 -right-1 bg-background border rounded-full p-1"
-                        >
-                            <Lock class="h-3 w-3 text-muted-foreground" />
-                        </div>
-                    {/if}
-                </div>
-                <CardTitle class="text-xl font-semibold">Google Drive</CardTitle>
-            </CardHeader>
-            <CardContent class="text-center flex-1 flex flex-col">
-                <div class="text-sm text-muted-foreground mb-6 flex-1">
-                    <p class="mb-3">Contenu disponible :</p>
-                    <ul class="text-left space-y-2">
-                        <li>
-                            • <span class="font-medium text-foreground"
-                                >Procédures d'admission</span
-                            >
-                        </li>
-                        <li>• Conseils et guides pratiques</li>
-                        <li>
-                            • <span class="font-medium text-foreground"
-                                >Conseils sur les documents administratifs</span
-                            >
-                        </li>
-                    </ul>
-                </div>
-                <Button class="w-full" disabled={!isLoggedIn}>
-                    {isLoggedIn ? "Accéder au Drive" : "Connexion requise"}
-                </Button>
-            </CardContent>
-        </Card>
-    </div>
-</section> -->
-
 <hr class="mb-[15pt]" />
 
-<h2 class="text-xl font-bold mt-[10pt] mb-[5pt]">À propos de ce site</h2>
 <p class="my-[5pt] text-justify">
     Ce site est maintenu par les étudiants de la double majeure en Mathématiques
     et Informatique à Sorbonne Université, également connue sous l'acronyme
@@ -180,15 +75,6 @@
     données.
 </p>
 
-<p class="my-[5pt] text-justify">
-    Dans l'ensemble, ce site offre un véritable réseau et une source de
-    connaissances précieuses pour la vie académique et professionnelle des
-    étudiants de la PIMA, à condition qu'un nombre suffisant d'étudiants s'y
-    inscrivent.
-</p>
-
-<h3>En chiffres :</h3>
-
 <section class="max-w-4xl mx-auto px-6 py-12">
     <div class="grid grid-cols-2 gap-8">
         <div class="text-center">
@@ -214,6 +100,32 @@
     </div>
 </section>
 
+<p class="my-[5pt] mb-10 text-justify">
+    Dans l'ensemble, ce site offre un véritable réseau et une source de
+    connaissances précieuses pour la vie académique et professionnelle des
+    étudiants de la PIMA, à condition qu'un nombre suffisant d'étudiants s'y
+    inscrivent.
+</p>
+
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+    {#each links as [name, link]}
+        <a href={link}>
+            <Card class="cursor-pointer hover:shadow-lg transition-shadow duration-200 hover:bg-accent/50 h-full">
+                <CardHeader class="">
+                    <CardTitle class="text-base font-semibold text-foreground leading-none">
+                        {name}
+                    </CardTitle>
+                </CardHeader>
+            </Card>
+        </a>
+    {/each}
+</div>
+
+<hr class="mt-10 mb-10"/>
+
+<!-- <h3>En chiffres :</h3> -->
+
+
 <h2 class="text-xl font-bold mt-[10pt] mb-[5pt]">Contribuer :</h2>
 <p class="my-[5pt] text-justify">
     Pour ajouter du contenu à ce site web, veuillez suivre les instructions sur
@@ -225,12 +137,6 @@
     contacter les admins. Pour connaitre les admins, chercher simplement "admin"
     sur la page "anciens" ou consultez la page "login"/"connexion".
 </p>
-
-<h2 class="text-xl font-bold mt-[10pt] mb-[5pt]">Liens :</h2>
-<ul class="my-[5pt] text-justify">
-    <li>Discord: https://discord.gg/S8NJDG84</li>
-    <li>Linkedin: https://www.linkedin.com/groups/8184888/</li>
-</ul>
 
 
 <style>

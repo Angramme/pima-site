@@ -113,7 +113,7 @@ Voici les proprietes possibles:
                             </Badge>
                             <span class="text-muted-foreground truncate">{data.travails.join(', ') || "non renseigné"}</span>
 
-                            <Badge variant="default" class="" href="">
+                            <Badge variant="secondary" class="" href="">
                                 PIMA
                             </Badge>
                             <span class="text-muted-foreground">{data.grad_year-3}-{data.grad_year}</span>
