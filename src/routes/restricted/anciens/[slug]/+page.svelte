@@ -1,66 +1,105 @@
-<script>
+<script lang='ts'>
     import { enhance } from '$app/forms';
     import Markdown from '$lib/components/Markdown.svelte';
     import { user_data_into_forms } from '$lib/transformers';
 
-    /** @type {import('./$types').PageData} */
-    export let data;
+    // /** @type {import('./$types').PageData} */
+    // export let data;
+    // export let form;
+    
+    let { data, form } = $props();
 
-    export let form;
 
-    $: sectioned = user_data_into_forms(data.subject)
-        .map(({n, l})=>({n, l: l
-            .filter(({k})=>k!="description" && data.subject && data.subject.hasOwnProperty(k))}));
+    // $: sectioned = user_data_into_forms(data.subject)
+    //     .map(({n, l})=>({n, l: l
+    //         .filter(({k})=>k!="description" && data.subject && data.subject.hasOwnProperty(k))}));
+
+    let sectioned = $state<{
+        id: string;
+        email: string | null;
+        login: string;
+        admin: boolean;
+        prenom: string;
+        nom: string | null;
+        contact: string[];
+        grad_year: number;
+        nationalite: string[];
+        moyenneL2: number | null;
+        moyenneL3: number | null;
+        admis: string[];
+        choisi: string;
+        travails: string[];
+        description: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>();
+
+    $effect(()=>{
+        data.subject.then(subject=>{
+            if(!data) return;
+            sectioned = user_data_into_forms(subject)
+                .map(({n, l})=>({n, l: l
+                    .filter(({k})=>k!="description" && subject && subject.hasOwnProperty(k))}));
+
+        })
+    });
 
     /** @type {string | undefined}*/
-    let user_input = "user login";
+    let user_input = $state("user login");
 </script>
 
-<h1>{data.subject?.prenom} {data.subject?.nom || "😎🤐"}</h1>
 
-{#each sectioned as {n, l: list}}
-<fieldset>
-    <legend>{n}</legend>
-    <table>
-        <tbody>
-            {#each list as {k, l, v}}
-            <tr>
-                <th>{l}</th>
-                <td>{v}</td>
-            </tr>
-            {/each}
-        </tbody>
-    </table>
-</fieldset>
-{/each}
+{#await data.subject}
+    <p>Loading...</p>
+{:then subject} 
 
-{#if data.user?.admin}
-<h2>Admin</h2>
+    <h1>{subject?.prenom} {subject?.nom || "😎🤐"}</h1>
+
+    {#each sectioned as {n, l: list}}
     <fieldset>
-        {#if form?.error}<p class="error">Erreur serveur: "{form.error}"</p>{/if}
-        {#if form?.success}<p class="success">Update successfull!!!! </p>{/if}        
-        <legend>Admin actions</legend>
-        <fieldset>
-            <legend>admin privilages</legend>
-            <form method="POST" action="?/user_status_change" use:enhance>
-                <input name="user_id" type="text" value={data.subject?.id} hidden/>
-                <button name="admin_rights_on" disabled={data.subject?.admin}>Give admin permissions</button>
-                <button name="admin_rights_off" disabled={!data.subject?.admin || data.subject.id == data.user.id}>Remove admin permissions</button>
-            </form>
-        </fieldset>
-        <fieldset>
-            <legend>delete user</legend>
-            <form method="POST" action="?/user_delete" use:enhance>
-                <input name="user_id" type="text" value={data.subject?.id} hidden/>
-                <input bind:value={user_input} type="text">
-                <button name="delete_user" disabled={user_input!=data.subject?.login || data.subject?.admin || data.subject?.id == data.user.id}>Delete this user</button>
-            </form>
-        </fieldset>
+        <legend>{n}</legend>
+        <table>
+            <tbody>
+                {#each list as {k, l, v}}
+                <tr>
+                    <th>{l}</th>
+                    <td>{v}</td>
+                </tr>
+                {/each}
+            </tbody>
+        </table>
     </fieldset>
-{/if}
+    {/each}
 
-<h2>Conseils / description : </h2>
-<Markdown markdown={data.subject?.description || ""}/>
+    {#if data.user?.admin}
+    <h2>Admin</h2>
+        <fieldset>
+            {#if form?.error}<p class="error">Erreur serveur: "{form.error}"</p>{/if}
+            {#if form?.success}<p class="success">Update successfull!!!! </p>{/if}        
+            <legend>Admin actions</legend>
+            <fieldset>
+                <legend>admin privilages</legend>
+                <form method="POST" action="?/user_status_change" use:enhance>
+                    <input name="user_id" type="text" value={subject?.id} hidden/>
+                    <button name="admin_rights_on" disabled={subject?.admin}>Give admin permissions</button>
+                    <button name="admin_rights_off" disabled={!subject?.admin || subject.id == data.user.id}>Remove admin permissions</button>
+                </form>
+            </fieldset>
+            <fieldset>
+                <legend>delete user</legend>
+                <form method="POST" action="?/user_delete" use:enhance>
+                    <input name="user_id" type="text" value={subject?.id} hidden/>
+                    <input bind:value={user_input} type="text">
+                    <button name="delete_user" disabled={user_input!=subject?.login || subject?.admin || subject?.id == data.user.id}>Delete this user</button>
+                </form>
+            </fieldset>
+        </fieldset>
+    {/if}
+
+    <h2>Conseils / description : </h2>
+    <Markdown markdown={subject?.description || ""}/>
+{/await}
+
 
 <style>
     td{

@@ -96,12 +96,14 @@
                                         <textarea name={key} id={`input_${key}`} rows={type=="textlist" ? 3 : 12} cols="40">{""+value}</textarea>
                                     </td>
                                 {:else if type == "markdown"}
-                                    <h4>Markdown : </h4>
-                                    <textarea bind:value={desc_markdown} name={key} id={`input_${key}`} rows={12} cols="40"></textarea>
-                                    <h4>Preview : </h4>
-                                    <div class="markdown-preview">
-                                        <Markdown markdown={desc_markdown}/>
-                                    </div>
+                                    <td>
+                                        <h4>Markdown : </h4>
+                                        <textarea bind:value={desc_markdown} name={key} id={`input_${key}`} rows={12} cols="40"></textarea>
+                                        <h4>Preview : </h4>
+                                        <div class="markdown-preview">
+                                            <Markdown markdown={desc_markdown}/>
+                                        </div>
+                                    </td>
                                 {:else if type=="date"}
                                     <td>{value}</td>
                                 {:else if type=="checkbox"}
