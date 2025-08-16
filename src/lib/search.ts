@@ -1,7 +1,7 @@
 /** @param {string} st*/
-export const matches = (st) =>
+export const matches = (st: string) =>
     /** @param {*} v */
-    (v) => {
+    (v: any): boolean => {
         let x = st.toLowerCase().trim();
         if (st[0] == '<') return Number(st.substring(1)) > Number(v);
         if (st[0] == '>') return Number(st.substring(1)) < Number(v);
@@ -11,18 +11,16 @@ export const matches = (st) =>
         else return false;
     };
 
-/**
-*    @typedef {{
-*        op: string,
-*        left: AST,
-*        right: AST,
-*    } | string} AST
-*/
+export type AST = {
+    op: string;
+    left: AST;
+    right: AST;
+} | string;
 
 /** @param {string} str 
  * @returns {AST | null}
 */
-export const parse_ast = (str) => {
+export const parse_ast = (str: string): AST | null => {
     str = str.trim();
     if (str.length == 0) return null;
 
@@ -88,11 +86,11 @@ export const parse_ast = (str) => {
 
 export const ast_match =
     /** @param {AST} ast 
-        @param {Object[]} vals
-        @param {Object.<string, *>} obj
+        @param {any[]} vals
+        @param {Record<string, any>} obj
         @return {boolean}
         */
-    (ast, vals, obj) => {
+    (ast: AST, vals: any[], obj: Record<string, any>): boolean => {
         if (typeof ast == "string") return vals.some(matches(ast));
         switch (ast.op) {
             case "&": return ast_match(ast.left, vals, obj) && ast_match(ast.right, vals, obj);

@@ -1,11 +1,12 @@
 
+import type { User } from '@prisma/client';
 
 /**
  * 
- * @param {*} user 
+ * @param {Partial<User> | null} user 
  * @returns 
  */
-export function user_data_into_forms(user){
+export function user_data_into_forms(user: Partial<User> | null){
     if(!user) return [];
     return [
         {n:"Ecoles", l:[

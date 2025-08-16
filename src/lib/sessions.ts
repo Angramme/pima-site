@@ -1,3 +1,4 @@
+import type { Cookies } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
 import { createHash } from 'node:crypto';
 import { PASSWORD_HASH_SALT } from '$env/static/private'
@@ -9,7 +10,7 @@ const SESSION_ID_COOKIE = "sessionID";
  * @param {string} usr login
  * @param {string} pwd password
  */
-export function hash_password(usr, pwd){
+export function hash_password(usr: string, pwd: string){
     // The SHA-3 hash algorithm is the latest member of the Secure Hash Algorithm family. 
     // SHA-3 was originally called “Keccak”. The Keccak algorithm is the winner in the 
     // NIST hash function competition.
@@ -24,7 +25,7 @@ export function hash_password(usr, pwd){
  * @param {string} user_login login
  * @param {string} user_pwd  paszsword
  */
-export async function log_in_user(user_login, user_pwd){
+export async function log_in_user(user_login: string, user_pwd: string){
     // verify password and retreive user id
     const user_id = await check_password(user_login, user_pwd);
     if(!user_id) return null;    
@@ -43,9 +44,9 @@ export async function log_in_user(user_login, user_pwd){
 
 /**
  * Get the user associated to the sessionID
- * @param {import("@sveltejs/kit").Cookies} cookies 
+ * @param {Cookies} cookies 
  */
-export async function session_get_user(cookies){
+export async function session_get_user(cookies: Cookies){
     const sessionID = cookies.get(SESSION_ID_COOKIE);
     if(!sessionID) return null;
     const rec = await prisma.session.findFirst({
@@ -80,7 +81,7 @@ export async function session_get_user(cookies){
  * @param {string} login login
  * @param {string} pwd  password
  */
-export async function check_password(login, pwd){
+export async function check_password(login: string, pwd: string){
     const user = await prisma.user.findFirst({
         where: {
             login: login,
@@ -98,9 +99,9 @@ export async function check_password(login, pwd){
 
 /**
  * 
- * @param {import("@sveltejs/kit").Cookies} cookies 
+ * @param {Cookies} cookies 
  */
-export async function end_session(cookies){
+export async function end_session(cookies: Cookies){
     const sessionID = cookies.get(SESSION_ID_COOKIE);
     if(!sessionID) return false;
     await prisma.session.delete({

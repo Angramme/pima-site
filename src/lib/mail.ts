@@ -21,7 +21,7 @@ const nodemailer = createTransport({
 export default nodemailer;
 
 // verify connection configuration
-nodemailer.verify(function (error, success) {
+nodemailer.verify(function (error: Error | null, success: boolean) {
     if (error) console.log(error);
     else console.log("[info] SMTP server ready");
 });
@@ -34,7 +34,7 @@ nodemailer.verify(function (error, success) {
  * @param {string} prenom 
  * @param {string} pwd in clear text
  */
-export function sendCreationMail(email, login, nom, prenom, pwd) {
+export function sendCreationMail(email: string, login: string, nom: string, prenom: string, pwd: string) {
     // look here for more examples: https://github.com/nodemailer/nodemailer/blob/master/examples/full.js
 
     let message = {
