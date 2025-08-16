@@ -96,12 +96,12 @@ Voici les proprietes possibles:
         {#each anciens as data (data.id)}
             <a href="/restricted/anciens/{data.id}" class="card-link">
                 <Card class="cursor-pointer hover:shadow-lg transition-shadow duration-200 hover:bg-accent/50 h-full">
-                    <CardHeader class="pb-1">
-                        <CardTitle class="text-base font-semibold text-foreground leading-tight {data.sleeping ? 'sleeper' : ''} {data.admin ? 'admin' : ''}">
+                    <CardHeader class="pb-0">
+                        <CardTitle class="text-base font-semibold text-foreground leading-none {data.sleeping ? 'sleeper' : ''} {data.admin ? 'admin' : ''}">
                             {data.prenom} {data.nom || ''}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent class="space-y-2 text-xs">
+                    <CardContent class="pt-0 space-y-2 text-xs">
                         <div class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-center">
                             <Badge variant="secondary" class="" href="">
                                 Suite
