@@ -14,7 +14,7 @@
     //     .map(({n, l})=>({n, l: l
     //         .filter(({k})=>k!="description" && data.subject && data.subject.hasOwnProperty(k))}));
 
-    let sectioned: ReturnType<typeof user_data_into_forms> | undefined = $state();
+    let sectioned: { n: string, l: { k: string, l: string, v: any, t: string, ro?: boolean }[] }[] | undefined = $state();
 
     $effect(()=>{
         data.subject.then(subject=>{
