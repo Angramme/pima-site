@@ -120,7 +120,7 @@
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
     >
         <!-- Discord Card -->
-        <Card class="flex flex-col" class:opacity-60={!isLoggedIn}>
+        <Card class="flex flex-col {!isLoggedIn ? 'opacity-60' : ''}">
             <CardHeader class="text-center">
                 <div
                     class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
@@ -152,7 +152,7 @@
         </Card>
 
         <!-- LinkedIn Card -->
-        <Card class="flex flex-col" class:opacity-60={!isLoggedIn}>
+        <Card class="flex flex-col {!isLoggedIn ? 'opacity-60' : ''}">
             <CardHeader class="text-center">
                 <div
                     class="mx-auto mb-4 p-3 bg-muted rounded-full w-fit relative"
@@ -184,8 +184,7 @@
 
         <!-- Google Drive Card -->
         <Card
-            class="flex flex-col md:col-span-2 lg:col-span-1"
-            class:opacity-60={!isLoggedIn}
+            class="flex flex-col md:col-span-2 lg:col-span-1 {!isLoggedIn ? 'opacity-60' : ''}"
         >
             <CardHeader class="text-center">
                 <div
