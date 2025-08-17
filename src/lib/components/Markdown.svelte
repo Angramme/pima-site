@@ -22,15 +22,17 @@
 
     marked.use({ renderer });
 
-    let data: Promise<string> = $derived(
-        display_mardkown(markdown).then(
-            (res) => (data = new Promise((f) => f(res))),
-        ),
-    );
+    let renderedHtml = $state<string | undefined>(undefined);
+
+    $effect(() => {
+        display_mardkown(markdown).then((html) => {
+            renderedHtml = html;
+        });
+    });
 </script>
 
-{#await data}
-    <div>[Chargement et sanitation de Markdown...] {markdown}</div>
-{:then ht}
-    <p class="h-full">{@html ht}</p>
-{/await}
+{#if renderedHtml === undefined}
+    <div>[Chargement et sanitation de Markdown...]</div>
+{:else}
+    <p class="h-full">{@html renderedHtml}</p>
+{/if}
