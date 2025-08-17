@@ -182,13 +182,14 @@
                         <Input
                             id="prenom"
                             name="prenom"
+                            type="text"
                             bind:value={user.prenom}
                             required
                         />
                     </div>
                     <div class="space-y-2">
                         <Label for="nom">Nom</Label>
-                        <Input id="nom" name="nom" bind:value={user.nom} />
+                        <Input id="nom" name="nom" type="text" bind:value={user.nom} />
                     </div>
                 </div>
 
@@ -219,6 +220,7 @@
                     <Input
                         id="choisi"
                         name="choisi"
+                        type="text"
                         bind:value={user.choisi}
                         placeholder="ex: Programme de Master, Poste de travail, etc."
                     />
@@ -267,6 +269,7 @@
                     <Label>Universités acceptées</Label>
                     <div class="flex gap-2">
                         <Input
+                            type="text"
                             bind:value={newUni}
                             placeholder="Ajouter le nom d'une université"
                             on:keypress={(e) => {
@@ -318,6 +321,7 @@
                     <Label>Informations de contact</Label>
                     <div class="flex gap-2">
                         <Input
+                            type="text"
                             bind:value={newContact}
                             placeholder="Ajouter un moyen de contact (téléphone, réseaux sociaux, etc.)"
                             on:keypress={(e) => {
@@ -359,6 +363,7 @@
                     <Label>Nationalité</Label>
                     <div class="flex gap-2">
                         <Input
+                            type="text"
                             bind:value={newNationalite}
                             placeholder="Ajouter une nationalité"
                             on:keypress={(e) => {
@@ -400,6 +405,7 @@
                     <Label>Emplois/Expérience professionnelle</Label>
                     <div class="flex gap-2">
                         <Input
+                            type="text"
                             bind:value={newJob}
                             placeholder="Ajouter un emploi ou une expérience professionnelle"
                             on:keypress={(e) => {
