@@ -18,7 +18,7 @@
 </script>
 
 <Card class="">
-    <CardHeader class="pb-4">
+    <CardHeader class="pb-4 overflow-x-scroll">
         <div class="flex flex-wrap items-center justify-between">
             <div class="flex flex-wrap items-center gap-3">
                 <div
