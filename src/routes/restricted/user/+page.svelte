@@ -3,7 +3,6 @@
     import { invalidate } from "$app/navigation";
     import Banner from "$lib/components/Banner.svelte";
     import Markdown from "$lib/components/Markdown.svelte";
-    import { user_data_into_forms } from "$lib/transformers";
     import { generate_password } from "$lib/utils";
     import { Button } from "$lib/components/ui/button"
     import { Input } from "$lib/components/ui/input"
@@ -15,19 +14,85 @@
     import { X, Plus } from "@lucide/svelte"
 
     let delete_account_btn: HTMLInputElement;
-    let user_agreed: boolean;
+    let user_agreed: boolean = false;
 
     export let data: import("./$types").PageData;
 
     export let form: import("./$types").ActionData;
 
     $: user = data.user;
-    $: sections = !user ? null : user_data_into_forms(user);
+
+    let settings: any;
+    $: if (user) {
+        settings = {
+            ...user,
+            admis: user.admis?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
+            contact: user.contact?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
+            nationalite: user.nationalite?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
+            jobs: user.jobs?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
+        };
+    } else {
+        settings = null;
+    }
+
+    let newUni = "";
+    function addUni() {
+        if (newUni && settings && !settings.admis.includes(newUni)) {
+            settings.admis = [...settings.admis, newUni];
+            newUni = "";
+        }
+    }
+    function removeUni(index: number) {
+        if(settings) {
+            settings.admis.splice(index, 1);
+            settings.admis = settings.admis;
+        }
+    }
+
+    let newContact = "";
+    function addContact() {
+        if (newContact && settings && !settings.contact.includes(newContact)) {
+            settings.contact = [...settings.contact, newContact];
+            newContact = "";
+        }
+    }
+    function removeContact(index: number) {
+        if(settings) {
+            settings.contact.splice(index, 1);
+            settings.contact = settings.contact;
+        }
+    }
+
+    let newNationalite = "";
+    function addNationalite() {
+        if (newNationalite && settings && !settings.nationalite.includes(newNationalite)) {
+            settings.nationalite = [...settings.nationalite, newNationalite];
+            newNationalite = "";
+        }
+    }
+    function removeNationalite(index: number) {
+        if(settings) {
+            settings.nationalite.splice(index, 1);
+            settings.nationalite = settings.nationalite;
+        }
+    }
+
+    let newJob = "";
+    function addJob() {
+        if (newJob && settings && !settings.jobs.includes(newJob)) {
+            settings.jobs = [...settings.jobs, newJob];
+            newJob = "";
+        }
+    }
+    function removeJob(index: number) {
+        if(settings) {
+            settings.jobs.splice(index, 1);
+            settings.jobs = settings.jobs;
+        }
+    }
 
     let new_pwd_val: string;
     let con_pwd_val: string;
-
-    let desc_markdown = data.user?.description || "";
 
     let delete_account_form: HTMLFormElement;
     const delete_account_now = async () => {
@@ -80,6 +145,7 @@
 
 <hr />
 
+{#if user && settings}
 <form
     method="POST"
     action="?/update_data"
@@ -88,134 +154,338 @@
             update({ reset: false });
         };
     }}
+    class="space-y-8"
 >
-    <fieldset>
-        <legend>Mes donnes</legend>
-        <p class="info">
-            Attention, pour faire des changement il faut imperativement
-            soumettre les données avec le bouton "Mettre a jour" en bas.
-        </p>
-        {#if !sections}
-            <p class="error">Erreur interne! Donnes indisponibles!</p>
-        {:else}
-            {#each sections as { n, l: list }}
-                <fieldset>
-                    <legend>{n}</legend>
-                    <table>
-                        <tbody>
-                            {#each list as { k: key, l: label, v: value, t: type, ro: read_only }}
-                                <tr>
-                                    <td
-                                        ><label for={`input_${key}`}
-                                            >{label}</label
-                                        ></td
-                                    >
-                                    {#if type == "textlist" || type == "longtext"}
-                                        <td>
-                                            {#if type == "textlist"}
-                                                <div class="info">
-                                                    lister en séparant par des
-                                                    ","
-                                                </div>
-                                            {/if}
-                                            <textarea
-                                                name={key}
-                                                id={`input_${key}`}
-                                                rows={type == "textlist"
-                                                    ? 3
-                                                    : 12}
-                                                cols="40">{"" + value}</textarea
-                                            >
-                                        </td>
-                                    {:else if type == "markdown"}
-                                        <td>
-                                            <h4>Markdown :</h4>
-                                            <textarea
-                                                bind:value={desc_markdown}
-                                                name={key}
-                                                id={`input_${key}`}
-                                                rows={12}
-                                                cols="40"
-                                            ></textarea>
-                                            <h4>Preview :</h4>
-                                            <div class="markdown-preview">
-                                                <Markdown
-                                                    markdown={desc_markdown}
-                                                />
-                                            </div>
-                                        </td>
-                                    {:else if type == "date"}
-                                        <td>{value}</td>
-                                    {:else if type == "checkbox"}
-                                        <td
-                                            ><input
-                                                name={key}
-                                                id={`input_${key}`}
-                                                {type}
-                                                checked={value as boolean}
-                                                readonly={read_only}
-                                            /></td
-                                        >
-                                    {:else}
-                                        <td
-                                            ><input
-                                                name={key}
-                                                id={`input_${key}`}
-                                                {type}
-                                                value={"" + value}
-                                                readonly={read_only}
-                                            /></td
-                                        >
-                                    {/if}
-                                </tr>
-                            {/each}
-                        </tbody>
-                    </table>
-                </fieldset>
-            {/each}
-        {/if}
-        <fieldset>
-            <legend>Soumettre</legend>
-            {#if form?.update_success}<p class="success">
-                    Mise a jour réussie!
-                </p>{/if}
-            {#if form?.update_failure}<p class="error">
-                    Erreur de mise à jour: "{form.update_failure}""
-                </p>{/if}
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <input
-                                bind:checked={user_agreed}
-                                id="agreement"
-                                type="checkbox"
-                            />
-                            <label for="agreement"
-                                ><u>J'ai pris conaissance</u> de la
-                                réglementation
-                                <a href="/reglementation" target="_blank">ici</a
-                                >
-                                et <u>je donne mon accord</u> pour utilisation de
-                                mes donnees plus haut.</label
-                            >
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input
-                                type="submit"
-                                disabled={!user_agreed}
-                                id="mettre_a_jour"
-                                value="Mettre a jour"
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </fieldset>
-    </fieldset>
+    {#if form?.update_success}<p class="success">Mise a jour réussie!</p>{/if}
+    {#if form?.update_failure}<p class="error">Erreur de mise à jour: "{form.update_failure}"</p>{/if}
+
+    <input type="hidden" name="admis" value={settings.admis.join(',')} />
+    <input type="hidden" name="contact" value={settings.contact.join(',')} />
+    <input type="hidden" name="nationalite" value={settings.nationalite.join(',')} />
+    <input type="hidden" name="jobs" value={settings.jobs.join(',')} />
+
+    <Card>
+        <CardHeader>
+          <CardTitle>Informations personnelles</CardTitle>
+          <CardDescription>Informations de base vous concernant</CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <Label for="prenom">Prénom *</Label>
+              <Input
+                id="prenom"
+                name="prenom"
+                bind:value={settings.prenom}
+                required
+              />
+            </div>
+            <div class="space-y-2">
+              <Label for="nom">Nom</Label>
+              <Input
+                id="nom"
+                name="nom"
+                bind:value={settings.nom}
+              />
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <Label for="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              bind:value={settings.email}
+            />
+          </div>
+
+          <div class="space-y-2">
+            <Label for="grad_year">Année de diplôme</Label>
+            <Input
+              id="grad_year"
+              name="grad_year"
+              type="number"
+              min="1900"
+              max="2100"
+              bind:value={settings.grad_year}
+            />
+          </div>
+
+          <div class="space-y-2">
+            <Label for="choisi">Choix/Statut actuel</Label>
+            <Input
+              id="choisi"
+              name="choisi"
+              bind:value={settings.choisi}
+              placeholder="ex: Programme de Master, Poste de travail, etc."
+            />
+          </div>
+        </CardContent>
+    </Card>
+
+    <Card>
+        <CardHeader>
+          <CardTitle>Informations académiques</CardTitle>
+          <CardDescription>Votre parcours académique et vos réussites</CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <Label for="moyenneL2">Moyenne L2</Label>
+              <Input
+                id="moyenneL2"
+                name="moyenneL2"
+                type="number"
+                step="0.01"
+                min="0"
+                max="20"
+                bind:value={settings.moyenneL2}
+                placeholder="ex: 15,5"
+              />
+            </div>
+            <div class="space-y-2">
+              <Label for="moyenneL3">Moyenne L3</Label>
+              <Input
+                id="moyenneL3"
+                name="moyenneL3"
+                type="number"
+                step="0.01"
+                min="0"
+                max="20"
+                bind:value={settings.moyenneL3}
+                placeholder="ex: 16,2"
+              />
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <Label>Universités acceptées</Label>
+            <div class="flex gap-2">
+              <Input
+                bind:value={newUni}
+                placeholder="Ajouter le nom d'une université"
+                on:keypress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    addUni()
+                  }
+                }}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                on:click={addUni}
+              >
+                <Plus class="h-4 w-4" />
+              </Button>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {#each settings.admis as uni, index (uni)}
+                <Badge variant="secondary" class="flex items-center gap-1">
+                  {uni}
+                  <button
+                    type="button"
+                    on:click={() => removeUni(index)}
+                    class="ml-1 hover:text-destructive"
+                  >
+                    <X class="h-3 w-3" />
+                  </button>
+                </Badge>
+              {/each}
+            </div>
+          </div>
+        </CardContent>
+    </Card>
+
+    <Card>
+        <CardHeader>
+          <CardTitle>Contact et profil</CardTitle>
+          <CardDescription>Moyens de vous contacter et votre profil</CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-6">
+          <div class="space-y-2">
+            <Label>Informations de contact</Label>
+            <div class="flex gap-2">
+              <Input
+                bind:value={newContact}
+                placeholder="Ajouter un moyen de contact (téléphone, réseaux sociaux, etc.)"
+                on:keypress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    addContact()
+                  }
+                }}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                on:click={addContact}
+              >
+                <Plus class="h-4 w-4" />
+              </Button>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {#each settings.contact as c, index (c)}
+                <Badge variant="secondary" class="flex items-center gap-1">
+                  {c}
+                  <button
+                    type="button"
+                    on:click={() => removeContact(index)}
+                    class="ml-1 hover:text-destructive"
+                  >
+                    <X class="h-3 w-3" />
+                  </button>
+                </Badge>
+              {/each}
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <Label>Nationalité</Label>
+            <div class="flex gap-2">
+              <Input
+                bind:value={newNationalite}
+                placeholder="Ajouter une nationalité"
+                on:keypress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    addNationalite()
+                  }
+                }}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                on:click={addNationalite}
+              >
+                <Plus class="h-4 w-4" />
+              </Button>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {#each settings.nationalite as nat, index (nat)}
+                <Badge variant="secondary" class="flex items-center gap-1">
+                  {nat}
+                  <button
+                    type="button"
+                    on:click={() => removeNationalite(index)}
+                    class="ml-1 hover:text-destructive"
+                  >
+                    <X class="h-3 w-3" />
+                  </button>
+                </Badge>
+              {/each}
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <Label>Emplois/Expérience professionnelle</Label>
+            <div class="flex gap-2">
+              <Input
+                bind:value={newJob}
+                placeholder="Ajouter un emploi ou une expérience professionnelle"
+                on:keypress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    addJob()
+                  }
+                }}
+              />
+              <Button type="button" variant="outline" size="icon" on:click={addJob}>
+                <Plus class="h-4 w-4" />
+              </Button>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-2">
+              {#each settings.jobs as job, index (job)}
+                <Badge variant="secondary" class="flex items-center gap-1">
+                  {job}
+                  <button
+                    type="button"
+                    on:click={() => removeJob(index)}
+                    class="ml-1 hover:text-destructive"
+                  >
+                    <X class="h-3 w-3" />
+                  </button>
+                </Badge>
+              {/each}
+            </div>
+          </div>
+        </CardContent>
+    </Card>
+
+    <Card>
+        <CardHeader>
+          <CardTitle>Description</CardTitle>
+          <CardDescription>Parlez de vous en utilisant le formatage Markdown</CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-6">
+          <div class="flex items-center space-x-2">
+            <Checkbox
+              id="public_description"
+              name="public_description"
+              bind:checked={settings.public_description}
+            />
+            <Label for="public_description">Rendre la description publique</Label>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <Label for="description">Description (Markdown)</Label>
+              <Textarea
+                id="description"
+                name="description"
+                bind:value={settings.description}
+                placeholder="Écrivez à propos de vous en utilisant le formatage Markdown..."
+                class="min-h-[300px] font-mono text-sm"
+              />
+              <p class="text-xs text-muted-foreground">
+                Vous pouvez utiliser le formatage Markdown : **gras**, *italique*, `code`, [liens](url), ![images](url),
+                etc.
+              </p>
+            </div>
+            <div class="space-y-2">
+              <Label>Aperçu</Label>
+              <div class="markdown-preview p-4 border rounded-md min-h-[300px]">
+                {#if settings.description}
+                    <Markdown markdown={settings.description} />
+                {/if}
+              </div>
+            </div>
+          </div>
+        </CardContent>
+    </Card>
+
+    <Card>
+        <CardContent class="pt-6">
+          <div class="flex items-start space-x-2">
+            <Checkbox
+              id="legal_agreement"
+              bind:checked={user_agreed}
+              required
+            />
+            <Label for="legal_agreement" class="text-sm leading-relaxed">
+              <u>J'ai pris connaissance</u> de la réglementation{" "}
+              <a href="/reglementation" target="_blank" class="text-primary hover:underline" rel="noreferrer">
+                ici
+              </a>{" "}
+              et <u>je donne mon accord</u> pour l'utilisation de mes données ci-dessus.
+            </Label>
+          </div>
+        </CardContent>
+    </Card>
+
+    <div class="flex justify-end">
+        <Button type="submit" size="lg" class="px-8" disabled={!user_agreed}>
+          Enregistrer les paramètres
+        </Button>
+    </div>
 </form>
+{:else}
+    <p class="error">Erreur interne! Donnes indisponibles!</p>
+{/if}
 
 <hr />
 
