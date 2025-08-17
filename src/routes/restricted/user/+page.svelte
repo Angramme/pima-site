@@ -39,18 +39,6 @@
 
     let user = $state(data.user);
 
-    let debouncedDescription = $state(user?.description ?? "");
-    $effect(() => {
-        if (user) {
-            const description = user.description;
-            const handler = setTimeout(() => {
-                debouncedDescription = description ?? "";
-            }, 300);
-
-            return () => clearTimeout(handler);
-        }
-    });
-
     let newUni = $state("");
     function addUni() {
         if (newUni && user && !user.admis.includes(newUni)) {
@@ -541,7 +529,7 @@
                         <div
                             class="markdown-preview p-4 border rounded-md min-h-[300px] flex-1"
                         >
-                            <Markdown markdown={debouncedDescription} />
+                            <Markdown markdown={user.description} />
                         </div>
                     </div>
                 </div>
