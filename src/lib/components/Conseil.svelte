@@ -17,10 +17,10 @@
     let isExpanded = $state(false);
 </script>
 
-<Card class="w-full">
+<Card class="">
     <CardHeader class="pb-4">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
+        <div class="flex flex-wrap items-center justify-between">
+            <div class="flex flex-wrap items-center gap-3">
                 <div
                     class="flex items-center gap-2 text-sm text-muted-foreground"
                 >
@@ -31,13 +31,13 @@
                     </span>
                 </div>
                 <div
-                    class="flex items-center gap-2 text-sm text-muted-foreground"
+                    class="flex flex-wrap items-center gap-2 text-sm text-muted-foreground"
                 >
                     <GraduationCap class="h-4 w-4" />
                     <span>Promotion {user.grad_year}</span>
                 </div>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
                 <Badge href="" variant="secondary" class="text-xs">
                     {user.choisi}
                 </Badge>
@@ -46,7 +46,7 @@
                     variant="outline"
                     size="sm"
                     href={`/restricted/anciens/${user.id}`}
-                    class="flex items-center gap-1 text-xs"
+                    class="flex flex-wrap items-center gap-1 text-xs"
                 >
                     <ExternalLink class="h-3 w-3" />
                     Voir plus
@@ -78,9 +78,9 @@
         {/if}
 
         <div
-            class="flex items-center justify-between pt-4 border-t border-border"
+            class="flex flex-wrap items-center justify-between pt-4 border-t border-border"
         >
-            <form class="flex items-center gap-4" method="POST" use:enhance>
+            <form class="flex flex-wrap items-center gap-4" method="POST" use:enhance>
                 <input type="hidden" name="id" value={user.id} />
                 <Button
                     disabled={false}

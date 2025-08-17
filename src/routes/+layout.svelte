@@ -36,10 +36,10 @@
             </div>
         </div>
     {/if}
-    <div class="m-5">
+    <div class="m-2 md:m-5">
         <slot/>
     </div>
-    <footer class="m-5 mt-auto">
+    <footer class="m-2 md:m-5 mt-auto">
         <hr class="mt-20 mb-[30px]"/>
         Copyright &copy; 2023-{new Date().getFullYear()} Kacper Ozieblowski <br/>
         En utilisant ce site et les services y présents vous acceptez la <a href="/reglementation">réglementation</a>

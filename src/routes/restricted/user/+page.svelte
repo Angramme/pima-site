@@ -326,7 +326,7 @@
                             <Plus class="h-4 w-4" />
                         </Button>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-2">
+                    <div class="flex flex-wrap gap-2 mt-2 overflow-x-scroll">
                         {#each user.admis as uni, index (uni)}
                             <Badge
                                 href=""
@@ -382,7 +382,7 @@
                             <Plus class="h-4 w-4" />
                         </Button>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-2">
+                    <div class="flex flex-wrap gap-2 mt-2 overflow-x-scroll">
                         {#each user.contact as c, index (c)}
                             <Badge
                                 href=""
@@ -428,7 +428,7 @@
                             <Plus class="h-4 w-4" />
                         </Button>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-2">
+                    <div class="flex flex-wrap gap-2 mt-2 overflow-x-scroll">
                         {#each user.nationalite as nat, index (nat)}
                             <Badge
                                 href=""
@@ -474,7 +474,7 @@
                             <Plus class="h-4 w-4" />
                         </Button>
                     </div>
-                    <div class="flex flex-wrap gap-2 mt-2">
+                    <div class="flex flex-wrap gap-2 mt-2 overflow-x-scroll">
                         {#each user.travails as job, index (job)}
                             <Badge
                                 href=""
@@ -557,7 +557,7 @@
                     />
                     <Label
                         for="legal_agreement"
-                        class="text-sm leading-relaxed"
+                        class="text-sm leading-relaxed inline"
                     >
                         <u>J'ai pris connaissance</u> de la réglementation{" "}
                         <a
