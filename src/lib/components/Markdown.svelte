@@ -32,5 +32,5 @@
 {#await data}
     <div>[Chargement et sanitation de Markdown...] {markdown}</div>
 {:then ht}
-    <p>{@html ht}</p>
+    <p class="h-full">{@html ht}</p>
 {/await}
