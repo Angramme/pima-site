@@ -507,7 +507,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="space-y-2">
+                    <div class="space-y-2 flex flex-col">
                         <Label class="" for="description"
                             >Description (Markdown)</Label
                         >
@@ -516,7 +516,7 @@
                             name="description"
                             bind:value={user.description}
                             placeholder="Écrivez à propos de vous en utilisant le formatage Markdown..."
-                            class="min-h-[300px] font-mono text-sm"
+                            class="min-h-[300px] font-mono text-sm flex-1"
                         />
                         <p class="text-xs text-muted-foreground">
                             Vous pouvez utiliser le formatage Markdown :
@@ -524,14 +524,12 @@
                             ![images](url), etc.
                         </p>
                     </div>
-                    <div class="space-y-2 h-full">
+                    <div class="space-y-2 flex flex-col">
                         <Label class="">Aperçu</Label>
                         <div
-                            class="markdown-preview p-4 border rounded-md min-h-[300px] h-full"
+                            class="markdown-preview p-4 border rounded-md min-h-[300px] flex-1"
                         >
-                            {#if user.description}
-                                <Markdown markdown={user.description} />
-                            {/if}
+                            <Markdown markdown={user.description} />
                         </div>
                     </div>
                 </div>
