@@ -25,7 +25,7 @@
 
     let { data, form }: { data: PageData; form: ActionData } = $props();
 
-    let user = $derived(data.user);
+    let user = $state(data.user);
 
     let newUni = $state("");
     function addUni() {
@@ -104,7 +104,7 @@
 
 <Banner />
 
-<h1>Donnes et parametres utilisateur</h1>
+<!-- <h1>Donnes et parametres utilisateur</h1> -->
 
 <!-- Server message sesction -->
 {#if form?.pwd_rst_missing}<p class="error">Manque de mot de passe!</p>{/if}
@@ -118,7 +118,7 @@
         Erreur de mise à jour: "{form.update_failure}""
     </p>{/if}
 
-<form
+<!-- <form
     method="POST"
     action="?/disconnect"
     use:enhance={() => {
@@ -137,9 +137,8 @@
             <input type="submit" value="Deconnexion" />
         </div>
     </fieldset>
-</form>
+</form> -->
 
-<hr />
 
 {#if user && user}
     <form
@@ -168,18 +167,19 @@
         />
         <input type="hidden" name="travails" value={user.travails.join(",")} />
 
-        <Card>
-            <CardHeader>
-                <CardTitle>Informations personnelles</CardTitle>
-                <CardDescription
+        <Card class="">
+            <CardHeader class="">
+                <CardTitle class="">Informations personnelles</CardTitle>
+                <CardDescription class=""
                     >Informations de base vous concernant</CardDescription
                 >
             </CardHeader>
             <CardContent class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
-                        <Label for="prenom">Prénom *</Label>
+                        <Label class="" for="prenom">Prénom *</Label>
                         <Input
+                            class=""
                             id="prenom"
                             name="prenom"
                             type="text"
@@ -188,14 +188,21 @@
                         />
                     </div>
                     <div class="space-y-2">
-                        <Label for="nom">Nom</Label>
-                        <Input id="nom" name="nom" type="text" bind:value={user.nom} />
+                        <Label class="" for="nom">Nom</Label>
+                        <Input
+                            class=""
+                            id="nom"
+                            name="nom"
+                            type="text"
+                            bind:value={user.nom}
+                        />
                     </div>
                 </div>
 
                 <div class="space-y-2">
-                    <Label for="email">Email</Label>
+                    <Label class="" for="email">Email</Label>
                     <Input
+                        class=""
                         id="email"
                         name="email"
                         type="email"
@@ -204,8 +211,9 @@
                 </div>
 
                 <div class="space-y-2">
-                    <Label for="grad_year">Année de diplôme</Label>
+                    <Label class="" for="grad_year">Année de diplôme</Label>
                     <Input
+                        class=""
                         id="grad_year"
                         name="grad_year"
                         type="number"
@@ -216,8 +224,9 @@
                 </div>
 
                 <div class="space-y-2">
-                    <Label for="choisi">Choix/Statut actuel</Label>
+                    <Label class="" for="choisi">Choix/Statut actuel</Label>
                     <Input
+                        class=""
                         id="choisi"
                         name="choisi"
                         type="text"
@@ -228,18 +237,19 @@
             </CardContent>
         </Card>
 
-        <Card>
-            <CardHeader>
-                <CardTitle>Informations académiques</CardTitle>
-                <CardDescription
+        <Card class="">
+            <CardHeader class="">
+                <CardTitle class="">Informations académiques</CardTitle>
+                <CardDescription class=""
                     >Votre parcours académique et vos réussites</CardDescription
                 >
             </CardHeader>
             <CardContent class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-2">
-                        <Label for="moyenneL2">Moyenne L2</Label>
+                        <Label class="" for="moyenneL2">Moyenne L2</Label>
                         <Input
+                            class=""
                             id="moyenneL2"
                             name="moyenneL2"
                             type="number"
@@ -251,8 +261,9 @@
                         />
                     </div>
                     <div class="space-y-2">
-                        <Label for="moyenneL3">Moyenne L3</Label>
+                        <Label class="" for="moyenneL3">Moyenne L3</Label>
                         <Input
+                            class=""
                             id="moyenneL3"
                             name="moyenneL3"
                             type="number"
@@ -266,13 +277,14 @@
                 </div>
 
                 <div class="space-y-2">
-                    <Label>Universités acceptées</Label>
+                    <Label class="">Universités acceptées</Label>
                     <div class="flex gap-2">
                         <Input
+                            class=""
                             type="text"
                             bind:value={newUni}
                             placeholder="Ajouter le nom d'une université"
-                            on:keypress={(e) => {
+                            onkeypress={(e: any) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addUni();
@@ -280,10 +292,12 @@
                             }}
                         />
                         <Button
+                            class=""
+                            disabled={false}
                             type="button"
                             variant="outline"
                             size="icon"
-                            on:click={addUni}
+                            onclick={addUni}
                         >
                             <Plus class="h-4 w-4" />
                         </Button>
@@ -291,13 +305,14 @@
                     <div class="flex flex-wrap gap-2 mt-2">
                         {#each user.admis as uni, index (uni)}
                             <Badge
-                                variant="secondary"
+                                href=""
+                                variant="outline"
                                 class="flex items-center gap-1"
                             >
                                 {uni}
                                 <button
                                     type="button"
-                                    on:click={() => removeUni(index)}
+                                    onclick={() => removeUni(index)}
                                     class="ml-1 hover:text-destructive"
                                 >
                                     <X class="h-3 w-3" />
@@ -309,22 +324,23 @@
             </CardContent>
         </Card>
 
-        <Card>
-            <CardHeader>
-                <CardTitle>Contact et profil</CardTitle>
-                <CardDescription
+        <Card class="">
+            <CardHeader class="">
+                <CardTitle class="">Contact et profil</CardTitle>
+                <CardDescription class=""
                     >Moyens de vous contacter et votre profil</CardDescription
                 >
             </CardHeader>
             <CardContent class="space-y-6">
                 <div class="space-y-2">
-                    <Label>Informations de contact</Label>
+                    <Label class="">Informations de contact</Label>
                     <div class="flex gap-2">
                         <Input
+                            class=""
                             type="text"
                             bind:value={newContact}
                             placeholder="Ajouter un moyen de contact (téléphone, réseaux sociaux, etc.)"
-                            on:keypress={(e) => {
+                            onkeypress={(e: any) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addContact();
@@ -332,10 +348,12 @@
                             }}
                         />
                         <Button
+                            class=""
+                            disabled={false}
                             type="button"
                             variant="outline"
                             size="icon"
-                            on:click={addContact}
+                            onclick={addContact}
                         >
                             <Plus class="h-4 w-4" />
                         </Button>
@@ -343,13 +361,14 @@
                     <div class="flex flex-wrap gap-2 mt-2">
                         {#each user.contact as c, index (c)}
                             <Badge
-                                variant="secondary"
+                                href=""
+                                variant="outline"
                                 class="flex items-center gap-1"
                             >
                                 {c}
                                 <button
                                     type="button"
-                                    on:click={() => removeContact(index)}
+                                    onclick={() => removeContact(index)}
                                     class="ml-1 hover:text-destructive"
                                 >
                                     <X class="h-3 w-3" />
@@ -360,13 +379,14 @@
                 </div>
 
                 <div class="space-y-2">
-                    <Label>Nationalité</Label>
+                    <Label class="">Nationalité</Label>
                     <div class="flex gap-2">
                         <Input
+                            class=""
                             type="text"
                             bind:value={newNationalite}
                             placeholder="Ajouter une nationalité"
-                            on:keypress={(e) => {
+                            onkeypress={(e: any) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addNationalite();
@@ -374,10 +394,12 @@
                             }}
                         />
                         <Button
+                            class=""
+                            disabled={false}
                             type="button"
                             variant="outline"
                             size="icon"
-                            on:click={addNationalite}
+                            onclick={addNationalite}
                         >
                             <Plus class="h-4 w-4" />
                         </Button>
@@ -385,13 +407,14 @@
                     <div class="flex flex-wrap gap-2 mt-2">
                         {#each user.nationalite as nat, index (nat)}
                             <Badge
-                                variant="secondary"
+                                href=""
+                                variant="outline"
                                 class="flex items-center gap-1"
                             >
                                 {nat}
                                 <button
                                     type="button"
-                                    on:click={() => removeNationalite(index)}
+                                    onclick={() => removeNationalite(index)}
                                     class="ml-1 hover:text-destructive"
                                 >
                                     <X class="h-3 w-3" />
@@ -402,13 +425,14 @@
                 </div>
 
                 <div class="space-y-2">
-                    <Label>Emplois/Expérience professionnelle</Label>
+                    <Label class="">Emplois/Expérience professionnelle</Label>
                     <div class="flex gap-2">
                         <Input
+                            class=""
                             type="text"
                             bind:value={newJob}
                             placeholder="Ajouter un emploi ou une expérience professionnelle"
-                            on:keypress={(e) => {
+                            onkeypress={(e: any) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addJob();
@@ -416,10 +440,12 @@
                             }}
                         />
                         <Button
+                            class=""
+                            disabled={false}
                             type="button"
                             variant="outline"
                             size="icon"
-                            on:click={addJob}
+                            onclick={addJob}
                         >
                             <Plus class="h-4 w-4" />
                         </Button>
@@ -427,13 +453,14 @@
                     <div class="flex flex-wrap gap-2 mt-2">
                         {#each user.travails as job, index (job)}
                             <Badge
-                                variant="secondary"
+                                href=""
+                                variant="outline"
                                 class="flex items-center gap-1"
                             >
                                 {job}
                                 <button
                                     type="button"
-                                    on:click={() => removeJob(index)}
+                                    onclick={() => removeJob(index)}
                                     class="ml-1 hover:text-destructive"
                                 >
                                     <X class="h-3 w-3" />
@@ -445,28 +472,31 @@
             </CardContent>
         </Card>
 
-        <Card>
-            <CardHeader>
-                <CardTitle>Description</CardTitle>
-                <CardDescription
+        <Card class="">
+            <CardHeader class="">
+                <CardTitle class="">Description</CardTitle>
+                <CardDescription class=""
                     >Parlez de vous en utilisant le formatage Markdown</CardDescription
                 >
             </CardHeader>
             <CardContent class="space-y-6">
                 <div class="flex items-center space-x-2">
                     <Checkbox
+                        class=""
                         id="public_description"
                         name="public_description"
                         bind:checked={user.public_description}
                     />
-                    <Label for="public_description"
+                    <Label class="" for="public_description"
                         >Rendre la description publique</Label
                     >
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="space-y-2">
-                        <Label for="description">Description (Markdown)</Label>
+                        <Label class="" for="description"
+                            >Description (Markdown)</Label
+                        >
                         <Textarea
                             id="description"
                             name="description"
@@ -480,8 +510,8 @@
                             ![images](url), etc.
                         </p>
                     </div>
-                    <div class="space-y-2">
-                        <Label>Aperçu</Label>
+                    <div class="space-y-2 h-full">
+                        <Label class="">Aperçu</Label>
                         <div
                             class="markdown-preview p-4 border rounded-md min-h-[300px]"
                         >
@@ -494,10 +524,11 @@
             </CardContent>
         </Card>
 
-        <Card>
+        <Card class="">
             <CardContent class="pt-6">
                 <div class="flex items-start space-x-2">
                     <Checkbox
+                        class=""
                         id="legal_agreement"
                         bind:checked={user_agreed}
                         required
@@ -626,13 +657,13 @@
         <input
             type="button"
             value="Debloquer"
-            on:click={() => {
+            onclick={() => {
                 delete_account_btn.disabled = false;
             }}
         />
         <input
             bind:this={delete_account_btn}
-            on:click={delete_account_now}
+            onclick={delete_account_now}
             type="button"
             value="Supprimer ce compte"
             disabled
@@ -704,7 +735,7 @@
                             <td
                                 ><input
                                     type="button"
-                                    on:click={() =>
+                                    onclick={() =>
                                         navigator.clipboard.writeText(
                                             create_pwd.value,
                                         )}
@@ -714,7 +745,7 @@
                             <td
                                 ><input
                                     type="button"
-                                    on:click={() =>
+                                    onclick={() =>
                                         (create_pwd.value =
                                             generate_password())}
                                     value="regenerate"

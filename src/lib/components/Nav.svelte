@@ -39,7 +39,7 @@
                 </a>
             </div>
         {/each}
-        <div class="border-l border-foreground pl-2">
+        <div class="border-l border-foreground pl-2 my-0">
             {#if $user}
                 <a
                     data-sveltekit-preload-data="off"
@@ -54,7 +54,7 @@
                         disabled={false}
                         type="submit"
                         variant="link"
-                        class="m-[5px] p-1 text-lg font-normal no-underline text-foreground align-baseline"
+                        class="mx-[5px] my-0 px-1 py-0 h-[1.8rem] text-lg font-normal no-underline text-foreground align-baseline"
                         >déconnexion</Button
                     >
                 </form>

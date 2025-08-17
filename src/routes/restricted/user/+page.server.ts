@@ -42,11 +42,6 @@ export async function load({ locals, depends }) {
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    disconnect: async ({ cookies }) => {
-        end_session(cookies);
-        throw redirect(302, "/");
-        return { disconnected: true };
-    },
     pwd_chg: async ({ request, locals }) => {
         const data = await request.formData();
         const old_pwd = data.get("old_pwd");

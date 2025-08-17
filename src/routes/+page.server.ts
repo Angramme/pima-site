@@ -1,4 +1,6 @@
 import prisma from '$lib/prisma';
+import { end_session } from '$lib/sessions';
+import { redirect } from '@sveltejs/kit';
 
 
 /** @type {import('./$types').PageServerLoad} */
@@ -20,5 +22,10 @@ export const actions = {
         const formData = await request.formData();
         const accept_cookies = formData.get('cookies_accepted')?.toString() ?? 'false';
         cookies.set('cookies_accepted', accept_cookies, { path: '/' });
-    }
+    },
+    disconnect: async ({ cookies }) => {
+        end_session(cookies);
+        throw redirect(302, "/");
+        return { disconnected: true };
+    },
 }
