@@ -39,15 +39,15 @@
 
     let user = $state(data.user);
 
-    let descriptionValue = $state(user.description ?? "");
+    let debouncedDescription = $state(user.description ?? "");
     $effect(() => {
-        const handler = setTimeout(() => {
-            if (user) {
-                user.description = descriptionValue;
-            }
-        }, 300);
+        if (user) {
+            const handler = setTimeout(() => {
+                debouncedDescription = user.description ?? "";
+            }, 300);
 
-        return () => clearTimeout(handler);
+            return () => clearTimeout(handler);
+        }
     });
 
     let newUni = $state("");
@@ -525,7 +525,7 @@
                         <Textarea
                             id="description"
                             name="description"
-                            bind:value={descriptionValue}
+                            bind:value={user.description}
                             placeholder="Écrivez à propos de vous en utilisant le formatage Markdown..."
                             class="min-h-[300px] font-mono text-sm flex-1"
                         />
@@ -540,7 +540,7 @@
                         <div
                             class="markdown-preview p-4 border rounded-md min-h-[300px] flex-1"
                         >
-                            <Markdown markdown={user.description ?? ""} />
+                            <Markdown markdown={debouncedDescription} />
                         </div>
                     </div>
                 </div>
