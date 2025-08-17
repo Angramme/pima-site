@@ -967,12 +967,4 @@
     textarea:hover {
         border-color: var(--accent-color);
     }
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        text-decoration: underline var(--behind-color);
-    }
 </style>
