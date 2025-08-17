@@ -39,7 +39,7 @@
                 </a>
             </div>
         {/each}
-        <div class="border-l border-foreground pl-2">
+        <div class="flex items-center border-l border-foreground pl-2">
             {#if $user}
                 <a
                     data-sveltekit-preload-data="off"
@@ -49,6 +49,14 @@
                 >
                     {$user.prenom}</a
                 >
+                <form method="POST" action="/?/disconnect">
+                    <Button
+                        type="submit"
+                        variant="link"
+                        class="m-[5px] p-1 text-lg font-normal no-underline text-foreground"
+                        >déconnexion</Button
+                    >
+                </form>
             {:else}
                 <a
                     data-sveltekit-preload-data="off"
