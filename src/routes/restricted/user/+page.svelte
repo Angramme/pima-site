@@ -4,95 +4,91 @@
     import Banner from "$lib/components/Banner.svelte";
     import Markdown from "$lib/components/Markdown.svelte";
     import { generate_password } from "$lib/utils";
-    import { Button } from "$lib/components/ui/button"
-    import { Input } from "$lib/components/ui/input"
-    import { Label } from "$lib/components/ui/label"
-    import { Textarea } from "$lib/components/ui/textarea"
-    import { Checkbox } from "$lib/components/ui/checkbox"
-    import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "$lib/components/ui/card"
-    import { Badge } from "$lib/components/ui/badge"
-    import { X, Plus } from "@lucide/svelte"
+    import { Button } from "$lib/components/ui/button";
+    import { Input } from "$lib/components/ui/input";
+    import { Label } from "$lib/components/ui/label";
+    import { Textarea } from "$lib/components/ui/textarea";
+    import { Checkbox } from "$lib/components/ui/checkbox";
+    import {
+        Card,
+        CardContent,
+        CardDescription,
+        CardHeader,
+        CardTitle,
+    } from "$lib/components/ui/card";
+    import { Badge } from "$lib/components/ui/badge";
+    import { X, Plus } from "@lucide/svelte";
+    import type { PageData, ActionData } from "./$types.js";
 
     let delete_account_btn: HTMLInputElement;
-    let user_agreed: boolean = false;
+    let user_agreed: boolean = $state(false);
 
-    export let data: import("./$types").PageData;
+    let { data, form }: { data: PageData; form: ActionData } = $props();
 
-    export let form: import("./$types").ActionData;
+    let user = $derived(data.user);
 
-    $: user = data.user;
-
-    let settings: any;
-    $: if (user) {
-        settings = {
-            ...user,
-            admis: user.admis?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
-            contact: user.contact?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
-            nationalite: user.nationalite?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
-            jobs: user.jobs?.split(',').map((s: string) => s.trim()).filter(Boolean) ?? [],
-        };
-    } else {
-        settings = null;
-    }
-
-    let newUni = "";
+    let newUni = $state("");
     function addUni() {
-        if (newUni && settings && !settings.admis.includes(newUni)) {
-            settings.admis = [...settings.admis, newUni];
+        if (newUni && user && !user.admis.includes(newUni)) {
+            user.admis = [...user.admis, newUni];
             newUni = "";
         }
     }
     function removeUni(index: number) {
-        if(settings) {
-            settings.admis.splice(index, 1);
-            settings.admis = settings.admis;
+        if (user) {
+            user.admis.splice(index, 1);
+            user.admis = user.admis;
         }
     }
 
-    let newContact = "";
+    let newContact = $state("");
     function addContact() {
-        if (newContact && settings && !settings.contact.includes(newContact)) {
-            settings.contact = [...settings.contact, newContact];
+        if (newContact && user && !user.contact.includes(newContact)) {
+            user.contact = [...user.contact, newContact];
             newContact = "";
         }
     }
     function removeContact(index: number) {
-        if(settings) {
-            settings.contact.splice(index, 1);
-            settings.contact = settings.contact;
+        if (user) {
+            user.contact.splice(index, 1);
+            user.contact = user.contact;
         }
     }
 
-    let newNationalite = "";
+    let newNationalite = $state("");
     function addNationalite() {
-        if (newNationalite && settings && !settings.nationalite.includes(newNationalite)) {
-            settings.nationalite = [...settings.nationalite, newNationalite];
+        if (
+            newNationalite &&
+            user &&
+            !user.nationalite.includes(newNationalite)
+        ) {
+            user.nationalite = [...user.nationalite, newNationalite];
             newNationalite = "";
         }
     }
     function removeNationalite(index: number) {
-        if(settings) {
-            settings.nationalite.splice(index, 1);
-            settings.nationalite = settings.nationalite;
+        if (user) {
+            user.nationalite.splice(index, 1);
+            user.nationalite = user.nationalite;
         }
     }
 
-    let newJob = "";
+    let newJob = $state("");
     function addJob() {
-        if (newJob && settings && !settings.jobs.includes(newJob)) {
-            settings.jobs = [...settings.jobs, newJob];
+        if (newJob && user && !user.travails.includes(newJob)) {
+            user.travails = [...user.travails, newJob];
             newJob = "";
         }
     }
     function removeJob(index: number) {
-        if(settings) {
-            settings.jobs.splice(index, 1);
-            settings.jobs = settings.jobs;
+        if (user) {
+            user.travails.splice(index, 1);
+            user.travails = user.travails;
         }
     }
 
-    let new_pwd_val: string;
-    let con_pwd_val: string;
+    let new_pwd_val = $state("");
+    let con_pwd_val = $state("");
 
     let delete_account_form: HTMLFormElement;
     const delete_account_now = async () => {
@@ -145,344 +141,392 @@
 
 <hr />
 
-{#if user && settings}
-<form
-    method="POST"
-    action="?/update_data"
-    use:enhance={() => {
-        return async ({ update }) => {
-            update({ reset: false });
-        };
-    }}
-    class="space-y-8"
->
-    {#if form?.update_success}<p class="success">Mise a jour réussie!</p>{/if}
-    {#if form?.update_failure}<p class="error">Erreur de mise à jour: "{form.update_failure}"</p>{/if}
+{#if user && user}
+    <form
+        method="POST"
+        action="?/update_data"
+        use:enhance={() => {
+            return async ({ update }) => {
+                update({ reset: false });
+            };
+        }}
+        class="space-y-8"
+    >
+        {#if form?.update_success}<p class="success">
+                Mise a jour réussie!
+            </p>{/if}
+        {#if form?.update_failure}<p class="error">
+                Erreur de mise à jour: "{form.update_failure}"
+            </p>{/if}
 
-    <input type="hidden" name="admis" value={settings.admis.join(',')} />
-    <input type="hidden" name="contact" value={settings.contact.join(',')} />
-    <input type="hidden" name="nationalite" value={settings.nationalite.join(',')} />
-    <input type="hidden" name="jobs" value={settings.jobs.join(',')} />
+        <input type="hidden" name="admis" value={user.admis.join(",")} />
+        <input type="hidden" name="contact" value={user.contact.join(",")} />
+        <input
+            type="hidden"
+            name="nationalite"
+            value={user.nationalite.join(",")}
+        />
+        <input type="hidden" name="travails" value={user.travails.join(",")} />
 
-    <Card>
-        <CardHeader>
-          <CardTitle>Informations personnelles</CardTitle>
-          <CardDescription>Informations de base vous concernant</CardDescription>
-        </CardHeader>
-        <CardContent class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <Label for="prenom">Prénom *</Label>
-              <Input
-                id="prenom"
-                name="prenom"
-                bind:value={settings.prenom}
-                required
-              />
-            </div>
-            <div class="space-y-2">
-              <Label for="nom">Nom</Label>
-              <Input
-                id="nom"
-                name="nom"
-                bind:value={settings.nom}
-              />
-            </div>
-          </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>Informations personnelles</CardTitle>
+                <CardDescription
+                    >Informations de base vous concernant</CardDescription
+                >
+            </CardHeader>
+            <CardContent class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <Label for="prenom">Prénom *</Label>
+                        <Input
+                            id="prenom"
+                            name="prenom"
+                            bind:value={user.prenom}
+                            required
+                        />
+                    </div>
+                    <div class="space-y-2">
+                        <Label for="nom">Nom</Label>
+                        <Input id="nom" name="nom" bind:value={user.nom} />
+                    </div>
+                </div>
 
-          <div class="space-y-2">
-            <Label for="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              bind:value={settings.email}
-            />
-          </div>
+                <div class="space-y-2">
+                    <Label for="email">Email</Label>
+                    <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        bind:value={user.email}
+                    />
+                </div>
 
-          <div class="space-y-2">
-            <Label for="grad_year">Année de diplôme</Label>
-            <Input
-              id="grad_year"
-              name="grad_year"
-              type="number"
-              min="1900"
-              max="2100"
-              bind:value={settings.grad_year}
-            />
-          </div>
+                <div class="space-y-2">
+                    <Label for="grad_year">Année de diplôme</Label>
+                    <Input
+                        id="grad_year"
+                        name="grad_year"
+                        type="number"
+                        min="1900"
+                        max="2100"
+                        bind:value={user.grad_year}
+                    />
+                </div>
 
-          <div class="space-y-2">
-            <Label for="choisi">Choix/Statut actuel</Label>
-            <Input
-              id="choisi"
-              name="choisi"
-              bind:value={settings.choisi}
-              placeholder="ex: Programme de Master, Poste de travail, etc."
-            />
-          </div>
-        </CardContent>
-    </Card>
+                <div class="space-y-2">
+                    <Label for="choisi">Choix/Statut actuel</Label>
+                    <Input
+                        id="choisi"
+                        name="choisi"
+                        bind:value={user.choisi}
+                        placeholder="ex: Programme de Master, Poste de travail, etc."
+                    />
+                </div>
+            </CardContent>
+        </Card>
 
-    <Card>
-        <CardHeader>
-          <CardTitle>Informations académiques</CardTitle>
-          <CardDescription>Votre parcours académique et vos réussites</CardDescription>
-        </CardHeader>
-        <CardContent class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <Label for="moyenneL2">Moyenne L2</Label>
-              <Input
-                id="moyenneL2"
-                name="moyenneL2"
-                type="number"
-                step="0.01"
-                min="0"
-                max="20"
-                bind:value={settings.moyenneL2}
-                placeholder="ex: 15,5"
-              />
-            </div>
-            <div class="space-y-2">
-              <Label for="moyenneL3">Moyenne L3</Label>
-              <Input
-                id="moyenneL3"
-                name="moyenneL3"
-                type="number"
-                step="0.01"
-                min="0"
-                max="20"
-                bind:value={settings.moyenneL3}
-                placeholder="ex: 16,2"
-              />
-            </div>
-          </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>Informations académiques</CardTitle>
+                <CardDescription
+                    >Votre parcours académique et vos réussites</CardDescription
+                >
+            </CardHeader>
+            <CardContent class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <Label for="moyenneL2">Moyenne L2</Label>
+                        <Input
+                            id="moyenneL2"
+                            name="moyenneL2"
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            max="20"
+                            bind:value={user.moyenneL2}
+                            placeholder="ex: 15,5"
+                        />
+                    </div>
+                    <div class="space-y-2">
+                        <Label for="moyenneL3">Moyenne L3</Label>
+                        <Input
+                            id="moyenneL3"
+                            name="moyenneL3"
+                            type="number"
+                            step="0.01"
+                            min="0"
+                            max="20"
+                            bind:value={user.moyenneL3}
+                            placeholder="ex: 16,2"
+                        />
+                    </div>
+                </div>
 
-          <div class="space-y-2">
-            <Label>Universités acceptées</Label>
-            <div class="flex gap-2">
-              <Input
-                bind:value={newUni}
-                placeholder="Ajouter le nom d'une université"
-                on:keypress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault()
-                    addUni()
-                  }
-                }}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                on:click={addUni}
-              >
-                <Plus class="h-4 w-4" />
-              </Button>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-2">
-              {#each settings.admis as uni, index (uni)}
-                <Badge variant="secondary" class="flex items-center gap-1">
-                  {uni}
-                  <button
-                    type="button"
-                    on:click={() => removeUni(index)}
-                    class="ml-1 hover:text-destructive"
-                  >
-                    <X class="h-3 w-3" />
-                  </button>
-                </Badge>
-              {/each}
-            </div>
-          </div>
-        </CardContent>
-    </Card>
+                <div class="space-y-2">
+                    <Label>Universités acceptées</Label>
+                    <div class="flex gap-2">
+                        <Input
+                            bind:value={newUni}
+                            placeholder="Ajouter le nom d'une université"
+                            on:keypress={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    addUni();
+                                }
+                            }}
+                        />
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            on:click={addUni}
+                        >
+                            <Plus class="h-4 w-4" />
+                        </Button>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        {#each user.admis as uni, index (uni)}
+                            <Badge
+                                variant="secondary"
+                                class="flex items-center gap-1"
+                            >
+                                {uni}
+                                <button
+                                    type="button"
+                                    on:click={() => removeUni(index)}
+                                    class="ml-1 hover:text-destructive"
+                                >
+                                    <X class="h-3 w-3" />
+                                </button>
+                            </Badge>
+                        {/each}
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
 
-    <Card>
-        <CardHeader>
-          <CardTitle>Contact et profil</CardTitle>
-          <CardDescription>Moyens de vous contacter et votre profil</CardDescription>
-        </CardHeader>
-        <CardContent class="space-y-6">
-          <div class="space-y-2">
-            <Label>Informations de contact</Label>
-            <div class="flex gap-2">
-              <Input
-                bind:value={newContact}
-                placeholder="Ajouter un moyen de contact (téléphone, réseaux sociaux, etc.)"
-                on:keypress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault()
-                    addContact()
-                  }
-                }}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                on:click={addContact}
-              >
-                <Plus class="h-4 w-4" />
-              </Button>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-2">
-              {#each settings.contact as c, index (c)}
-                <Badge variant="secondary" class="flex items-center gap-1">
-                  {c}
-                  <button
-                    type="button"
-                    on:click={() => removeContact(index)}
-                    class="ml-1 hover:text-destructive"
-                  >
-                    <X class="h-3 w-3" />
-                  </button>
-                </Badge>
-              {/each}
-            </div>
-          </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>Contact et profil</CardTitle>
+                <CardDescription
+                    >Moyens de vous contacter et votre profil</CardDescription
+                >
+            </CardHeader>
+            <CardContent class="space-y-6">
+                <div class="space-y-2">
+                    <Label>Informations de contact</Label>
+                    <div class="flex gap-2">
+                        <Input
+                            bind:value={newContact}
+                            placeholder="Ajouter un moyen de contact (téléphone, réseaux sociaux, etc.)"
+                            on:keypress={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    addContact();
+                                }
+                            }}
+                        />
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            on:click={addContact}
+                        >
+                            <Plus class="h-4 w-4" />
+                        </Button>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        {#each user.contact as c, index (c)}
+                            <Badge
+                                variant="secondary"
+                                class="flex items-center gap-1"
+                            >
+                                {c}
+                                <button
+                                    type="button"
+                                    on:click={() => removeContact(index)}
+                                    class="ml-1 hover:text-destructive"
+                                >
+                                    <X class="h-3 w-3" />
+                                </button>
+                            </Badge>
+                        {/each}
+                    </div>
+                </div>
 
-          <div class="space-y-2">
-            <Label>Nationalité</Label>
-            <div class="flex gap-2">
-              <Input
-                bind:value={newNationalite}
-                placeholder="Ajouter une nationalité"
-                on:keypress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault()
-                    addNationalite()
-                  }
-                }}
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                on:click={addNationalite}
-              >
-                <Plus class="h-4 w-4" />
-              </Button>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-2">
-              {#each settings.nationalite as nat, index (nat)}
-                <Badge variant="secondary" class="flex items-center gap-1">
-                  {nat}
-                  <button
-                    type="button"
-                    on:click={() => removeNationalite(index)}
-                    class="ml-1 hover:text-destructive"
-                  >
-                    <X class="h-3 w-3" />
-                  </button>
-                </Badge>
-              {/each}
-            </div>
-          </div>
+                <div class="space-y-2">
+                    <Label>Nationalité</Label>
+                    <div class="flex gap-2">
+                        <Input
+                            bind:value={newNationalite}
+                            placeholder="Ajouter une nationalité"
+                            on:keypress={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    addNationalite();
+                                }
+                            }}
+                        />
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            on:click={addNationalite}
+                        >
+                            <Plus class="h-4 w-4" />
+                        </Button>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        {#each user.nationalite as nat, index (nat)}
+                            <Badge
+                                variant="secondary"
+                                class="flex items-center gap-1"
+                            >
+                                {nat}
+                                <button
+                                    type="button"
+                                    on:click={() => removeNationalite(index)}
+                                    class="ml-1 hover:text-destructive"
+                                >
+                                    <X class="h-3 w-3" />
+                                </button>
+                            </Badge>
+                        {/each}
+                    </div>
+                </div>
 
-          <div class="space-y-2">
-            <Label>Emplois/Expérience professionnelle</Label>
-            <div class="flex gap-2">
-              <Input
-                bind:value={newJob}
-                placeholder="Ajouter un emploi ou une expérience professionnelle"
-                on:keypress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault()
-                    addJob()
-                  }
-                }}
-              />
-              <Button type="button" variant="outline" size="icon" on:click={addJob}>
-                <Plus class="h-4 w-4" />
-              </Button>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-2">
-              {#each settings.jobs as job, index (job)}
-                <Badge variant="secondary" class="flex items-center gap-1">
-                  {job}
-                  <button
-                    type="button"
-                    on:click={() => removeJob(index)}
-                    class="ml-1 hover:text-destructive"
-                  >
-                    <X class="h-3 w-3" />
-                  </button>
-                </Badge>
-              {/each}
-            </div>
-          </div>
-        </CardContent>
-    </Card>
+                <div class="space-y-2">
+                    <Label>Emplois/Expérience professionnelle</Label>
+                    <div class="flex gap-2">
+                        <Input
+                            bind:value={newJob}
+                            placeholder="Ajouter un emploi ou une expérience professionnelle"
+                            on:keypress={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    addJob();
+                                }
+                            }}
+                        />
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            on:click={addJob}
+                        >
+                            <Plus class="h-4 w-4" />
+                        </Button>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        {#each user.travails as job, index (job)}
+                            <Badge
+                                variant="secondary"
+                                class="flex items-center gap-1"
+                            >
+                                {job}
+                                <button
+                                    type="button"
+                                    on:click={() => removeJob(index)}
+                                    class="ml-1 hover:text-destructive"
+                                >
+                                    <X class="h-3 w-3" />
+                                </button>
+                            </Badge>
+                        {/each}
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
 
-    <Card>
-        <CardHeader>
-          <CardTitle>Description</CardTitle>
-          <CardDescription>Parlez de vous en utilisant le formatage Markdown</CardDescription>
-        </CardHeader>
-        <CardContent class="space-y-6">
-          <div class="flex items-center space-x-2">
-            <Checkbox
-              id="public_description"
-              name="public_description"
-              bind:checked={settings.public_description}
-            />
-            <Label for="public_description">Rendre la description publique</Label>
-          </div>
+        <Card>
+            <CardHeader>
+                <CardTitle>Description</CardTitle>
+                <CardDescription
+                    >Parlez de vous en utilisant le formatage Markdown</CardDescription
+                >
+            </CardHeader>
+            <CardContent class="space-y-6">
+                <div class="flex items-center space-x-2">
+                    <Checkbox
+                        id="public_description"
+                        name="public_description"
+                        bind:checked={user.public_description}
+                    />
+                    <Label for="public_description"
+                        >Rendre la description publique</Label
+                    >
+                </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="space-y-2">
-              <Label for="description">Description (Markdown)</Label>
-              <Textarea
-                id="description"
-                name="description"
-                bind:value={settings.description}
-                placeholder="Écrivez à propos de vous en utilisant le formatage Markdown..."
-                class="min-h-[300px] font-mono text-sm"
-              />
-              <p class="text-xs text-muted-foreground">
-                Vous pouvez utiliser le formatage Markdown : **gras**, *italique*, `code`, [liens](url), ![images](url),
-                etc.
-              </p>
-            </div>
-            <div class="space-y-2">
-              <Label>Aperçu</Label>
-              <div class="markdown-preview p-4 border rounded-md min-h-[300px]">
-                {#if settings.description}
-                    <Markdown markdown={settings.description} />
-                {/if}
-              </div>
-            </div>
-          </div>
-        </CardContent>
-    </Card>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <Label for="description">Description (Markdown)</Label>
+                        <Textarea
+                            id="description"
+                            name="description"
+                            bind:value={user.description}
+                            placeholder="Écrivez à propos de vous en utilisant le formatage Markdown..."
+                            class="min-h-[300px] font-mono text-sm"
+                        />
+                        <p class="text-xs text-muted-foreground">
+                            Vous pouvez utiliser le formatage Markdown :
+                            **gras**, *italique*, `code`, [liens](url),
+                            ![images](url), etc.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <Label>Aperçu</Label>
+                        <div
+                            class="markdown-preview p-4 border rounded-md min-h-[300px]"
+                        >
+                            {#if user.description}
+                                <Markdown markdown={user.description} />
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
 
-    <Card>
-        <CardContent class="pt-6">
-          <div class="flex items-start space-x-2">
-            <Checkbox
-              id="legal_agreement"
-              bind:checked={user_agreed}
-              required
-            />
-            <Label for="legal_agreement" class="text-sm leading-relaxed">
-              <u>J'ai pris connaissance</u> de la réglementation{" "}
-              <a href="/reglementation" target="_blank" class="text-primary hover:underline" rel="noreferrer">
-                ici
-              </a>{" "}
-              et <u>je donne mon accord</u> pour l'utilisation de mes données ci-dessus.
-            </Label>
-          </div>
-        </CardContent>
-    </Card>
+        <Card>
+            <CardContent class="pt-6">
+                <div class="flex items-start space-x-2">
+                    <Checkbox
+                        id="legal_agreement"
+                        bind:checked={user_agreed}
+                        required
+                    />
+                    <Label
+                        for="legal_agreement"
+                        class="text-sm leading-relaxed"
+                    >
+                        <u>J'ai pris connaissance</u> de la réglementation{" "}
+                        <a
+                            href="/reglementation"
+                            target="_blank"
+                            class="text-primary hover:underline"
+                            rel="noreferrer"
+                        >
+                            ici
+                        </a>{" "}
+                        et <u>je donne mon accord</u> pour l'utilisation de mes données
+                        ci-dessus.
+                    </Label>
+                </div>
+            </CardContent>
+        </Card>
 
-    <div class="flex justify-end">
-        <Button type="submit" size="lg" class="px-8" disabled={!user_agreed}>
-          Enregistrer les paramètres
-        </Button>
-    </div>
-</form>
+        <div class="flex justify-end">
+            <Button
+                type="submit"
+                size="lg"
+                class="px-8"
+                disabled={!user_agreed}
+            >
+                Enregistrer les paramètres
+            </Button>
+        </div>
+    </form>
 {:else}
     <p class="error">Erreur interne! Donnes indisponibles!</p>
 {/if}
