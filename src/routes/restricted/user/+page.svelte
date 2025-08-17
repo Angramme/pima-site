@@ -39,7 +39,7 @@
 
     let user = $state(data.user);
 
-    let debouncedDescription = $state(user.description ?? "");
+    let debouncedDescription = $state(user?.description ?? "");
     $effect(() => {
         if (user) {
             const handler = setTimeout(() => {
