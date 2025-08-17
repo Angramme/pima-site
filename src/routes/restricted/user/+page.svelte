@@ -527,7 +527,7 @@
                     <div class="space-y-2 h-full">
                         <Label class="">Aperçu</Label>
                         <div
-                            class="markdown-preview p-4 border rounded-md min-h-[300px]"
+                            class="markdown-preview p-4 border rounded-md min-h-[300px] h-full"
                         >
                             {#if user.description}
                                 <Markdown markdown={user.description} />
