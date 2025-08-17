@@ -22,8 +22,20 @@
 
     let delete_account_btn: HTMLInputElement;
     let user_agreed: boolean = $state(false);
+    let submitting = $state(false);
+    let updateSuccess = $state(false);
 
     let { data, form }: { data: PageData; form: ActionData } = $props();
+
+    $effect(() => {
+        if (form?.update_success) {
+            updateSuccess = true;
+            const timer = setTimeout(() => {
+                updateSuccess = false;
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    });
 
     let user = $state(data.user);
 
@@ -145,8 +157,10 @@
         method="POST"
         action="?/update_data"
         use:enhance={() => {
+            submitting = true;
             return async ({ update }) => {
                 update({ reset: false });
+                submitting = false;
             };
         }}
         class="space-y-8"
@@ -558,9 +572,15 @@
                 type="submit"
                 size="lg"
                 class="px-8"
-                disabled={!user_agreed}
+                disabled={!user_agreed || submitting}
             >
-                Enregistrer les paramètres
+                {#if submitting}
+                    Enregistrement...
+                {:else if updateSuccess}
+                    Enregistré !
+                {:else}
+                    Enregistrer les paramètres
+                {/if}
             </Button>
         </div>
     </form>
