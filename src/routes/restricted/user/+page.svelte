@@ -39,6 +39,17 @@
 
     let user = $state(data.user);
 
+    let descriptionValue = $state(user.description ?? "");
+    $effect(() => {
+        const handler = setTimeout(() => {
+            if (user) {
+                user.description = descriptionValue;
+            }
+        }, 300);
+
+        return () => clearTimeout(handler);
+    });
+
     let newUni = $state("");
     function addUni() {
         if (newUni && user && !user.admis.includes(newUni)) {
@@ -514,7 +525,7 @@
                         <Textarea
                             id="description"
                             name="description"
-                            bind:value={user.description}
+                            bind:value={descriptionValue}
                             placeholder="Écrivez à propos de vous en utilisant le formatage Markdown..."
                             class="min-h-[300px] font-mono text-sm flex-1"
                         />
@@ -529,7 +540,7 @@
                         <div
                             class="markdown-preview p-4 border rounded-md min-h-[300px] flex-1"
                         >
-                            <Markdown markdown={user.description} />
+                            <Markdown markdown={user.description ?? ""} />
                         </div>
                     </div>
                 </div>
@@ -928,8 +939,7 @@
         background-color: rgb(86, 255, 86);
     }
     .markdown-preview {
-        max-height: 50vh;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
     hr {
         border-color: var(--foreground);
