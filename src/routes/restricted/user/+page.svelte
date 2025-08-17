@@ -116,6 +116,16 @@
 
 <Banner />
 
+<div
+    class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 my-4"
+    role="alert"
+>
+    <p>
+        N'oubliez pas de cliquer sur le bouton 'Enregistrer les paramètres' en
+        bas de la page pour sauvegarder vos modifications.
+    </p>
+</div>
+
 <!-- <h1>Donnes et parametres utilisateur</h1> -->
 
 <!-- Server message sesction -->
