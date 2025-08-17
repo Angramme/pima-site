@@ -54,7 +54,7 @@
                         disabled={false}
                         type="submit"
                         variant="link"
-                        class="m-[5px] p-1 text-lg font-normal no-underline text-foreground"
+                        class="m-[5px] p-1 text-lg font-normal no-underline text-foreground align-baseline"
                         >déconnexion</Button
                     >
                 </form>
