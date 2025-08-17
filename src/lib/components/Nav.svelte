@@ -39,7 +39,7 @@
                 </a>
             </div>
         {/each}
-        <div class="flex items-center border-l border-foreground pl-2">
+        <div class="border-l border-foreground pl-2">
             {#if $user}
                 <a
                     data-sveltekit-preload-data="off"
@@ -49,8 +49,9 @@
                 >
                     {$user.prenom}</a
                 >
-                <form method="POST" action="/?/disconnect">
+                <form method="POST" action="/?/disconnect" class="inline">
                     <Button
+                        disabled={false}
                         type="submit"
                         variant="link"
                         class="m-[5px] p-1 text-lg font-normal no-underline text-foreground"
