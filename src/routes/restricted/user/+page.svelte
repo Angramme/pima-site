@@ -20,7 +20,7 @@
     import { X, Plus } from "@lucide/svelte";
     import type { PageData, ActionData } from "./$types.js";
 
-    let delete_account_btn: HTMLInputElement;
+    let delete_account_btn: HTMLButtonElement;
     let user_agreed: boolean = $state(false);
     let submitting = $state(false);
     let updateSuccess = $state(false);
@@ -308,7 +308,7 @@
                             type="text"
                             bind:value={newUni}
                             placeholder="Ajouter le nom d'une université"
-                            onkeypress={(e: any) => {
+                            onkeypress={(e) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addUni();
@@ -364,7 +364,7 @@
                             type="text"
                             bind:value={newContact}
                             placeholder="Ajouter un moyen de contact (téléphone, réseaux sociaux, etc.)"
-                            onkeypress={(e: any) => {
+                            onkeypress={(e) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addContact();
@@ -410,7 +410,7 @@
                             type="text"
                             bind:value={newNationalite}
                             placeholder="Ajouter une nationalité"
-                            onkeypress={(e: any) => {
+                            onkeypress={(e) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addNationalite();
@@ -456,7 +456,7 @@
                             type="text"
                             bind:value={newJob}
                             placeholder="Ajouter un emploi ou une expérience professionnelle"
-                            onkeypress={(e: any) => {
+                            onkeypress={(e) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
                                     addJob();
@@ -676,26 +676,29 @@
                 Erreur serveur: "{form.delete_failure}"
             </p>{/if}
         {#if form?.delete_success}<p class="success">Compte supprimé!</p>{/if}
-        <p class="info">
-            Pour supprimer votre compte, debloquez d'abbord le bouton "Supprimer
-            ce compte" avec le bouton "Debloquer". Ensuite appuyez sur
-            "Supprimer ce compte". Enfin confirmez que vous voulez supprimer
-            votre compte.
+        <p class="text-sm text-muted-foreground mb-3">
+            Pour supprimer votre compte, débloquez d'abord le bouton « Supprimer ce compte » avec « Débloquer », puis confirmez.
         </p>
-        <input
-            type="button"
-            value="Debloquer"
-            onclick={() => {
-                delete_account_btn.disabled = false;
-            }}
-        />
-        <input
-            bind:this={delete_account_btn}
-            onclick={delete_account_now}
-            type="button"
-            value="Supprimer ce compte"
-            disabled
-        />
+        <div class="flex gap-3">
+            <button
+                type="button"
+                class="inline-flex items-center rounded-md bg-secondary text-secondary-foreground px-4 py-2 text-sm hover:bg-secondary/80"
+                onclick={() => {
+                    delete_account_btn.disabled = false;
+                }}
+            >
+                Debloquer
+            </button>
+            <button
+                bind:this={delete_account_btn}
+                onclick={delete_account_now}
+                type="button"
+                class="inline-flex items-center rounded-md bg-destructive text-white px-4 py-2 text-sm hover:bg-destructive/90 disabled:opacity-50"
+                disabled
+            >
+                Supprimer ce compte
+            </button>
+        </div>
     </fieldset>
 </form>
 
@@ -890,13 +893,14 @@
         width: auto;
     }
     .admin {
-        background-color: aquamarine;
+        background-color: var(--color-muted);
     }
     .danger {
-        background-color: rgb(255, 95, 95);
+        background-color: var(--color-muted);
+        border-color: var(--color-destructive);
     }
     .danger legend {
-        color: red;
+        color: var(--color-destructive);
         font-weight: bold;
     }
     .error {

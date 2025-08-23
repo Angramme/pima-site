@@ -13,9 +13,11 @@
 	"devDependencies": {
 		"@internationalized/date": "^3.8.2",
 		"@lucide/svelte": "^0.515.0",
+		"@types/node": "^24.3.0",
 		"bits-ui": "^2.9.3",
 		"clsx": "^2.1.1",
 		"prisma": "^6.14.0",
+		"svelte-check": "^4.3.1",
 		"tailwind-merge": "^3.3.1",
 		"tailwind-variants": "^1.0.0",
 		"tw-animate-css": "^1.3.7",

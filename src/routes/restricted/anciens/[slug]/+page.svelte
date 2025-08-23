@@ -21,7 +21,8 @@
     let { data, form } = $props();
     let profile = $derived(data.subject);
 
-    let user_input: string | undefined = $state("user login");
+    let admin_login_confirm: string = $state("");
+    let delete_login_confirm: string = $state("");
 
     function formatDate(dateString: string | Date | null | undefined): string {
         if (!dateString) return "N/A";
@@ -318,12 +319,13 @@
                         value={profile?.id}
                         hidden
                     />
-                    <button name="admin_rights_on" disabled={profile?.admin}
+                    <input name="login_confirm" bind:value={admin_login_confirm} type="text" placeholder="Enter login to confirm" />
+                    <button name="admin_rights_on" disabled={profile?.admin || admin_login_confirm != profile?.login}
                         >Give admin permissions</button
                     >
                     <button
                         name="admin_rights_off"
-                        disabled={!profile?.admin || profile.id == data.user.id}
+                        disabled={!profile?.admin || profile?.id == data.user?.id || admin_login_confirm != profile?.login}
                         >Remove admin permissions</button
                     >
                 </form>
@@ -337,12 +339,10 @@
                         value={profile?.id}
                         hidden
                     />
-                    <input bind:value={user_input} type="text" />
+                    <input name="login_confirm" bind:value={delete_login_confirm} type="text" placeholder="Enter login to confirm" />
                     <button
                         name="delete_user"
-                        disabled={user_input != profile?.login ||
-                            profile?.admin ||
-                            profile?.id == data.user.id}
+                        disabled={profile?.admin || profile?.id == data.user?.id || delete_login_confirm != profile?.login}
                         >Delete this user</button
                     >
                 </form>
